@@ -1,26 +1,45 @@
 'use client'
 import React, { useState } from 'react';
-import menuData from '@/components/menudata'; // Adjust the path to where your menuData is located
+import menuData from '@/components/menudata';
+import { MenuItem, SubMenuItem } from '@/components/menudata.types';
 
 // Navbar component
 const Navbar = () => {
   return (
-    <nav className="bg-gray-100 p-4 shadow-md flex items-center">
-      <div className="logo-container ml-4">
-        {/* Assuming you have the logo available, you can include it like this: */}
-        <img src="/images/logo.png" alt="Logo" className="h-16 w-52" /> {/* Adjust the height as needed */}
+    <div className="bg-gray-100 shadow-md">
+      {/* Flex container for all items */}
+      <div className="flex justify-between items-center">
+        {/* Invisible spacer to balance the flex space on the left */}
+        <div className="flex-1"></div>
+        
+        {/* Logo centered in the middle column */}
+        <div className="flex-initial">
+          <img src="/images/logo.png" alt="Logo" className="h-16 w-auto" /> {/* Adjust size as needed */}
+        </div>
+
+        {/* Right-aligned "Sobre Nosotros" and Cart Icon in the right column */}
+        <div className="flex-1 flex justify-end items-center">
+          <a href="/nosotros" className="text-lg mr-8 text-woodsmoke-700 font-medium hover:underline mr-6">Sobre Nosotros</a>
+          <a href="/carrito" className="mx-12 text-lg text-woodsmoke-700 font-medium hover:underline">
+            <img src="/images/cart.png" alt="Carrito" className="h-8 w-auto" /> {/* Cart icon size adjustable */}
+          </a>
+        </div>
       </div>
-      <ul className="ml-36 mr-8 flex justify-between items-center flex-1">
-        {menuData.map((item) => (
-          <NavItem key={item.id} item={item} />
-        ))}
-      </ul>
-    </nav>
+      
+      {/* Navigation Items */}
+      <nav className="flex justify-center p-2">
+        <ul className="flex space-x-24">
+          {menuData.map((item) => (
+            <NavItem key={item.id} item={item} />
+          ))}
+        </ul>
+      </nav>
+    </div>
   );
 };
 
 // Navigation Item component, including the Dropdown
-const NavItem = ({ item }) => {
+const NavItem = ({ item }: { item: MenuItem }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -41,7 +60,7 @@ const NavItem = ({ item }) => {
 
 // Dropdown component adjusted for full viewport width
 // Dropdown component adjusted for full viewport width and fixed positioning
-const Dropdown = ({ items }) => {
+const Dropdown = ({ items }: { items: SubMenuItem[] }) => {
   return (
     <div
       className="fixed mt-2 inset-x-0 bg-white shadow-md rounded-md z-10"
@@ -50,7 +69,7 @@ const Dropdown = ({ items }) => {
         {items.map((subItem, index) => (
           <a
             key={index}
-            href="#"
+            href={subItem.path}
             className="flex flex-col items-center justify-center p-4 hover:bg-gray-50"
             style={{ flex: "1" }}
           >

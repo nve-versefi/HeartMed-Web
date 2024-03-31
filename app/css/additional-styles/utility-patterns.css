@@ -93,3 +93,6 @@
     will-change: transform; /* Optimizes performance */
 }
   
+.slick-dots li button {
+    background: #c72918 !important; /* Replace #yourColor with the hex code of the color you want */
+  }
