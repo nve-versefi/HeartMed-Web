@@ -8,7 +8,7 @@ const Equipos: React.FC = () => {
     <RootLayout>
         <DefaultLayout>
           <div className='md:mx-48 sm:mx-24'>
-          <div className=' text-3xl text-center mt-16'>Bienvenidos a la página sobre medicina estética masculina</div>
+          <div className=' text-3xl text-center mt-16'>Bienvenidos a la página sobre sueroterapia</div>
 
           <div className='text-xl text-center mt-16'>En breve estará lista, vuelve en unos días</div>
           </div>

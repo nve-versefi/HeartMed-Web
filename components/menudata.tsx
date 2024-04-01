@@ -113,7 +113,7 @@ const menuData: MenuItem[]= [
       newTab: false,
       submenu: [
         { name: 'Equilibrio Hormonal Chip de la Juventud', imageUrl: '/images/estet.jpg', path: '/anti-aging/chip-juventud'},
-        { name: 'Turismo de salud', imageUrl: '/images/medic.jpg', path: '/turismo-salud'},
+        { name: 'Turismo de salud', imageUrl: '/images/medic.jpg', path: '/anti-aging/turismo-salud'},
         { name: 'Medicina Funcional y Nutrición Celular Ortomolecular', imageUrl: '/images/placeholder-image.png', path: '/anti-aging/nutricion-funcional'},
         { name: 'Sueroterapia', imageUrl: '/images/estetica.menu.jpg', path: '/anti-aging/sueroterapia'},
         { name: 'Ozonoterapia Médica y Estética', 

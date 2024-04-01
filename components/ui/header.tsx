@@ -19,7 +19,7 @@ const Navbar = () => {
 
         {/* Right-aligned "Sobre Nosotros" and Cart Icon in the right column */}
         <div className="flex-1 flex justify-end items-center">
-          <a href="/nosotros" className="text-lg mr-8 text-woodsmoke-700 font-medium hover:underline mr-6">Sobre Nosotros</a>
+          <a href="/acerca" className="text-lg mr-8 text-woodsmoke-700 font-medium hover:underline mr-6">Sobre Nosotros</a>
           <a href="/carrito" className="mx-12 text-lg text-woodsmoke-700 font-medium hover:underline">
             <img src="/images/cart.png" alt="Carrito" className="h-8 w-auto" /> {/* Cart icon size adjustable */}
           </a>

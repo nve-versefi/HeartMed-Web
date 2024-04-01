@@ -26,7 +26,7 @@ const AccordionComponent = () => (
     <Accordion defaultIndex={[]} allowMultiple>
       {accordionData.map((item, index) => (
         <AccordionItem key={index}>
-          {({ isExpanded }) => (
+          {({ isExpanded }: { isExpanded: boolean }) => (
             <>
               <h2>
                 <AccordionButton>
