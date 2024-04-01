@@ -4,7 +4,7 @@ import Head from 'next/head';
 import CookieBanner from '@/components/cookieconsent';
 import dynamic from 'next/dynamic';
 import StickyIcons from '@/components/ui/StickyIcons';
-import { CartProvider } from 'react-use-cart';
+
 
 const Header = dynamic(() => import('@/components/ui/header'), {
   ssr: false,
@@ -33,7 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <link rel="icon" href="/images/logo.png" />
       </Head>
 
-      <CartProvider>
+      
         <div className="flex flex-col bg-pomegranate-50 min-h-screen overflow-hidden">
           <Header />
           <div id="main-content">
@@ -42,7 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
           <StickyIcons />
         </div>
-      </CartProvider>
+ 
      
     </>
   );

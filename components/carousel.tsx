@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 const logoUrls = [
-  '/images/indiba.jpg',
-  '/images/uthera.jpg',
+  '/images/indiba.png',
+  '/images/ulthera.png',
   '/images/allergan.png',
   '/images/syneron.png',
-  '/images/cynosure.jpg',
+  '/images/cynosure.png',
 
 ];
 

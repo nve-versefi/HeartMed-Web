@@ -76,8 +76,9 @@ const Form: React.FC = () => {
   };
 
   return (
-    <form className="m-8 mx-32" onSubmit={handleSubmit(processForm)} noValidate>
+    <form onSubmit={handleSubmit(processForm)} noValidate>
       <div className="mb-4">
+        <h2 className="text-center font-bold text-4xl text-thunderbird-500 mb-8 mt-16">Ponte en contacto con nosotros</h2>
         <div className="relative">
           {errors.nameSurname?.message ? (
             <FiUser className="w-6 h-6 absolute top-1/2 -translate-y-1/2 left-2 border-r pr-2 text-red-500" />

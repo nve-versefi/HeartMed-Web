@@ -1,6 +1,12 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
+interface SubMenuItem {
+  path: string;
+  imageUrl: string;
+  name: string;
+}
+
 interface ServicesProps {
   services: SubMenuItem[];
 }

@@ -48,9 +48,11 @@ const NavItem = ({ item }: { item: MenuItem }) => {
       onMouseOver={() => setIsHovered(true)}
       onMouseOut={() => setIsHovered(false)}
     >
+      <a href={item.path}>
       <button className="text-xl font-semibold text-woodsmoke-700 hover:bg-gray-200">
         {item.title}
       </button>
+      </a>
       {isHovered && item.submenu && item.submenu.length > 0 && (
         <Dropdown items={item.submenu} />
       )}
