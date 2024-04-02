@@ -3,8 +3,8 @@ import Image from 'next/image';
 
 const MyComponent: React.FC = () => {
   return (
-    <div className="bg-pomegranate-50 w-full">
-      <div className="bg-pomegranate-50 py-4 mx-48">
+    <div className="bg-thunderbird-50 w-full">
+      <div className="bg-thunderbird-50 py-4 mx-48">
         <h2 className="text-3xl text-center text-thunderbird-500 font-bold mb-8">Bienvenido a HeartMed: Tu Centro de Medicina Estética de Confianza</h2>
         <div className="flex flex-col md:flex-row items-center justify-between mb-8">
             <div className="w-full md:w-1/2">
