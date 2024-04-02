@@ -51,11 +51,11 @@ const CookieBanner = () => {
 
   return (
     <div className="fixed inset-x-0 bottom-0 bg-white p-4 shadow-md text-center">
-      <p className="text-sm mb-4">We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.</p>
+      <p className="text-sm mb-4">Usamos cookies para mejorar tu experiencia. Por favor indica tu preferencia abajo. Puedes modificarlas en cualquier momento</p>
       <div className="flex justify-center space-x-2">
-        <button onClick={() => handleConsentDecision('all')} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Accept All</button>
-        <button onClick={() => handleConsentDecision('essential')} className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">Accept Only Essential</button>
-        <button onClick={() => handleConsentDecision('none')} className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Reject</button>
+        <button onClick={() => handleConsentDecision('all')} className="bg-pomegranate-500 text-white px-4 py-2 rounded hover:pomegranate-400">Aceptar</button>
+        <button onClick={() => handleConsentDecision('essential')} className="bg-pomegranate-300 text-white px-4 py-2 rounded hover:bg-gray-600">Aceptar solo las esenciales</button>
+        <button onClick={() => handleConsentDecision('none')} className="bg-boulder-600 text-white px-4 py-2 rounded hover:bg-red-600">Denegar</button>
       </div>
     </div>
   );
