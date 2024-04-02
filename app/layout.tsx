@@ -34,7 +34,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </Head>
 
       
-        <div className="flex flex-col bg-pomegranate-50 min-h-screen overflow-hidden">
+        <div className="flex flex-col bg-boulder-100 min-h-screen overflow-hidden">
           <Header />
           <div id="main-content">
             <div>{children}</div>
