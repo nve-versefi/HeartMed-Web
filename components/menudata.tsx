@@ -10,99 +10,402 @@ const menuData: MenuItem[]= [
       submenu: [
         { 
           name: 'Tratamientos Faciales', 
-          imageUrl: '/images/estetica.facial.jpeg',
           path: '/estetica/facial',
-          services: [
-            { serviceName: 'Rinomodelación Sin Cirugía', servicePath: '/estetica/facial/rinomodelacion'},
-            { serviceName: 'Aumento De Labios', servicePath: '/estetica/facial/aumento-labios'},
-            { serviceName: 'Dermapen', servicePath: '/estetica/facial/dermapen'},
-            { serviceName: 'Dermopigmentación', servicePath: '/estetica/facial/dermopigmentacion'},
-            { serviceName: 'Eliminar Arrugas', servicePath: '/estetica/facial/elimina-arrugas'},
-            { serviceName: 'Enzimas Recombinantes Bioactivas', servicePath: '/estetica/facial/enzimas-bioactivas'},
-            { serviceName: 'HIFU', servicePath: '/estetica/facial/hifu'},
-            { serviceName: 'Hilos Tensores Foxy Eyes', servicePath: '/estetica/facial/foxy-eyes'},
-            { serviceName: 'Hilos Tensores', servicePath: '/estetica/facial/hilos-tensores'},
-            { serviceName: 'Láser CO2 Fraccionado', servicePath: '/estetica/facial/laser-co2'},
-            { serviceName: 'Láser Q-Switch Neodimio', servicePath: '/estetica/facial/laser-qswitch'},
-            { serviceName: 'Mesoterapia Facial', servicePath: '/estetica/facial/mesoterapia-facial'},
-            { serviceName: 'Ozonoterapia', servicePath: '/estetica/facial/ozonoterapia-facial'},
-            { serviceName: 'Peeling Químico', servicePath: '/estetica/facial/peeling'},
-            { serviceName: 'Plasma Rico en Plaquetas PRP', servicePath: '/estetica/facial/plasma-prp'},
-            { serviceName: 'Rejuvenecimiento con IPL', servicePath: '/estetica/facial/ipl'},
-            { serviceName: 'Relleno de Ojeras', servicePath: '/estetica/facial/relleno-ojeras'},
-            { serviceName: 'Relleno de Fillers', servicePath: '/estetica/facial/relleno-fillers'},
+          imagePath:'/images/estetica.cirugias.jpeg',
+          problems: [
+            {
+              name: 'Cejas caídas',
+              imageUrl: '/images/ABDOMINO.png',
+              services: [
+                { serviceName: 'HIFU', servicePath: '/estetica/facial/hifu'},
+                { serviceName: 'Hilos Tensores', servicePath: '/estetica/facial/hilos-tensores'},
+                { serviceName: 'Dermopigmentación', servicePath: '/estetica/facial/dermopigmentacion'},
+                { serviceName: 'Neuromoduladores', servicePath: '/estetica/facial/neuromoduladores'},
+              ]
+            },
+            {
+              name: 'Corrección de manchas',
+              imageUrl: '/images/GLUTEOSAUMENTO.png',
+              services: [
+                { serviceName: 'Peeling Químico', servicePath: '/estetica/facial/peeling' },
+                { serviceName: 'Rejuvenecimiento con IPL', servicePath: '/estetica/facial/ipl'},
+                { serviceName: 'Láser CO2 Fraccionado', servicePath: '/estetica/facial/laser-co2'},
+              ]
+            },
+            {
+              name: 'Corracción malas praxis',
+              imageUrl: '/images/ABDOMINOPLASTIA.png',
+              services: [
+                { serviceName: 'Dermopigmentación', servicePath: '/estetica/facial/dermopigmentacion'},
+                { serviceName: 'Eliminación de tatuajes', servicePath: '/estetica/facial/elimina-tatuajes'},
+                { serviceName: 'Ácido hialurónico', servicePath: '/estetica/facial/hialuronico'},
+              ]
+            },
+            {
+              name: 'Elevación de pómulos',
+              imageUrl: '/images/GLUTEOSEMSSCULPTING.jpg',
+              services: [
+                { serviceName: 'Ácido hialurónico', servicePath: '/estetica/facial/hialuronico'},
+                { serviceName: 'HIFU', servicePath: '/estetica/facial/hifu'},
+                { serviceName: 'Hilos Tensores', servicePath: '/estetica/facial/hilos-tensores'},
+              ]
+            },
+            {
+              name: 'Eliminar arrugas',
+              imageUrl: '/images/gluteos14.jpg',
+              services: [
+                { serviceName: 'Ácido hialurónico', servicePath: '/estetica/facial/hialuronico'},
+                { serviceName: 'HIFU', servicePath: '/estetica/facial/hifu'},
+                { serviceName: 'Hilos Tensores', servicePath: '/estetica/facial/hilos-tensores'},
+                { serviceName: 'Láser CO2 Fraccionado', servicePath: '/estetica/facial/laser-co2'},
+                { serviceName: 'Dermapen', servicePath: '/estetica/facial/dermapen'},
+                { serviceName: 'Mesoterapia Facial', servicePath: '/estetica/facial/mesoterapia-facial'},
+                { serviceName: 'Neuromoduladores', servicePath: '/estetica/facial/neuromoduladores'},
+                { serviceName: 'Plasma Rico en Plaquetas PRP', servicePath: '/estetica/facial/plasma-prp'},
+                { serviceName: 'Skinbooster', servicePath: '/estetica/facial/skinbooster'},
+              ]
+            },
+            {
+              name: 'Eliminar bolsas',
+              imageUrl: '/images/CEJASHILOS.png',
+              services: [
+                { serviceName: 'Enzimas PB Serum', servicePath: '/estetica/facial/pbserum'},
+                { serviceName: 'HIFU', servicePath: '/estetica/facial/hifu'},
+                { serviceName: 'Láser CO2 Fraccionado', servicePath: '/estetica/facial/laser-co2'},
+              ]
+            },
+            {
+              name: 'Eliminar ojeras',
+              imageUrl: '/images/CEJAS.HIFU.jpeg',
+              services: [
+                { serviceName: 'Ácido hialurónico', servicePath: '/estetica/facial/hialuronico'},
+                { serviceName: 'Láser CO2 Fraccionado', servicePath: '/estetica/facial/laser-co2'},
+              ]
+            },
+            {
+              name: 'Eliminar papada',
+              imageUrl: '/images/ELIMINARPAPADAPORTADA.png',
+              services: [
+                { serviceName: 'Lipopapada Enzimática', servicePath: '/estetica/facial/lipopapada'},
+              ]
+            },
+            {
+              name: 'Embellecimiento de la piel',
+              imageUrl: '/images/CEJASDERMO.png',
+              services: [
+                { serviceName: 'Arañas Vasculares', servicePath: '/estetica/facial/aranas-vasculares'},
+                { serviceName: 'Coctel de Vitaminas', servicePath: '/estetica/facial/coctel-vitaminas'},
+                { serviceName: 'Dermapen', servicePath: '/estetica/facial/dermapen'},
+                { serviceName: 'Elástica Plateada', servicePath: '/estetica/facial/elastica-plateada'},
+                { serviceName: 'Eliminar Verrugas', servicePath: '/estetica/facial/elimina-verrugas'},
+                { serviceName: 'Láser CO2 Fraccionado', servicePath: '/estetica/facial/laser-co2'},
+                { serviceName: 'Poros Dilatados', servicePath: '/estetica/facial/poros-dilatados'},
+                { serviceName: 'Plasma Rico en Plaquetas', servicePath: '/estetica/facial/plasma-plaquetas'},
+                { serviceName: 'Puntos de Rubí', servicePath: '/estetica/facial/punto-srubi'},
+                { serviceName: 'Rosácea Couperosis', servicePath: '/estetica/facial/rosacea'},
+                { serviceName: 'Skinbooster', servicePath: '/estetica/facial/skinbooster'},
+              ]
+            },
+            {
+              name: 'Estética de la nariz',
+              imageUrl: '/images/esteicanariz.jpeg',
+              services: [
+                { serviceName: 'Rinomodelación no quirurgica', servicePath: '/estetica/facial/rinomodelacion'},
+              ]
+            },
+            {
+              name: 'Corregir el Acné',
+              imageUrl: '/images/corregiracne.jpeg',
+              services: [
+                { serviceName: 'Peeling Químico', servicePath: '/estetica/facial/peeling' },
+                { serviceName: 'Láser', servicePath: '/estetica/facial/laser' },
+                { serviceName: 'Peeling Químico', servicePath: '/estetica/facial/peeling' },
+                { serviceName: 'Mesoterapia Facial', servicePath: '/estetica/facial/mesoterapia-facial'},
+                { serviceName: 'IPL Pulsada Intensa', servicePath: '/estetica/facial/ipl-pulsada'},
+              ]
+            },
+            {
+              name: 'Flacidez de rostro',
+              imageUrl: '/images/flacidezrostro.jpeg',
+              services: [
+                { serviceName: 'Elástica', servicePath: '/estetica/facial/elastica'},
+                { serviceName: 'Enzimas Recombinantes', servicePath: '/estetica/facial/enzimas-recombinantes' },
+                { serviceName: 'Fillers', servicePath: '/estetica/facial/fillers'},
+                { serviceName: 'HIFU Lifting sin Cirugía', servicePath: '/estetica/facial/hifu-lifting'},
+                { serviceName: 'Dermapen', servicePath: '/estetica/facial/dermapen'},
+                { serviceName: 'Hilos Tensores', servicePath: '/estetica/facial/hilos-tensores'},
+                { serviceName: 'Medilight Diodo Láser Frío', servicePath: '/estetica/facial/medilight-diodo'},
+                { serviceName: 'Mesoterapia Facial', servicePath: '/estetica/facial/mesoterapia-facial'},
+                { serviceName: 'Neuromoduladores', servicePath: '/estetica/facial/neuromoduladores'},
+                { serviceName: 'Skinbooster', servicePath: '/estetica/facial/skinbooster'},
+              ]
+            },
+            {
+              name: 'Párpados Caídos',
+              imageUrl: '/images/parpadocaido.jpeg',
+              services: [
+                { serviceName: 'HIFU', servicePath: '/estetica/facial/hifu'},
+                { serviceName: 'Hilos Tensores', servicePath: '/estetica/facial/hilos-tensores'},
+                { serviceName: 'Neuromoduladores', servicePath: '/estetica/facial/neuromoduladores'},
+                { serviceName: 'Blefaroplastia sin cirugía con láser CO2', servicePath: '/estetica/facial/blefaroplastia'},
+              ]
+            },
+            {
+              name: 'Volumen Facial',
+              imageUrl: '/images/volumenfacial.jpeg',
+              services: [
+                { serviceName: 'Aumento de pómulos', servicePath: '/estetica/facial/hifu'},
+                { serviceName: 'Aumento de mentón', servicePath: '/estetica/facial/hilos-tensores'},
+                { serviceName: 'Ácido hialurónico', servicePath: '/estetica/facial/hialuronico'},
+                { serviceName: 'Bichectomia sin cirugía', servicePath: '/estetica/facial/bichectomia'},
+              ]
+            },
           ]
         },
         { 
           name: 'Tratamientos Corporales', 
-          imageUrl: '/images/estetica.corporal.jpeg',
           path: '/estetica/corporal',
-          services: [
-            { serviceName: 'HIFU Corporal', servicePath: '/estetica/corporal/hifu-corporal'},
-            { serviceName: 'Electroestimulación EMS', servicePath: '/estetica/corporal/ems'},
-            { serviceName: 'Eliminación de la Sudoración Excessive', servicePath: '/estetica/corporal/elimina-sudor'},
-            { serviceName: 'Eliminación de tatuajes', servicePath: '/estetica/corporal/elimina-tatuajes'},
-            { serviceName: 'Enzimas Recombinantes Bioactivas', servicePath: '/estetica/corporal/enzimas-bioactivas'},
-            { serviceName: 'Escleroterapia', servicePath: '/estetica/corporal/escleroterapia'},
-            { serviceName: 'Mesoterapia Lipolítica', servicePath: '/estetica/corporal/mesoterapia-lipolitica'},
-            { serviceName: 'Ozonoterapia Corporal', servicePath: '/estetica/corporal/ozonoterapia-corporal'},
-            { serviceName: 'Presoterapia', servicePath: '/estetica/corporal/presoterapia'},
-            { serviceName: 'T-Away Facial', servicePath: '/estetica/corporal/t-away'},
-            { serviceName: 'VelaShape Remodelación Corporal', servicePath: '/estetica/corporal/mesoterapia'},
+          imagePath:'/images/estetica.corporal.png',
+          problems: [
+            {
+              name: 'Eliminar Celulitis',
+              imageUrl: '/images/eliminacelulitis.jpeg',
+              services: [
+                { serviceName: 'HIFU Corporal', servicePath: '/estetica/corporal/hifu-corporal'},
+                { serviceName: 'Ozonoterapia', servicePath: '/estetica/corporal/ozonoterapia'},
+                { serviceName: 'Reducción enzimática de celulitis y flacidez', servicePath: '/estetica/corporal/reduccion-flacidez'},
+                { serviceName: 'TMT Systems - Mesoterapia Virtual', servicePath: '/estetica/corporal/mesoterapia-virtual'},
+                { serviceName: 'Velashape', servicePath: '/estetica/corporal/velashape'},
+                { serviceName: 'EMS Sculpting', servicePath: '/estetica/corporal/emsculpting'},
+              ]
+            },
+            {
+              name: 'Dermopigmentación',
+              imageUrl: '/images/dermopigmentacion.jpeg',
+              services: [
+                { serviceName: 'Areolas', servicePath: '/estetica/corporal/areolas'},
+                { serviceName: 'Camuflaje de cicatrices y estrías', servicePath: '/estetica/corporal/camuflaje-imperfecciones'},
+                { serviceName: 'Capilar', servicePath: '/estetica/corporal/capilar'},
+              ]
+            },
+            {
+              name: 'Sudoración Excesiva',
+              imageUrl: '/images/sudariconexcesiva.jpeg',
+              services: [
+                { serviceName: 'Eliminar Sudoración Excesiva', servicePath: '/estetica/corporal/sudoracion-excesiva'},
+              ]
+            },
+            {
+              name: 'Flacidez Corporal',
+              imageUrl: '/images/flacidezcorporal.jpeg',
+              services: [
+                { serviceName: 'EMS Sculpting', servicePath: '/estetica/corporal/emsculpting'},
+                { serviceName: 'HIFU Corporal', servicePath: '/estetica/corporal/hifu-corporal'},
+                { serviceName: 'Mesoterapia Corporal', servicePath: '/estetica/corporal/mesoterapia-corporal'},
+                { serviceName: 'Enzimas Recombinantes', servicePath: '/estetica/corporal/enzimas-recombinantes' },
+                { serviceName: 'Ozonoterapia', servicePath: '/estetica/corporal/ozonoterapia' },
+                { serviceName: 'Plasma Rico en Plaquetas', servicePath: '/estetica/corporal/plasma-plaquetas'},
+                { serviceName: 'TMT Systems - Mesoterapia Virtual', servicePath: '/estetica/corporal/mesoterapia-virtual'},
+                { serviceName: 'Velashape', servicePath: '/estetica/corporal/velashape'},
+                { serviceName: 'Láser CO2 Fraccionado', servicePath: '/estetica/corporal/laser-co2'},
+              ]
+            },
+            {
+              name: 'Reducir Volumen Corporal',
+              imageUrl: '/images/reducirvolumen.jpeg',
+              services: [
+                { serviceName: 'EMS Sculpting', servicePath: '/estetica/corporal/emsculpting'},
+                { serviceName: 'HIFU Corporal', servicePath: '/estetica/corporal/hifu-corporal'},
+                { serviceName: 'Láser Lipolítico', servicePath: '/estetica/corporal/laser-lipolitico'},
+                { serviceName: 'Reducción Enzimática de la Celulitis', servicePath: '/estetica/corporal/reduccion-enzimatica' },
+                { serviceName: 'Mesoterapia Lipolítica', servicePath: '/estetica/corporal/mesoterapia-lipolitica' },
+                { serviceName: 'Ozonoterapia', servicePath: '/estetica/corporal/ozonoterapia' },
+                { serviceName: 'TMT Systems - Mesoterapia Virtual', servicePath: '/estetica/corporal/mesoterapia-virtual'},
+                { serviceName: 'Velashape', servicePath: '/estetica/corporal/velashape'},
+              ]
+            },
+            {
+              name: 'Rejuvenecimiento de las manos',
+              imageUrl: '/images/rejuvencemanos.jpeg',
+              services: [
+                { serviceName: 'Ácido hialurónico', servicePath: '/estetica/corporal/hialuronico'},
+                { serviceName: 'HIFU Corporal', servicePath: '/estetica/corporal/hifu-corporal'},
+                { serviceName: 'IPL Eclipse Light', servicePath: '/estetica/corporal/ipl-eclipse'},
+                { serviceName: 'Sudaración excesiva', servicePath: '/estetica/corporal/sudoracion-excesiva' },
+                { serviceName: 'Láser CO2 Fraccionado', servicePath: '/estetica/corporal/laser-co2'},
+                { serviceName: 'Ozonoterapia', servicePath: '/estetica/corporal/ozonoterapia' },
+                { serviceName: 'TMT Systems - Mesoterapia Virtual', servicePath: '/estetica/corporal/mesoterapia-virtual'},
+                { serviceName: 'Skinbooster Rejuvenecimiento', servicePath: '/estetica/corporal/skinbooster-rejuvenecimiento'},
+              ]
+            },
+            {
+              name: 'Remodelación glúteos',
+              imageUrl: '/images/remodelagluteos.jpeg',
+              services: [
+                { serviceName: 'Aumento de Glúteos', servicePath: '/estetica/corporal/aumento-gluteos'},
+                { serviceName: 'Hilos Tensores', servicePath: '/estetica/corporal/hilos-tensores'},
+                { serviceName: 'Velashape', servicePath: '/estetica/corporal/velashape'},
+                { serviceName: 'EMS Sculpting', servicePath: '/estetica/corporal/emsculpting' },
+              ]
+            },
+            {
+              name: 'Eliminar Estrías',
+              imageUrl: '/images/eliminaestrias.jpeg',
+              services: [
+                { serviceName: 'Láser CO2', servicePath: '/estetica/corporal/laserco2'},
+                { serviceName: 'Velashape', servicePath: '/estetica/corporal/velashape'},
+                { serviceName: 'Plasma Rico en Plaquetas', servicePath: '/estetica/corporal/plasma-plaquetas'},
+              ]
+            },
           ]
         },
         { 
-          name: 'Medicina Estética Masculina', 
-          imageUrl: '/images/estetica.masculina.jpg',
+          name: 'Tratamientos Corporales', 
           path: '/estetica/masculina',
-          services: [
-            { serviceName: 'Corrección de la Nariz', servicePath: '/estetica/masculina/correccion-nariz'},
-            { serviceName: 'Definición Mandibular', servicePath: '/estetica/masculina/definicion-mandibula'},
-            { serviceName: 'Eliminar Bolsas', servicePath: '/estetica/masculina/elimina-bolsas'},
-            { serviceName: 'Eliminar Papada sin Cirugía', servicePath: '/estetica/masculina/elimina-papada'},
-            { serviceName: 'Parpados Caidos', servicePath: '/estetica/masculina/parpados'},
-            { serviceName: 'Reducir Volumen Corporal', servicePath: '/estetica/masculina/reducir-volumen'},
-            { serviceName: 'Rejuvenecimiento Facial', servicePath: '/estetica/masculina/rejuvenecimiento facial'},
-            { serviceName: 'Trastornos de la Piel', servicePath: '/estetica/masculina/trastornos-piel'},
-            { serviceName: 'Aumento de Pómulos', servicePath: '/estetica/masculina/aumento-pomulos'},
-            { serviceName: 'Eliminar Ojeras', servicePath: '/estetica/masculina/elimina-ojeras'},
-            { serviceName: 'Eliminar Sudoración Excesiva', servicePath: '/estetica/masculina/elimina-sudor'},
-            { serviceName: 'Ginecomastia', servicePath: '/estetica/masculina/ginecomastia'},
-            { serviceName: 'Marcación Abdominal', servicePath: '/estetica/masculina/marcacion-abdominal'},
-            { serviceName: 'Otoplastia', servicePath: '/estetica/masculina/otoplastia'},
+          imagePath:'/images/estetica.masculina.png',
+          problems: [
+            {
+              name: 'Corrección de la nariz',
+              imageUrl: '/images/correcciónnariz.jpeg',
+              services: [
+                { serviceName: 'Rinomodelación no quirurgica', servicePath: '/estetica/masculina/rinomodelacion'},
+                { serviceName: 'Rinoplastia', servicePath: '/estetica/masculina/rinoplastia'},
+              ]
+            },
+            {
+              name: 'Definición Mandibular',
+              imageUrl: '/images/definicionmandibular.jpeg',
+              services: [
+                { serviceName: 'Ácido Hialurónico', servicePath: '/estetica/facial/hialuronico'},
+                { serviceName: 'Mentoplastia', servicePath: '/estetica/masculina/mentoplastia'},
+              ]
+            },
+            {
+              name: 'Eliminar Bolsas',
+              imageUrl: '/images/eliminabolsas.jpeg',
+              services: [
+                { serviceName: 'Enzimas PB Serum', servicePath: '/estetica/masculina/pbserum'},
+                { serviceName: 'Láser CO2 Fraccionado', servicePath: '/estetica/masculina/laser-co2'},
+                { serviceName: 'HIFU', servicePath: '/estetica/masculina/hifu'},
+              ]
+            },
+            {
+              name: 'Eliminar o Suavizar Arrugas',
+              imageUrl: '/images/eliminarrugas.jpeg',
+              services: [
+                { serviceName: 'Ácido Hialurónico', servicePath: '/estetica/facial/hialuronico'},
+                { serviceName: 'Láser CO2 Fraccionado', servicePath: '/estetica/masculina/laser-co2'},
+                { serviceName: 'Neuromoduladores', servicePath: '/estetica/masculina/neuromoduladores'},
+                { serviceName: 'Hilos Tensores', servicePath: '/estetica/masculina/hilos-tensores'},
+                { serviceName: 'Enzimas Recombinantes', servicePath: '/estetica/masculina/enzimas-recombinantes' },
+              ]
+            },
+            {
+              name: 'Elimina Papada sin Cirugía',
+              imageUrl: '/images/eliminapapada.jpeg',
+              services: [
+                { serviceName: 'Lipopapada Enzimática', servicePath: '/estetica/facial/lipopapada'},
+              ]
+            },
+            {
+              name: 'Parpados Caidos',
+              imageUrl: '/images/parpadocaido.jpeg',
+              services: [
+                { serviceName: 'HIFU', servicePath: '/estetica/masculina/hifu'},
+                { serviceName: 'Blefaroplastia sin cirugía con láser CO2', servicePath: '/estetica/masculina/blefaroplastia'},
+              ]
+            },
+            {
+              name: 'Reducir Volumen Corporal',
+              imageUrl: '/images/reducirvolumen.jpeg',
+              services: [
+                { serviceName: 'HIFU Corporal', servicePath: '/estetica/masculina/hifu-corporal'},
+                { serviceName: 'Blefaroplastia sin cirugía con láser CO2', servicePath: '/estetica/masculina/blefaroplastia'},
+                { serviceName: 'Mesoterapia Lipolítica', servicePath: '/estetica/masculina/mesoterapia-lipolitica' },
+                { serviceName: 'Velashape', servicePath: '/estetica/corporal/velashape'},
+              ]
+            },
+            {
+              name: 'Rejuvenecimiento Facial',
+              imageUrl: '/images/rejuvenecimientofacial.jpeg',
+              services: [
+                { serviceName: 'Coctel de Vitaminas Mesoterapia', servicePath: '/estetica/masculina/mesoterapia-vitaminas'},
+                { serviceName: 'Enzimas Recombinantes', servicePath: '/estetica/masculina/enzimas-recombinantes' },
+                { serviceName: 'Plasma Rico en Plaquetas', servicePath: '/estetica/masculina/plasma-plaquetas'},
+                { serviceName: 'HIFU Lifting sin Cirugía', servicePath: '/estetica/masculina/hifu-lifting'},
+              ]
+            },
+            {
+              name: 'Corregir el Acné',
+              imageUrl: '/images/reduciracne.jpeg',
+              services: [
+                { serviceName: 'Peeling Químico', servicePath: '/estetica/masculina/peeling' },
+                { serviceName: 'IPL Pulsada Intensa', servicePath: '/estetica/masculina/ipl-pulsada'},
+                { serviceName: 'Láser', servicePath: '/estetica/masculina/laser' },
+                { serviceName: 'Mesoterapia', servicePath: '/estetica/masculina/mesoterapia'},
+              ]
+            },
+            {
+              name: 'Trastornos de la Piel',
+              imageUrl: '/images/trastornospiel.jpeg',
+              services: [
+                { serviceName: 'Arañas Vasculares', servicePath: '/estetica/facial/aranas-vasculares'},
+                { serviceName: 'Eliminar Verrugas', servicePath: '/estetica/masculina/elimina-verrugas'},
+                { serviceName: 'Poros Dilatados', servicePath: '/estetica/masculina/poros-dilatados'},
+                { serviceName: 'Puntos de Rubí', servicePath: '/estetica/masculina/puntos-rubi'},
+                { serviceName: 'Rosácea', servicePath: '/estetica/masculina/rosacea'},
+              ]
+            },
           ]
         },
         { 
-          name: 'Cirugías', 
-          imageUrl: '/images/estetica.cirugias.jpeg',
+          name: 'Cirugías Medicoestéticas', 
           path: '/estetica/cirugias',
-          services: [
-            { serviceName: 'Aumento de pecho', servicePath: '/estetica/cirugias/aumento-pecho'},
-            { serviceName: 'Cambio de prótesis', servicePath: '/estetica/cirugias/cambio-protesis'},
-            { serviceName: 'Elevación de pecho', servicePath: '/estetica/cirugias/elevacion-pecho'},
-            { serviceName: 'Ginecomastia', servicePath: '/estetica/cirugias/ginecomastia'},
-            { serviceName: 'Pezones Invertidos', servicePath: '/estetica/cirugias/pezones-invertidos'},
-            { serviceName: 'Reconstrucción Mamaria', servicePath: '/estetica/cirugias/recontruccion-mamaria'},
-            { serviceName: 'Reducción de Pecho', servicePath: '/estetica/cirugias/reduccion-pecho'},
-            { serviceName: 'Abdominoplastia', servicePath: '/estetica/cirugias/abdominoplastia'},
-            { serviceName: 'Aumento de Gluteos', servicePath: '/estetica/cirugias/aumento-gluteos'},
-            { serviceName: 'Lifting de Brazos', servicePath: '/estetica/cirugias/lifting-brazos'},
-            { serviceName: 'Lifting de Piernas', servicePath: '/estetica/cirugias/lifting-piernas'},
-            { serviceName: 'Lipofilling', servicePath: '/estetica/cirugias/lipofilling'},
-            { serviceName: 'Lipolaser', servicePath: '/estetica/cirugias/lipolaser'},
-            { serviceName: 'Liposucción', servicePath: '/estetica/cirugias/liposuccion'},
-            { serviceName: 'Rinoplastia', servicePath: '/estetica/cirugias/rinoplastia'},
-            { serviceName: 'Bichetomia', servicePath: '/estetica/cirugias/bichetomia'},
-            { serviceName: 'Blefaroplastia', servicePath: '/estetica/cirugias/blefaroplastia'},
-            { serviceName: 'Lifting de Riesgo', servicePath: '/estetica/cirugias/lifting-riesgo'},
-            { serviceName: 'Lifting Facial', servicePath: '/estetica/cirugias/lifting-facial'},
-            { serviceName: 'Liposucción de Papada', servicePath: '/estetica/cirugias/liposuccion-papada'},
-            { serviceName: 'Lobuloplastia', servicePath: '/estetica/cirugias/lobuloplastia'},
-            { serviceName: 'Mentoplastia', servicePath: '/estetica/cirugias/mentoplastia'},
-            { serviceName: 'Otoplastia', servicePath: '/estetica/cirugias/otoplastia'},
+          imagePath:'/images/estetica.cirugias.png',
+          problems: [
+            {
+              name: 'Cirugía de Pecho',
+              imageUrl: '/images/cirugiapecho.jpeg',
+              services: [
+                { serviceName: 'Aumento de Pecho', servicePath: '/estetica/cirugias/aumento-pecho'},
+                { serviceName: 'Cambio de Prótesis', servicePath: '/estetica/cirugias/cambio-protesis'},
+                { serviceName: 'Elevación de Pecho', servicePath: '/estetica/cirugias/elevacion-pecho'},
+                { serviceName: 'Pezones Invertidos', servicePath: '/estetica/cirugias/pezones-invertidos'},
+                { serviceName: 'Reconstrucción Mamaria', servicePath: '/estetica/cirugias/reconstruccion-mamaria'},
+                { serviceName: 'Reducción de Pecho', servicePath: '/estetica/cirugias/reduccion-pecho'},
+              ]
+            },
+            {
+              name: 'Cirugía Estética Corporal',
+              imageUrl: '/images/cirugiacorporal.jpeg',
+              services: [
+                { serviceName: 'Abdominoplastia', servicePath: '/estetica/cirugias/abdominoplastia'},
+                { serviceName: 'Aumento de Glúteos', servicePath: '/estetica/cirugias/aumento-gluteos'},
+                { serviceName: 'Lifting de Brazos', servicePath: '/estetica/cirugias/lifting-brazos'},
+                { serviceName: 'Lifting de Piernas', servicePath: '/estetica/cirugias/lifting-piernas'},
+                { serviceName: 'Lipofilling', servicePath: '/estetica/cirugias/lipofilling'},
+                { serviceName: 'Lipolaser', servicePath: '/estetica/cirugias/lipolaser'},
+                { serviceName: 'Liposucción', servicePath: '/estetica/cirugias/liposuccion'},
+              ]
+            },
+            {
+              name: 'Cirugía Estética Facial',
+              imageUrl: '/images/cirugiafacial.jpeg',
+              services: [
+                { serviceName: 'Rinoplastia', servicePath: '/estetica/cirugias/rinoplastia'},
+                { serviceName: 'Bichectomia', servicePath: '/estetica/cirugias/bichectomia'},
+                { serviceName: 'Blefaroplastia', servicePath: '/estetica/cirugias/blefaroplastia'},
+                { serviceName: 'Lifting de Riesgo', servicePath: '/estetica/cirugias/lifting-riesgo'},
+                { serviceName: 'Liting Facial', servicePath: '/estetica/cirugias/lifting-facial'},
+                { serviceName: 'Liposucción de Papada', servicePath: '/estetica/cirugias/liposuccion-papada'},
+                { serviceName: 'Lobuloplastia', servicePath: '/estetica/cirugias/lobuloplastia'},
+                { serviceName: 'Mentoplastia', servicePath: '/estetica/cirugias/mentoplastia'},
+                { serviceName: 'Otoplastia', servicePath: '/estetica/cirugias/otoplastia'},
+              ]
+            },
           ]
         },
-        { name: ' Tratamientos Laser', path: '/estetica/laser', imageUrl: '/images/estetica.laser.jpeg' },
+   
         ],
     },
     {
@@ -112,34 +415,62 @@ const menuData: MenuItem[]= [
       image:"/images/antiaging.png",
       newTab: false,
       submenu: [
-        { name: 'Equilibrio Hormonal Chip de la Juventud', imageUrl: '/images/estet.jpg', path: '/anti-aging/chip-juventud'},
-        { name: 'Turismo de salud', imageUrl: '/images/medic.jpg', path: '/anti-aging/turismo-salud'},
-        { name: 'Medicina Funcional y Nutrición Celular Ortomolecular', imageUrl: '/images/placeholder-image.png', path: '/anti-aging/nutricion-funcional'},
-        { name: 'Sueroterapia', imageUrl: '/images/estetica.menu.jpg', path: '/anti-aging/sueroterapia'},
-        { name: 'Ozonoterapia Médica y Estética', 
-          imageUrl: '/images/anti-aging.ozonoterapia.png',
+        { 
+          name: 'Ozonoterapia Médica y Estética', 
           path: '/anti-aging/ozonoterapia',
-          services: [
-            { serviceName: 'Ozonoterapia Capilar', servicePath: '/ozonoterapia-capilar'},
-            { serviceName: 'Acné', servicePath: '/acne'},
-            { serviceName: 'Celulitis', servicePath: '/celulitis'},
-            { serviceName: 'Embellecimiento de la Piel', servicePath: '/embellecimiento-piel'},
-            { serviceName: 'Post Cirugía', servicePath: '/post-cirugia'},
-            { serviceName: 'Post Dermopigmentación', servicePath: '/post-dermopigmentacion'},
-            { serviceName: 'Rejuvenecimiento Facial', servicePath: '/rejuvenecimiento facial'},
-            { serviceName: 'Rosácea', servicePath: '/rosacea'},
-            { serviceName: 'Varices y Arañas Vasculares', servicePath: '/varices'},
-            { serviceName: 'Cadera', servicePath: '/ozonoterapia-cadera'},
-            { serviceName: 'Codo', servicePath: '/ozonoterapia-codo'},
-            { serviceName: 'Columna Vertebral', servicePath: '/ozonoterapia-columna'},
-            { serviceName: 'Hombro', servicePath: '/ozonoterapia-hombro'},
-            { serviceName: 'Mano', servicePath: '/ozonoterapia-mano'},
-            { serviceName: 'Pie', servicePath: '/ozonoterapia-pie'},
-            { serviceName: 'Rodilla', servicePath: '/ozonoterapia-rodilla'},
-            { serviceName: 'Tobillo', servicePath: '/ozonoterapia-tobillo'},
-            { serviceName: 'infecciones Ginecológicas', servicePath: '/infeccion-ginecologica'},
+          imagePath:'/images/antiaging.ozonoterapia.png',
+          problems: [
+            {
+              name: 'Ozonoterapia Capilar',
+              imageUrl: '/images/ozonoterapiacapilar.jpeg',
+              services: [
+                { serviceName: 'Ozonoterapia Capilar', servicePath: '/anti-aging/ozonoterapia/capilar'},
+              ]
+            },
+            {
+              name: 'Ozonoterapia Estética',
+              imageUrl: '/images/ozonoterapiaestetica.jpeg',
+              services: [
+                { serviceName: 'Acné', servicePath: '/anti-aging/ozonoterapia/acne'},
+                { serviceName: 'Celulitis', servicePath: '/anti-aging/ozonoterapia/celulitis'},
+                { serviceName: 'Embellecimiento de la Piel', servicePath: '/anti-aging/ozonoterapia/embellecimiento-piel'},
+                { serviceName: 'Post-Cirugía', servicePath: '/anti-aging/ozonoterapia/post-cirugia'},
+                { serviceName: 'Post-Dermopigmentación', servicePath: '/anti-aging/ozonoterapia/post-dermopigmentacion'},
+                { serviceName: 'Rejuvenecimiento Facial', servicePath: '/anti-aging/ozonoterapia/rejuvenecimiento-facial'},
+                { serviceName: 'Rosácea', servicePath: '/anti-aging/ozonoterapia/rosacea'},
+                { serviceName: 'Varices y Arañas Vasculares', servicePath: '/anti-aging/ozonoterapia/varices-aranas-vasculares'},
+              ]
+            },
+            {
+              name: 'Ozonoterapia Médica',
+              imageUrl: '/images/ozonoterapiamedica.jpeg',
+              services: [
+                { serviceName: 'Atrosis de Cadera', servicePath: '/anti-aging/ozonoterapia/atrosis-cadera'},
+                { serviceName: 'Bursitis de Cadera', servicePath: '/anti-aging/ozonoterapia/bursitis-cadera'},
+                { serviceName: 'Necrosis de Cadera', servicePath: '/anti-aging/ozonoterapia/necrosis-cadera'},
+                { serviceName: 'Trocanteritis de Cadera', servicePath: '/anti-aging/ozonoterapia/trocanteritis-cadera'},
+                { serviceName: 'Atrosis y Artritis de Codo', servicePath: '/anti-aging/ozonoterapia/hifu'},
+                { serviceName: 'Bursitis de Codo', servicePath: '/anti-aging/ozonoterapia/atrosis-codo'},
+                { serviceName: 'Epicondulitis de Codo', servicePath: '/anti-aging/ozonoterapia/epicondulitis-codo'},
+                { serviceName: 'Tendinitis de Codo', servicePath: '/anti-aging/ozonoterapia/tendinitis-codo'},
+                { serviceName: 'Atrosis de Columna', servicePath: '/anti-aging/ozonoterapia/atrosis-columna'},
+                { serviceName: 'Ciatica de Columna', servicePath: '/anti-aging/ozonoterapia/ciatica-columna'},
+                { serviceName: 'Dolor de Espalda', servicePath: '/anti-aging/ozonoterapia/dolor-espalda'},
+                { serviceName: 'Hernia Discal, Cervical, Dorsal y Lumbar', servicePath: '/anti-aging/ozonoterapia/hernias'},
+                { serviceName: 'Atrosis y Artritis de Hombro', servicePath: '/anti-aging/ozonoterapia/atrosis-hombro'},
+                { serviceName: 'Bursitis de Hombro', servicePath: '/anti-aging/ozonoterapia/bursitis-hombro'},
+                { serviceName: 'Tendinitis de Bicipital', servicePath: '/anti-aging/ozonoterapia/tendinitis-bicipital'},
+                { serviceName: 'Tendinitis del Supraespinoso', servicePath: '/anti-aging/ozonoterapia/tendinitis-supraespinoso'},
+                { serviceName: 'Tendinitis de Manguito Rotador', servicePath: '/anti-aging/ozonoterapia/tendinitis-manguito-rotador'},
+              ]
+            },
           ]
         },
+        { name: 'Equilibrio Hormonal Chip de la Juventud', imagePath: '/images/estet.jpg', path: '/anti-aging/chip-juventud'},
+        { name: 'Turismo de salud', imagePath: '/images/medic.jpg', path: '/anti-aging/turismo-salud'},
+        { name: 'Medicina Funcional y Nutrición Celular Ortomolecular', imagePath: '/images/placeholder-image.png', path: '/anti-aging/nutricion-funcional'},
+        { name: 'Sueroterapia', imagePath: '/images/estetica.menu.jpg', path: '/anti-aging/sueroterapia'},
+
         ],
     },
     {
@@ -149,10 +480,10 @@ const menuData: MenuItem[]= [
       image:"/images/equipos.menu.png",
       newTab: false,
       submenu: [
-        { name: 'Equipos médicos', imageUrl: '/images/placeholder-image.png', path: '/medicos'},
-        { name: 'Equipos estéticos', imageUrl: '/images/placeholder-image.png', path: '/esteticos'},
-        { name: 'Equipos de dermopigmentación', imageUrl: '/images/placeholder-image.png', path: '/dermopigmentacion'},
-        { name: 'Dispositivos para el cuidado de salud', imageUrl: '/images/placeholder-image.png', path: '/salud'},
+        { name: 'Equipos médicos', imagePath: '/images/placeholder-image.png', path: '/medicos'},
+        { name: 'Equipos estéticos', imagePath: '/images/placeholder-image.png', path: '/esteticos'},
+        { name: 'Equipos de dermopigmentación', imagePath: '/images/placeholder-image.png', path: '/dermopigmentacion'},
+        { name: 'Dispositivos para el cuidado de salud', imagePath: '/images/placeholder-image.png', path: '/salud'},
         ],
     },
     {
@@ -162,9 +493,9 @@ const menuData: MenuItem[]= [
       image:"/images/formación.png",
       newTab: false,
       submenu: [
-        { name: 'Dermopigmentación', imageUrl: '/images/formacion.dermopigmentacion.png', path: '/dermopigmentacion'},
-        { name: 'Medicina Estética', imageUrl: '/images/formacion.medicinaestetica.png', path: '/medicina-estetica'},
-        { name: 'Aparatología', imageUrl: '/images/formacion.aparatologia.png', path: '/aparatologia'},
+        { name: 'Dermopigmentación', imagePath: '/images/formacion.dermopigmentacion.png', path: '/dermopigmentacion'},
+        { name: 'Medicina Estética', imagePath: '/images/formacion.medicinaestetica.png', path: '/medicina-estetica'},
+        { name: 'Aparatología', imagePath: '/images/formacion.aparatologia.png', path: '/aparatologia'},
         ],
     },
     {
@@ -174,11 +505,11 @@ const menuData: MenuItem[]= [
       image:"/images/tienda.menu.png",
       newTab: false,
       submenu: [
-        { name: 'Material de Prácticas', imageUrl: '/images/tienda.practicas.png', path: '/material-practicas'},
-        { name: 'Cosmética', imageUrl: '/images/tienda.cosmetica.png', path: '/cosmetica'},
-        { name: 'Suplementos', imageUrl: '/images/tienda.suplementos.png', path: '/suplementos'},
-        { name: 'Salud y belleza', imageUrl: '/images/tienda.salud.png', path: '/salud-y-belleza'},
-        { name: 'Aparatología profesional', imageUrl: '/images/tienda.aparatologia.png', path: '/aparatologia'},
+        { name: 'Material de Prácticas', imagePath: '/images/tienda.practicas.png', path: '/material-practicas'},
+        { name: 'Cosmética', imagePath: '/images/tienda.cosmetica.png', path: '/cosmetica'},
+        { name: 'Suplementos', imagePath: '/images/tienda.suplementos.png', path: '/suplementos'},
+        { name: 'Salud y belleza', imagePath: '/images/tienda.salud.png', path: '/salud-y-belleza'},
+        { name: 'Aparatología profesional', imagePath: '/images/tienda.aparatologia.png', path: '/aparatologia'},
         ],
     },
     {
@@ -188,10 +519,10 @@ const menuData: MenuItem[]= [
       image:"/images/packs.menu.png",
       newTab: false,
       submenu: [
-        { name: 'Packs Medicina Estetica', imageUrl: '/images/packs.estetica.png', path: '/medicina-estetica'},
-        { name: 'Packs Medicina Anti-Aging', imageUrl: '/images/packs.anti-aging.png', path: '/medicina-anti-aging'},
-        { name: 'Packs Equipos', imageUrl: '/images/packs.equipos.png', path: '/equipos'},
-        { name: 'Packs Formación', imageUrl: '/images/packs.formaciones.png', path: '/formaciones'},
+        { name: 'Packs Medicina Estetica', imagePath: '/images/packs.estetica.png', path: '/medicina-estetica'},
+        { name: 'Packs Medicina Anti-Aging', imagePath: '/images/packs.anti-aging.png', path: '/medicina-anti-aging'},
+        { name: 'Packs Equipos', imagePath: '/images/packs.equipos.png', path: '/equipos'},
+        { name: 'Packs Formación', imagePath: '/images/packs.formaciones.png', path: '/formaciones'},
 
         ],
     },

@@ -75,7 +75,7 @@ const Dropdown = ({ items }: { items: SubMenuItem[] }) => {
             className="flex flex-col items-center justify-center p-4 hover:bg-gray-50"
             style={{ flex: "1" }}
           >
-            <img src={subItem.imageUrl} alt={subItem.name} className="w-16 h-16 object-cover" />
+            <img src={subItem.imagePath} alt={subItem.name} className="w-16 h-16 object-cover" />
             <span className="mt-2 text-md text-woodsmoke-500">{subItem.name}</span>
           </a>
         ))}

@@ -1,21 +1,26 @@
-import RootLayout from '@/app/layout';
+import Newsletter from '@/components/newsletter';
+import SectionBreak from '@/components/sectionbreak';
+import Card from '@/components/serviceinfo';
+import ServiceMenu from '@/components/esteticamenu';
+import Hero from '@/components/hero'
 import DefaultLayout from '@/app/(default)/layout';
+import RootLayout from '@/app/layout';
 
-const Equipos: React.FC = () => {
+const Corporal: React.FC = () => {
+  const serviceIdToDisplay = 4;
   return (
     <>
-    
-    <RootLayout>
+      <RootLayout>
         <DefaultLayout>
-          <div className='md:mx-48 sm:mx-24'>
-          <div className=' text-3xl text-center mt-16'>Bienvenidos a la página sobre tratamientos láser</div>
-
-          <div className='text-xl text-center mt-16'>En breve estará lista, vuelve en unos días</div>
-          </div>
+          <Card serviceId={serviceIdToDisplay} />
+          <SectionBreak />
+          <Newsletter />
+          <Hero />
+          <ServiceMenu/>
         </DefaultLayout>
     </RootLayout>
     </>
   );
 };
 
-export default Equipos;
+export default Corporal;

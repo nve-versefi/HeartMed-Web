@@ -96,3 +96,12 @@
 .slick-dots li button {
     background: #c72918 !important; /* Replace #yourColor with the hex code of the color you want */
   }
+
+  .banner-container {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+  }
