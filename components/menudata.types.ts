@@ -15,7 +15,7 @@ export interface SubMenuItem {
   path: string;
   imagePath: string;
   imageUrl: string; // Add this line
-  problems: {
+  problems?: {
     name: string;
     imageUrl: string;
     services: {

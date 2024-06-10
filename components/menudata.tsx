@@ -11,7 +11,8 @@ const menuData: MenuItem[]= [
         { 
           name: 'Tratamientos Faciales', 
           path: '/estetica/facial',
-          imagePath:'/images/estetica.cirugias.jpeg',
+          imagePath:'/images/placeholder_image.png',
+          imageUrl: '/images/placeholder_image.png',
           problems: [
             {
               name: 'Cejas caídas',
@@ -165,13 +166,15 @@ const menuData: MenuItem[]= [
         { 
           name: 'Tratamientos Corporales', 
           path: '/estetica/corporal',
+          imageUrl: '/images/placeholder_image.png',
           imagePath:'/images/OZONOTERAPIA.CELULITIS.png',
+          
           problems: [
             {
               name: 'Eliminar Celulitis',
               imageUrl: '/images/OZONOTERAPIA.CELULITIS.png',
               services: [
-                { serviceName: 'HIFU Corporal', servicePath: '/estetica/corporal/hifu-corporal'},
+                { serviceName: 'HIFU Corporal', servicePath: '/estetica/corporal/hifu-corporal', },
                 { serviceName: 'Ozonoterapia', servicePath: '/estetica/corporal/ozonoterapia'},
                 { serviceName: 'Reducción enzimática de celulitis y flacidez', servicePath: '/estetica/corporal/reduccion-flacidez'},
                 { serviceName: 'TMT Systems - Mesoterapia Virtual', servicePath: '/estetica/corporal/mesoterapia-virtual'},
@@ -262,6 +265,7 @@ const menuData: MenuItem[]= [
         { 
           name: 'Medicina Estética Masculina', 
           path: '/estetica/masculina',
+          imageUrl: '/images/placeholder_image.png',
           imagePath:'/images/estetica.masculina.png',
           problems: [
             {
@@ -361,6 +365,7 @@ const menuData: MenuItem[]= [
         { 
           name: 'Cirugías Medicoestéticas', 
           path: '/estetica/cirugias',
+          imageUrl: '/images/placeholder_image.png',
           imagePath:'/images/estetica.cirugias.png',
           problems: [
             {
@@ -412,12 +417,14 @@ const menuData: MenuItem[]= [
       id: 2,
       title: "Medicina Anti-Aging",
       path: "/anti-aging",
+      
       image:"/images/antiaging.png",
       newTab: false,
       submenu: [
         { 
           name: 'Ozonoterapia Médica y Estética', 
           path: '/anti-aging/ozonoterapia',
+          imageUrl: '/images/placeholder_image.png',
           imagePath:'/images/antiaging.ozonoterapia.png',
           problems: [
             {
@@ -466,10 +473,10 @@ const menuData: MenuItem[]= [
             },
           ]
         },
-        { name: 'Equilibrio Hormonal Chip de la Juventud', imagePath: '/images/estet.jpg', path: '/anti-aging/chip-juventud'},
-        { name: 'Turismo de salud', imagePath: '/images/medic.jpg', path: '/anti-aging/turismo-salud'},
-        { name: 'Medicina Funcional y Nutrición Celular Ortomolecular', imagePath: '/images/placeholder-image.png', path: '/anti-aging/nutricion-funcional'},
-        { name: 'Sueroterapia', imagePath: '/images/estetica.menu.jpg', path: '/anti-aging/sueroterapia'},
+        { name: 'Equilibrio Hormonal Chip de la Juventud', imagePath: '/images/estet.jpg', path: '/anti-aging/chip-juventud', imageUrl: '/images/placeholder_image.png'},
+        { name: 'Turismo de salud', imagePath: '/images/medic.jpg', path: '/anti-aging/turismo-salud', imageUrl: '/images/placeholder_image.png'},
+        { name: 'Medicina Funcional y Nutrición Celular Ortomolecular', imagePath: '/images/placeholder-image.png', path: '/anti-aging/nutricion-funcional', imageUrl: '/images/placeholder_image.png'},
+        { name: 'Sueroterapia', imagePath: '/images/estetica.menu.jpg', path: '/anti-aging/sueroterapia', imageUrl: '/images/placeholder_image.png'},
 
         ],
     },
@@ -480,10 +487,10 @@ const menuData: MenuItem[]= [
       image:"/images/equipos.menu.png",
       newTab: false,
       submenu: [
-        { name: 'Equipos médicos', imagePath: '/images/placeholder-image.png', path: '/medicos'},
-        { name: 'Equipos estéticos', imagePath: '/images/placeholder-image.png', path: '/esteticos'},
-        { name: 'Equipos de dermopigmentación', imagePath: '/images/placeholder-image.png', path: '/dermopigmentacion'},
-        { name: 'Dispositivos para el cuidado de salud', imagePath: '/images/placeholder-image.png', path: '/salud'},
+        { name: 'Equipos médicos', imagePath: '/images/placeholder-image.png', path: '/medicos', imageUrl: '/images/placeholder_image.png'},
+        { name: 'Equipos estéticos', imagePath: '/images/placeholder-image.png', path: '/esteticos', imageUrl: '/images/placeholder_image.png'},
+        { name: 'Equipos de dermopigmentación', imagePath: '/images/placeholder-image.png', path: '/dermopigmentacion', imageUrl: '/images/placeholder_image.png'},
+        { name: 'Dispositivos para el cuidado de salud', imagePath: '/images/placeholder-image.png', path: '/salud', imageUrl: '/images/placeholder_image.png'},
         ],
     },
     {
@@ -493,9 +500,9 @@ const menuData: MenuItem[]= [
       image:"/images/formación.png",
       newTab: false,
       submenu: [
-        { name: 'Dermopigmentación', imagePath: '/images/formacion.dermopigmentacion.png', path: '/dermopigmentacion'},
-        { name: 'Medicina Estética', imagePath: '/images/formacion.medicinaestetica.png', path: '/medicina-estetica'},
-        { name: 'Aparatología', imagePath: '/images/formacion.aparatologia.png', path: '/aparatologia'},
+        { name: 'Dermopigmentación', imagePath: '/images/formacion.dermopigmentacion.png', path: '/dermopigmentacion', imageUrl: '/images/placeholder_image.png'},
+        { name: 'Medicina Estética', imagePath: '/images/formacion.medicinaestetica.png', path: '/medicina-estetica', imageUrl: '/images/placeholder_image.png'},
+        { name: 'Aparatología', imagePath: '/images/formacion.aparatologia.png', path: '/aparatologia', imageUrl: '/images/placeholder_image.png'},
         ],
     },
     {
@@ -505,11 +512,11 @@ const menuData: MenuItem[]= [
       image:"/images/tienda.menu.png",
       newTab: false,
       submenu: [
-        { name: 'Material de Prácticas', imagePath: '/images/tienda.practicas.png', path: '/material-practicas'},
-        { name: 'Cosmética', imagePath: '/images/tienda.cosmetica.png', path: '/cosmetica'},
-        { name: 'Suplementos', imagePath: '/images/tienda.suplementos.png', path: '/suplementos'},
-        { name: 'Salud y belleza', imagePath: '/images/tienda.salud.png', path: '/salud-y-belleza'},
-        { name: 'Aparatología profesional', imagePath: '/images/tienda.aparatologia.png', path: '/aparatologia'},
+        { name: 'Material de Prácticas', imagePath: '/images/tienda.practicas.png', path: '/material-practicas', imageUrl: '/images/placeholder_image.png'},
+        { name: 'Cosmética', imagePath: '/images/tienda.cosmetica.png', path: '/cosmetica', imageUrl: '/images/placeholder_image.png'},
+        { name: 'Suplementos', imagePath: '/images/tienda.suplementos.png', path: '/suplementos', imageUrl: '/images/placeholder_image.png'},
+        { name: 'Salud y belleza', imagePath: '/images/tienda.salud.png', path: '/salud-y-belleza', imageUrl: '/images/placeholder_image.png'},
+        { name: 'Aparatología profesional', imagePath: '/images/tienda.aparatologia.png', path: '/aparatologia', imageUrl: '/images/placeholder_image.png'},
         ],
     },
     {
@@ -519,10 +526,10 @@ const menuData: MenuItem[]= [
       image:"/images/packs.menu.png",
       newTab: false,
       submenu: [
-        { name: 'Packs Medicina Estetica', imagePath: '/images/packs.estetica.png', path: '/medicina-estetica'},
-        { name: 'Packs Medicina Anti-Aging', imagePath: '/images/packs.anti-aging.png', path: '/medicina-anti-aging'},
-        { name: 'Packs Equipos', imagePath: '/images/packs.equipos.png', path: '/equipos'},
-        { name: 'Packs Formación', imagePath: '/images/packs.formaciones.png', path: '/formaciones'},
+        { name: 'Packs Medicina Estetica', imagePath: '/images/packs.estetica.png', path: '/medicina-estetica', imageUrl: '/images/placeholder_image.png'},
+        { name: 'Packs Medicina Anti-Aging', imagePath: '/images/packs.anti-aging.png', path: '/medicina-anti-aging', imageUrl: '/images/placeholder_image.png'},
+        { name: 'Packs Equipos', imagePath: '/images/packs.equipos.png', path: '/equipos', imageUrl: '/images/placeholder_image.png'},
+        { name: 'Packs Formación', imagePath: '/images/packs.formaciones.png', path: '/formaciones', imageUrl: '/images/placeholder_image.png'},
 
         ],
     },
