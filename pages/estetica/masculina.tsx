@@ -1,26 +1,33 @@
-import Newsletter from '@/components/newsletter';
-import SectionBreak from '@/components/sectionbreak';
-import Card from '@/components/serviceinfo';
-import ServiceMenu from '@/components/esteticamenu';
-import Hero from '@/components/hero'
+// Home component
+import { useEffect, useState } from 'react';
+import ServiceInfo from '@/components/serviceinfo';
 import DefaultLayout from '@/app/(default)/layout';
 import RootLayout from '@/app/layout';
 
-const Equipos: React.FC = () => {
-  const serviceIdToDisplay = 6;
+const Home: React.FC = () => {
+  const [serviceData, setServiceData] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchServiceData = async () => {
+      try {
+        const response = await fetch('/api/services/Neuromoduladores'); // Fetch service by title
+        setServiceData(await response.json());
+      } catch (error) {
+        console.error('Failed to fetch service:', error);
+      }
+    };
+    fetchServiceData();
+  }, []);
+
   return (
     <>
-    <RootLayout>
+      <RootLayout>
         <DefaultLayout>
-          <Card serviceId={serviceIdToDisplay} />
-          <SectionBreak />
-          <Newsletter />
-          <Hero />
-          <ServiceMenu/>
+          <ServiceInfo serviceData={serviceData} />
         </DefaultLayout>
-    </RootLayout>
+      </RootLayout>
     </>
   );
 };
 
-export default Equipos;
+export default Home;
