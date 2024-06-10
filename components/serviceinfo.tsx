@@ -2,13 +2,16 @@ import React from 'react';
 import { FaHourglassHalf, FaMoneyBillWave, FaSyringe } from 'react-icons/fa';
 import AccordionComponent from './accordion copy';
 
-const renderTextWithLineBreaks = (text: string) => {
+const renderTextWithLineBreaks = (text: string | undefined) => {
+  if (!text) return null;
+
   return text.split('\n').map((line: string, index: number) => (
     <React.Fragment key={index}>
       {line}{index < text.split('\n').length - 1 && <br />}
     </React.Fragment>
   ));
 };
+
 
 interface ServiceInfoProps {
   serviceData: any;
