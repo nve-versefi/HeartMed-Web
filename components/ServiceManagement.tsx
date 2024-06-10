@@ -151,11 +151,11 @@ const ServiceManagement: React.FC = () => {
                 image2: typeof imageFiles.image2 === 'string' ? imageFiles.image2 : service.image2,
                 image3: typeof imageFiles.image3 === 'string' ? imageFiles.image3 : service.image3,
             };
-
+    
             // Only include image fields if they have been updated
             const updateFields = { ...updatedService };
-            ['cover', 'image1', 'image2', 'image3'].forEach(field => {
-                if (!imageFiles[field]) {
+            (['cover', 'image1', 'image2', 'image3'] as (keyof typeof updateFields)[]).forEach(field => {
+                if (!imageFiles[field as keyof typeof imageFiles]) {
                     delete updateFields[field];
                 }
             });
