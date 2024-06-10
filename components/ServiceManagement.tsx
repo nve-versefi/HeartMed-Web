@@ -453,6 +453,9 @@ const LoginPage: React.FC<{ onLogin: () => void }> = ({ onLogin }) => {
         e.preventDefault();
         const envUsername = process.env.REACT_APP_USERNAME;
         const envPassword = process.env.REACT_APP_PASSWORD;
+
+        console.log('Environment Username:', envUsername);
+        console.log('Environment Password:', envPassword);
         
         if (username === envUsername && password === envPassword) {
             localStorage.setItem('isLoggedIn', 'true');

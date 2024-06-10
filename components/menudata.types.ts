@@ -14,6 +14,7 @@ export interface SubMenuItem {
   name: string;
   path: string;
   imagePath:string;
+  imageUrl: string; // Ensure this property is included if required
   problems?: Problem[];
 }
 
