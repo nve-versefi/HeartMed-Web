@@ -451,8 +451,8 @@ const LoginPage: React.FC<{ onLogin: () => void }> = ({ onLogin }) => {
 
     const handleLogin = (e: React.FormEvent) => {
         e.preventDefault();
-        const envUsername = process.env.REACT_APP_USERNAME;
-        const envPassword = process.env.REACT_APP_PASSWORD;
+        const envUsername = process.env.NEXT_PUBLIC_ENV_USERNAME;
+        const envPassword = process.env.NEXT_PUBLIC_ENV_PASSWORD;
 
         console.log('Environment Username:', envUsername);
         console.log('Environment Password:', envPassword);

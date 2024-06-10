@@ -13,9 +13,16 @@ export interface Problem {
 export interface SubMenuItem {
   name: string;
   path: string;
-  imagePath:string;
-  imageUrl: string; // Ensure this property is included if required
-  problems?: Problem[];
+  imagePath: string;
+  imageUrl: string; // Add this line
+  problems: {
+    name: string;
+    imageUrl: string;
+    services: {
+      serviceName: string;
+      servicePath: string;
+    }[];
+  }[];
 }
 
 export interface MenuItem {
