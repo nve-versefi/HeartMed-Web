@@ -68,7 +68,7 @@ module.exports = {
           900: '#040A09',
         },
         boulder: {
-          100: '#F2F2F2',
+          100: '#F2F5F5',
           200: '#DEDEDE',
           300: '#C9C9C9',
           400: '#A2A2A3',

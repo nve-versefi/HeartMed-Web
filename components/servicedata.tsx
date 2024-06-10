@@ -13,6 +13,9 @@ const servicesData = [
       extra: "¡Contáctanos hoy mismo para programar tu consulta y descubre cómo podemos ayudarte a lograr la nariz de tus sueños de manera segura y efectiva en HeartMed!",
       image2: "/images/RINOMODELACION2.png",
       image3: "/images/RINOMODELACION3.png",
+      anesthesia:"General",
+      time:"1-3h",
+      finance:"Hasta 36 meses",
       faq1: 'Duración de los Resultado',
       answer1: 'Los resultados son permanentes, con la posibilidad de necesitar sesiones adicionales en casos específicos.',
       faq2: 'Tiempo del Procedimiento',
@@ -31,10 +34,11 @@ const servicesData = [
       answer8: 'Nuestro procedimiento puede aplicarse a cualquier edad, brindando resultados satisfactorios.',
       faq9: '¿Listo para transformar tu nariz sin cirugía?',
       answer9: '¡Contáctanos hoy mismo para programar tu consulta y descubre cómo podemos ayudarte a lograr la nariz de tus sueños de manera segura y efectiva en HeartMed!',
+      category: 'medicina-estetica',
+      subcategory: 'cirugia',
       targetAreas: ["skin", "muscle"],
       objectives: ["pain relief", "tissue healing", "aesthetics"],
       relatedProd: ['indiba'],
-    
     },
 
     {

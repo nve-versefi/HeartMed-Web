@@ -15,7 +15,7 @@ const menuData: MenuItem[]= [
           problems: [
             {
               name: 'Cejas caídas',
-              imageUrl: '/images/ABDOMINO.png',
+              imageUrl: '/images/PORTADA_CEJAS.png',
               services: [
                 { serviceName: 'HIFU', servicePath: '/estetica/facial/hifu'},
                 { serviceName: 'Hilos Tensores', servicePath: '/estetica/facial/hilos-tensores'},
@@ -25,7 +25,7 @@ const menuData: MenuItem[]= [
             },
             {
               name: 'Corrección de manchas',
-              imageUrl: '/images/GLUTEOSAUMENTO.png',
+              imageUrl: '/images/PORTADA_EMBELLECIMIENTO_PIEL.png',
               services: [
                 { serviceName: 'Peeling Químico', servicePath: '/estetica/facial/peeling' },
                 { serviceName: 'Rejuvenecimiento con IPL', servicePath: '/estetica/facial/ipl'},
@@ -34,7 +34,7 @@ const menuData: MenuItem[]= [
             },
             {
               name: 'Corracción malas praxis',
-              imageUrl: '/images/ABDOMINOPLASTIA.png',
+              imageUrl: '/images/ELIMINAR_MANCHAS PRP..png',
               services: [
                 { serviceName: 'Dermopigmentación', servicePath: '/estetica/facial/dermopigmentacion'},
                 { serviceName: 'Eliminación de tatuajes', servicePath: '/estetica/facial/elimina-tatuajes'},
@@ -43,7 +43,7 @@ const menuData: MenuItem[]= [
             },
             {
               name: 'Elevación de pómulos',
-              imageUrl: '/images/GLUTEOSEMSSCULPTING.jpg',
+              imageUrl: '/images/POMULOS PORTADA.png',
               services: [
                 { serviceName: 'Ácido hialurónico', servicePath: '/estetica/facial/hialuronico'},
                 { serviceName: 'HIFU', servicePath: '/estetica/facial/hifu'},
@@ -52,7 +52,7 @@ const menuData: MenuItem[]= [
             },
             {
               name: 'Eliminar arrugas',
-              imageUrl: '/images/gluteos14.jpg',
+              imageUrl: '/images/PORTADA ARRUGAS.png',
               services: [
                 { serviceName: 'Ácido hialurónico', servicePath: '/estetica/facial/hialuronico'},
                 { serviceName: 'HIFU', servicePath: '/estetica/facial/hifu'},
@@ -67,7 +67,7 @@ const menuData: MenuItem[]= [
             },
             {
               name: 'Eliminar bolsas',
-              imageUrl: '/images/CEJASHILOS.png',
+              imageUrl: '/images/ELIMINAR BOLSAS PORTADA.png',
               services: [
                 { serviceName: 'Enzimas PB Serum', servicePath: '/estetica/facial/pbserum'},
                 { serviceName: 'HIFU', servicePath: '/estetica/facial/hifu'},
@@ -76,7 +76,7 @@ const menuData: MenuItem[]= [
             },
             {
               name: 'Eliminar ojeras',
-              imageUrl: '/images/CEJAS.HIFU.jpeg',
+              imageUrl: '/images/CEJAS NEUROMODULADORES.png',
               services: [
                 { serviceName: 'Ácido hialurónico', servicePath: '/estetica/facial/hialuronico'},
                 { serviceName: 'Láser CO2 Fraccionado', servicePath: '/estetica/facial/laser-co2'},
@@ -91,7 +91,7 @@ const menuData: MenuItem[]= [
             },
             {
               name: 'Embellecimiento de la piel',
-              imageUrl: '/images/CEJASDERMO.png',
+              imageUrl: '/images/PORTADA_EMBELLECIMIENTO_PIEL.png',
               services: [
                 { serviceName: 'Arañas Vasculares', servicePath: '/estetica/facial/aranas-vasculares'},
                 { serviceName: 'Coctel de Vitaminas', servicePath: '/estetica/facial/coctel-vitaminas'},
@@ -108,14 +108,14 @@ const menuData: MenuItem[]= [
             },
             {
               name: 'Estética de la nariz',
-              imageUrl: '/images/esteicanariz.jpeg',
+              imageUrl: '/images/RINOMODELACIÓN PORTADA.jpg',
               services: [
                 { serviceName: 'Rinomodelación no quirurgica', servicePath: '/estetica/facial/rinomodelacion'},
               ]
             },
             {
               name: 'Corregir el Acné',
-              imageUrl: '/images/corregiracne.jpeg',
+              imageUrl: '/images/ACNE.png',
               services: [
                 { serviceName: 'Peeling Químico', servicePath: '/estetica/facial/peeling' },
                 { serviceName: 'Láser', servicePath: '/estetica/facial/laser' },
@@ -126,7 +126,7 @@ const menuData: MenuItem[]= [
             },
             {
               name: 'Flacidez de rostro',
-              imageUrl: '/images/flacidezrostro.jpeg',
+              imageUrl: '/images/FLACIDEZ24.jpg',
               services: [
                 { serviceName: 'Elástica', servicePath: '/estetica/facial/elastica'},
                 { serviceName: 'Enzimas Recombinantes', servicePath: '/estetica/facial/enzimas-recombinantes' },
@@ -142,7 +142,7 @@ const menuData: MenuItem[]= [
             },
             {
               name: 'Párpados Caídos',
-              imageUrl: '/images/parpadocaido.jpeg',
+              imageUrl: '/images/PARPADOS PORTADA.png',
               services: [
                 { serviceName: 'HIFU', servicePath: '/estetica/facial/hifu'},
                 { serviceName: 'Hilos Tensores', servicePath: '/estetica/facial/hilos-tensores'},
@@ -152,7 +152,7 @@ const menuData: MenuItem[]= [
             },
             {
               name: 'Volumen Facial',
-              imageUrl: '/images/volumenfacial.jpeg',
+              imageUrl: '/images/ACIDO HIALURONICO.png',
               services: [
                 { serviceName: 'Aumento de pómulos', servicePath: '/estetica/facial/hifu'},
                 { serviceName: 'Aumento de mentón', servicePath: '/estetica/facial/hilos-tensores'},
@@ -165,11 +165,11 @@ const menuData: MenuItem[]= [
         { 
           name: 'Tratamientos Corporales', 
           path: '/estetica/corporal',
-          imagePath:'/images/estetica.corporal.png',
+          imagePath:'/images/OZONOTERAPIA.CELULITIS.png',
           problems: [
             {
               name: 'Eliminar Celulitis',
-              imageUrl: '/images/eliminacelulitis.jpeg',
+              imageUrl: '/images/OZONOTERAPIA.CELULITIS.png',
               services: [
                 { serviceName: 'HIFU Corporal', servicePath: '/estetica/corporal/hifu-corporal'},
                 { serviceName: 'Ozonoterapia', servicePath: '/estetica/corporal/ozonoterapia'},
@@ -181,7 +181,7 @@ const menuData: MenuItem[]= [
             },
             {
               name: 'Dermopigmentación',
-              imageUrl: '/images/dermopigmentacion.jpeg',
+              imageUrl: '/images/DERMAPEN.png',
               services: [
                 { serviceName: 'Areolas', servicePath: '/estetica/corporal/areolas'},
                 { serviceName: 'Camuflaje de cicatrices y estrías', servicePath: '/estetica/corporal/camuflaje-imperfecciones'},
@@ -190,14 +190,14 @@ const menuData: MenuItem[]= [
             },
             {
               name: 'Sudoración Excesiva',
-              imageUrl: '/images/sudariconexcesiva.jpeg',
+              imageUrl: '/images/SUDOR PORTADA.png',
               services: [
                 { serviceName: 'Eliminar Sudoración Excesiva', servicePath: '/estetica/corporal/sudoracion-excesiva'},
               ]
             },
             {
               name: 'Flacidez Corporal',
-              imageUrl: '/images/flacidezcorporal.jpeg',
+              imageUrl: '/images/FLACIDEZ CORPORAL PORTADA.png',
               services: [
                 { serviceName: 'EMS Sculpting', servicePath: '/estetica/corporal/emsculpting'},
                 { serviceName: 'HIFU Corporal', servicePath: '/estetica/corporal/hifu-corporal'},
@@ -212,7 +212,7 @@ const menuData: MenuItem[]= [
             },
             {
               name: 'Reducir Volumen Corporal',
-              imageUrl: '/images/reducirvolumen.jpeg',
+              imageUrl: '/images/PORTADA_VOL.png',
               services: [
                 { serviceName: 'EMS Sculpting', servicePath: '/estetica/corporal/emsculpting'},
                 { serviceName: 'HIFU Corporal', servicePath: '/estetica/corporal/hifu-corporal'},
@@ -226,7 +226,7 @@ const menuData: MenuItem[]= [
             },
             {
               name: 'Rejuvenecimiento de las manos',
-              imageUrl: '/images/rejuvencemanos.jpeg',
+              imageUrl: '/images/PORTADA EMBELLECIMIENTO MANOS.png',
               services: [
                 { serviceName: 'Ácido hialurónico', servicePath: '/estetica/corporal/hialuronico'},
                 { serviceName: 'HIFU Corporal', servicePath: '/estetica/corporal/hifu-corporal'},
@@ -240,7 +240,7 @@ const menuData: MenuItem[]= [
             },
             {
               name: 'Remodelación glúteos',
-              imageUrl: '/images/remodelagluteos.jpeg',
+              imageUrl: '/images/GLUTEOS AUMENTO2.png',
               services: [
                 { serviceName: 'Aumento de Glúteos', servicePath: '/estetica/corporal/aumento-gluteos'},
                 { serviceName: 'Hilos Tensores', servicePath: '/estetica/corporal/hilos-tensores'},
@@ -250,7 +250,7 @@ const menuData: MenuItem[]= [
             },
             {
               name: 'Eliminar Estrías',
-              imageUrl: '/images/eliminaestrias.jpeg',
+              imageUrl: '/images/PORTADA_ESTRIAS.png',
               services: [
                 { serviceName: 'Láser CO2', servicePath: '/estetica/corporal/laserco2'},
                 { serviceName: 'Velashape', servicePath: '/estetica/corporal/velashape'},
@@ -260,13 +260,13 @@ const menuData: MenuItem[]= [
           ]
         },
         { 
-          name: 'Tratamientos Corporales', 
+          name: 'Medicina Estética Masculina', 
           path: '/estetica/masculina',
           imagePath:'/images/estetica.masculina.png',
           problems: [
             {
               name: 'Corrección de la nariz',
-              imageUrl: '/images/correcciónnariz.jpeg',
+              imageUrl: '/images/RINOMODELACIÓN.jpg',
               services: [
                 { serviceName: 'Rinomodelación no quirurgica', servicePath: '/estetica/masculina/rinomodelacion'},
                 { serviceName: 'Rinoplastia', servicePath: '/estetica/masculina/rinoplastia'},
@@ -274,7 +274,7 @@ const menuData: MenuItem[]= [
             },
             {
               name: 'Definición Mandibular',
-              imageUrl: '/images/definicionmandibular.jpeg',
+              imageUrl: '/images/MASC-DEFINICIÓN MANDIBULAR PORTADA.png',
               services: [
                 { serviceName: 'Ácido Hialurónico', servicePath: '/estetica/facial/hialuronico'},
                 { serviceName: 'Mentoplastia', servicePath: '/estetica/masculina/mentoplastia'},
@@ -282,7 +282,7 @@ const menuData: MenuItem[]= [
             },
             {
               name: 'Eliminar Bolsas',
-              imageUrl: '/images/eliminabolsas.jpeg',
+              imageUrl: '/images/MASC-ELIMINAR BOLSAS PORTADA.png',
               services: [
                 { serviceName: 'Enzimas PB Serum', servicePath: '/estetica/masculina/pbserum'},
                 { serviceName: 'Láser CO2 Fraccionado', servicePath: '/estetica/masculina/laser-co2'},
@@ -291,7 +291,7 @@ const menuData: MenuItem[]= [
             },
             {
               name: 'Eliminar o Suavizar Arrugas',
-              imageUrl: '/images/eliminarrugas.jpeg',
+              imageUrl: '/images/MASCULIN-ELIMINAR ARRUGAS PORTADA.png',
               services: [
                 { serviceName: 'Ácido Hialurónico', servicePath: '/estetica/facial/hialuronico'},
                 { serviceName: 'Láser CO2 Fraccionado', servicePath: '/estetica/masculina/laser-co2'},
@@ -309,7 +309,7 @@ const menuData: MenuItem[]= [
             },
             {
               name: 'Parpados Caidos',
-              imageUrl: '/images/parpadocaido.jpeg',
+              imageUrl: '/images/MASC-PARPADO CAIDO PORTADA.jpg',
               services: [
                 { serviceName: 'HIFU', servicePath: '/estetica/masculina/hifu'},
                 { serviceName: 'Blefaroplastia sin cirugía con láser CO2', servicePath: '/estetica/masculina/blefaroplastia'},
@@ -317,7 +317,7 @@ const menuData: MenuItem[]= [
             },
             {
               name: 'Reducir Volumen Corporal',
-              imageUrl: '/images/reducirvolumen.jpeg',
+              imageUrl: '/images/MASC-REDUCIR VOLUMEN CORPORAL PORTADA.png',
               services: [
                 { serviceName: 'HIFU Corporal', servicePath: '/estetica/masculina/hifu-corporal'},
                 { serviceName: 'Blefaroplastia sin cirugía con láser CO2', servicePath: '/estetica/masculina/blefaroplastia'},
@@ -327,7 +327,7 @@ const menuData: MenuItem[]= [
             },
             {
               name: 'Rejuvenecimiento Facial',
-              imageUrl: '/images/rejuvenecimientofacial.jpeg',
+              imageUrl: '/images/MASC-REJUVENECIMIENTO FACIAL HIFU.jpg',
               services: [
                 { serviceName: 'Coctel de Vitaminas Mesoterapia', servicePath: '/estetica/masculina/mesoterapia-vitaminas'},
                 { serviceName: 'Enzimas Recombinantes', servicePath: '/estetica/masculina/enzimas-recombinantes' },
@@ -337,7 +337,7 @@ const menuData: MenuItem[]= [
             },
             {
               name: 'Corregir el Acné',
-              imageUrl: '/images/reduciracne.jpeg',
+              imageUrl: '/images/MASC-CORREGIR ACNE PORTADA.png',
               services: [
                 { serviceName: 'Peeling Químico', servicePath: '/estetica/masculina/peeling' },
                 { serviceName: 'IPL Pulsada Intensa', servicePath: '/estetica/masculina/ipl-pulsada'},

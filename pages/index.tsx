@@ -6,7 +6,6 @@ import Stats from '@/components/facts';
 import Intro from '@/components/intro';
 import Cards1 from '@/components/cards1';
 import Cards2 from '@/components/cards2';
-import Carousel from '@/components/carousel';
 import menuData from '@/components/menudata';
 
 const Home: React.FC = () => {
@@ -25,7 +24,7 @@ const Home: React.FC = () => {
           <Cards1 services={esteticaData} />
           <Cards2 services={antiagingData} />
           <Stats />
-          <Carousel />
+   
           <Newsletter />
         </DefaultLayout>
       </RootLayout>
