@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import 'tailwindcss/tailwind.css';
+import { FaUser, FaLock } from 'react-icons/fa';
 
 interface Service {
     _id: string;
@@ -443,5 +444,70 @@ const ServiceManagement: React.FC = () => {
         </div>
     );
 };
+const LoginPage: React.FC<{ onLogin: () => void }> = ({ onLogin }) => {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState<string | null>(null);
 
-export default ServiceManagement;
+    const handleLogin = (e: React.FormEvent) => {
+        e.preventDefault();
+        const envUsername = process.env.REACT_APP_USERNAME;
+        const envPassword = process.env.REACT_APP_PASSWORD;
+        
+        if (username === envUsername && password === envPassword) {
+            localStorage.setItem('isLoggedIn', 'true');
+            onLogin();
+        } else {
+            setError('Invalid username or password');
+        }
+    };
+
+    return (
+        <div className="flex items-center justify-center h-screen bg-gray-100">
+            <form onSubmit={handleLogin} className="bg-white p-8 rounded shadow-md w-80">
+                <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
+                {error && <div className="text-red-500 mb-4">{error}</div>}
+                <div className="flex items-center mb-4 border-b-2 py-2">
+                    <FaUser className="mr-2 text-gray-400" />
+                    <input
+                        type="text"
+                        placeholder="Username"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        className="w-full p-2 focus:outline-none"
+                    />
+                </div>
+                <div className="flex items-center mb-6 border-b-2 py-2">
+                    <FaLock className="mr-2 text-gray-400" />
+                    <input
+                        type="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        className="w-full p-2 focus:outline-none"
+                    />
+                </div>
+                <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">
+                    Login
+                </button>
+            </form>
+        </div>
+    );
+};
+
+const App: React.FC = () => {
+    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+
+    useEffect(() => {
+        const loggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        setIsLoggedIn(loggedIn);
+    }, []);
+
+    const handleLogin = () => {
+        setIsLoggedIn(true);
+    };
+
+    return isLoggedIn ? <ServiceManagement /> : <LoginPage onLogin={handleLogin} />;
+};
+
+export default App;
