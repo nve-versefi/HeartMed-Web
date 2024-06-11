@@ -45,7 +45,7 @@ const handler = async (req: NextApiRequestWithFiles, res: NextApiResponse) => {
         });
       });
 
-      const { title, category, subcategory, what, how, area, time, anesthesia, finance, results, objective1, objective2, extra, faq1, answer1, faq2, answer2, faq3, answer3, faq4, answer4, faq5, answer5, faq6, answer6, faq7, answer7, faq8, answer8, faq9, answer9, targetAreas, objectives, relatedProd } = req.body;
+      const { title, category, subcategory, what, how, area, time, anesthesia, finance, results, hospital, objective1, objective2, extra, faq1, answer1, faq2, answer2, faq3, answer3, faq4, answer4, faq5, answer5, faq6, answer6, faq7, answer7, faq8, answer8, faq9, answer9, targetAreas, objectives, relatedProd } = req.body;
 
       const cover = convertFileToBase64(req.files?.['cover']?.[0]);
       const image1 = convertFileToBase64(req.files?.['image1']?.[0]);
@@ -69,6 +69,7 @@ const handler = async (req: NextApiRequestWithFiles, res: NextApiResponse) => {
         anesthesia,
         finance,
         results,
+        hospital,
         objective1,
         objective2,
         extra,

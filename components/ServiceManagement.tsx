@@ -16,6 +16,7 @@ interface Service {
     time?: string;
     finance?: string;
     results?: string;
+    hospital?: string;
     how?: string;
     area?: string;
     objective1?: string;
@@ -102,6 +103,7 @@ const ServiceManagement: React.FC = () => {
             formData.append('anesthesia', service.anesthesia || '');
             formData.append('finance', service.finance || '');
             formData.append('results', service.results || '');
+            formData.append('hospital', service.hospital || '');
             formData.append('faq1', service.faq1 || '');
             formData.append('answer1', service.answer1 || '');
             formData.append('faq2', service.faq2 || '');
@@ -238,6 +240,7 @@ const ServiceManagement: React.FC = () => {
             anesthesia: formData.get('anesthesia') as string,
             finance: formData.get('finance') as string,
             results: formData.get('results') as string,
+            hospital: formData.get('hospital') as string,
             faq1: formData.get('faq1') as string,
             answer1: formData.get('answer1') as string,
             faq2: formData.get('faq2') as string,
@@ -351,6 +354,10 @@ const ServiceManagement: React.FC = () => {
                     <textarea name="results" placeholder="Resultados" defaultValue={editingService?.results} className="border rounded p-2" onChange={handleTextareaChange}></textarea>
                 </div>
                 <div className="flex flex-col">
+                    <label className="font-semibold">Hospitalización</label>
+                    <textarea name="hospital" placeholder="Detalles, tiempo, etc" defaultValue={editingService?.hospital} className="border rounded p-2" onChange={handleTextareaChange}></textarea>
+                </div>
+                <div className="flex flex-col">
                     <label className="font-semibold">FAQ 1</label>
                     <input type="text" name="faq1" placeholder="Pregunta Frecuente 1" defaultValue={editingService?.faq1} className="border rounded p-2" />
                 </div>
@@ -393,6 +400,7 @@ const ServiceManagement: React.FC = () => {
     if (!service.time) missingFields.push('Tiempo');
     if (!service.results) missingFields.push('Resultados');
     if (!service.anesthesia) missingFields.push('Anestesia');
+    if (!service.hospital) missingFields.push('Hospitalización');
 
    // console.log('Service:', service);
    // console.log('Missing Fields:', missingFields);
@@ -468,13 +476,13 @@ const LoginPage: React.FC<{ onLogin: () => void }> = ({ onLogin }) => {
     return (
         <div className="flex items-center justify-center h-screen bg-gray-100">
             <form onSubmit={handleLogin} className="bg-white p-8 rounded shadow-md w-80">
-                <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
+                <h2 className="text-2xl font-bold mb-6 text-center">Portal HeartMed</h2>
                 {error && <div className="text-red-500 mb-4">{error}</div>}
                 <div className="flex items-center mb-4 border-b-2 py-2">
                     <FaUser className="mr-2 text-gray-400" />
                     <input
                         type="text"
-                        placeholder="Username"
+                        placeholder="Usuario"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         className="w-full p-2 focus:outline-none"
@@ -484,14 +492,14 @@ const LoginPage: React.FC<{ onLogin: () => void }> = ({ onLogin }) => {
                     <FaLock className="mr-2 text-gray-400" />
                     <input
                         type="password"
-                        placeholder="Password"
+                        placeholder="Contraseña"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         className="w-full p-2 focus:outline-none"
                     />
                 </div>
                 <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">
-                    Login
+                    Entrar
                 </button>
             </form>
         </div>
