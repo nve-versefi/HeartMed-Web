@@ -12,22 +12,24 @@ const renderTextWithLineBreaks = (text: string | undefined) => {
   ));
 };
 
-
 interface ServiceInfoProps {
   serviceData: any;
 }
 
-const ServiceInfo: React.FC< ServiceInfoProps > = ({ serviceData }) => {
+const ServiceInfo: React.FC<ServiceInfoProps> = ({ serviceData }) => {
   if (!serviceData) {
     return <p>Loading...</p>;
   }
+
+  console.log('ServiceData:', serviceData); // Debugging output
+
   return (
     <div className="container mx-auto">
       <div className="banner-container">
         <div className="w-screen h-64 overflow-hidden relative">
           <div
             className="bg-cover bg-center h-full w-screen flex items-center justify-center absolute top-0 left-0"
-            style={{ backgroundImage: `url(${serviceData.image1})` }}
+            style={{ backgroundImage: `url(${serviceData.image1 || ''})` }}
           >
             <h1 className="text-2xl font-bold text-white mb-4">{serviceData.title}</h1>
           </div>
@@ -35,25 +37,21 @@ const ServiceInfo: React.FC< ServiceInfoProps > = ({ serviceData }) => {
       </div>
       <div className="container mx-auto">
         <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 mb-4">
-          {/* What Section */}
           <div>
             <h2 className="text-2xl text-thunderbird-500 font-bold">¿Por qué elegir nuestra Rinomodelación?</h2>
             <p className="text-lg text-woodsmoke-700 font-regular">{renderTextWithLineBreaks(serviceData.what)}</p>
           </div>
 
-          {/* How Section */}
           <div>
             <h2 className="text-2xl text-thunderbird-500 font-bold">No Invasiva</h2>
             <p className="text-lg text-woodsmoke-700 font-regular">{renderTextWithLineBreaks(serviceData.how)}</p>
           </div>
 
-          {/* Area Section */}
           <div>
             <h2 className="text-2xl text-thunderbird-500 font-bold">Resultados Inmediatos</h2>
             <p className="text-lg text-woodsmoke-700 font-regular">{renderTextWithLineBreaks(serviceData.area)}</p>
           </div>
 
-          {/* Extra Info Section */}
           {serviceData.extra && (
             <div>
               <h2 className="text-2xl text-thunderbird-500 font-bold">¿Listo para transformar tu nariz sin cirugía?</h2>
@@ -62,14 +60,12 @@ const ServiceInfo: React.FC< ServiceInfoProps > = ({ serviceData }) => {
           )}
         </div>
 
-        {/* Objectives Section */}
         <div className="mb-4 text-center">
           <h2 className="text-2xl text-thunderbird-500 font-bold">Recuperación Rápida, Sin Marcas ni Cicatrices</h2>
           <p className="text-lg">{renderTextWithLineBreaks(serviceData.objective1)}</p>
           <p className="text-lg">{renderTextWithLineBreaks(serviceData.objective2)}</p>
         </div>
 
-        {/* Images Section */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           {serviceData.image1 && (
             <div className="w-full h-64">
@@ -91,7 +87,6 @@ const ServiceInfo: React.FC< ServiceInfoProps > = ({ serviceData }) => {
           )}
         </div>
 
-        {/* Icons Section */}
         <div className="p-6 my-8">
           <div className="grid grid-cols-3 gap-6">
             <div className="text-center">
@@ -121,7 +116,6 @@ const ServiceInfo: React.FC< ServiceInfoProps > = ({ serviceData }) => {
           </div>
         </div>
 
-        {/* Accordion Component */}
         <AccordionComponent serviceData={serviceData} />
       </div>
     </div>
