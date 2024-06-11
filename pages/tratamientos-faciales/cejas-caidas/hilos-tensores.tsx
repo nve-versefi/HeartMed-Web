@@ -17,7 +17,7 @@ const Home: React.FC = () => {
         if (response.ok) {
           const data = await response.json();
           console.log('Fetched service data:', data);
-          setServiceData(data.service); // Correctly set the service data
+          setServiceData(data.service); 
         } else {
           console.error('Failed to fetch service:', response.statusText);
         }
