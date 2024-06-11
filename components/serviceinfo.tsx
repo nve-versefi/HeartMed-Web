@@ -17,9 +17,10 @@ interface ServiceInfoProps {
   serviceData: any;
 }
 
-const ServiceInfo: React.FC<ServiceInfoProps> = ({ serviceData }) => {
-  if (!serviceData) return <div>Service not found</div>;
-
+const ServiceInfo: React.FC< ServiceInfoProps > = ({ serviceData }) => {
+  if (!serviceData) {
+    return <p>Loading...</p>;
+  }
   return (
     <div className="container mx-auto">
       <div className="banner-container">
