@@ -1,8 +1,0 @@
-{
-    "functions": {
-      "api/services": {
-        "maxDuration": 10 
-      }
-    }
-  }
-  
