@@ -1,13 +1,19 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import { MongoClient } from 'mongodb';
 import connect from '@/app/lib/mongodb';
+
+let cachedClient: MongoClient | null = null;
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'GET') {
         try {
             const { title, objectives, subcategory } = req.query;
-            console.log('Received query params:', { title, objectives, subcategory }); // Log the received query parameters
+            console.log('Received query params:', { title, objectives, subcategory });
 
-            const client = await connect();
+            if (!cachedClient) {
+                cachedClient = await connect();
+            }
+            const client = cachedClient;
             const db = client.db('Web');
             const servicesCollection = db.collection('Tratamientos');
 
@@ -16,12 +22,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             if (objectives) query.objectives = { $in: [objectives] };
             if (subcategory) query.subcategory = subcategory;
 
-            console.log('Query:', query); // Log the query
-
-            // Indexes ensure that the queries run efficiently
-            await servicesCollection.createIndex({ title: 1 });
-            await servicesCollection.createIndex({ objectives: 1 });
-            await servicesCollection.createIndex({ subcategory: 1 });
+            console.log('Query:', query);
 
             const service = await servicesCollection.findOne(query, {
                 projection: {
@@ -74,7 +75,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             console.log('Service fetched:', service);
 
             res.status(200).json({ service });
-        } catch (error) {            console.error('Failed to fetch service:', error);
+        } catch (error) {
+            console.error('Failed to fetch service:', error);
             res.status(500).json({ error: 'Failed to fetch service' });
         }
     } else {
@@ -82,4 +84,3 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         res.status(405).end(`Method ${req.method} Not Allowed`);
     }
 }
-
