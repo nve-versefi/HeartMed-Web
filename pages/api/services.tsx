@@ -10,6 +10,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             const { title, objectives, subcategory } = req.query;
             console.log('Received query params:', { title, objectives, subcategory });
 
+            // Start time for logging
+            const startTime = Date.now();
+
             if (!cachedClient) {
                 cachedClient = await connect();
             }
@@ -23,19 +26,25 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             if (objectives) query.objectives = { $in: [objectives] };
             if (subcategory) query.subcategory = subcategory;
 
-            console.log('Query:', query);
+            console.log('Constructed query:', query);
 
             // Fetch the document that matches the query
             const partialService = await servicesCollection.findOne(query, {
                 projection: { _id: 1 } // Only fetch the _id to minimize data transfer
             });
 
+            console.log('Partial service fetch duration:', Date.now() - startTime, 'ms');
+
             if (!partialService) {
                 return res.status(404).json({ error: 'Service not found' });
             }
 
             // Fetch all fields for the matching document
+            const serviceStartTime = Date.now();
             const service = await servicesCollection.findOne({ _id: partialService._id });
+
+            console.log('Full service fetch duration:', Date.now() - serviceStartTime, 'ms');
+            console.log('Total fetch duration:', Date.now() - startTime, 'ms');
 
             if (!service) {
                 return res.status(404).json({ error: 'Service not found' });
