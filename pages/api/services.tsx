@@ -14,6 +14,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             const startTime = Date.now();
 
             if (!cachedClient) {
+                console.log('Connecting to database...');
                 cachedClient = await connect();
             }
             const client = cachedClient;
@@ -29,22 +30,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             console.log('Constructed query:', query);
 
             // Fetch the document that matches the query
-            const partialService = await servicesCollection.findOne(query, {
-                projection: { _id: 1 } // Only fetch the _id to minimize data transfer
-            });
-
-            console.log('Partial service fetch duration:', Date.now() - startTime, 'ms');
-
-            if (!partialService) {
-                return res.status(404).json({ error: 'Service not found' });
-            }
-
-            // Fetch all fields for the matching document
             const serviceStartTime = Date.now();
-            const service = await servicesCollection.findOne({ _id: partialService._id });
+            const service = await servicesCollection.findOne(query);
 
-            console.log('Full service fetch duration:', Date.now() - serviceStartTime, 'ms');
-            console.log('Total fetch duration:', Date.now() - startTime, 'ms');
+            console.log('Service fetch duration:', Date.now() - serviceStartTime, 'ms');
+            console.log('Total duration:', Date.now() - startTime, 'ms');
 
             if (!service) {
                 return res.status(404).json({ error: 'Service not found' });
@@ -62,3 +52,4 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         res.status(405).end(`Method ${req.method} Not Allowed`);
     }
 }
+
