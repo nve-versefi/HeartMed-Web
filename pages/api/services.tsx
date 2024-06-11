@@ -11,23 +11,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             const db = client.db('Web');
             const servicesCollection = db.collection('Tratamientos');
 
-            const query: any = {
-                $and: []
-            };
-
-            if (title) {
-                query.$and.push({ title: title as string });
-            }
-            if (objectives) {
-                query.$and.push({ objectives: { $in: [objectives as string] } });
-            }
-            if (subcategory) {
-                query.$and.push({ subcategory: subcategory as string });
-            }
+            const query: any = {};
+            if (title) query.title = title;
+            if (objectives) query.objectives = { $in: [objectives] };
+            if (subcategory) query.subcategory = subcategory;
 
             console.log('Query:', query); // Log the query
 
-            const services = await servicesCollection.find(query, {
+            // Indexes ensure that the queries run efficiently
+            await servicesCollection.createIndex({ title: 1 });
+            await servicesCollection.createIndex({ objectives: 1 });
+            await servicesCollection.createIndex({ subcategory: 1 });
+
+            const service = await servicesCollection.findOne(query, {
                 projection: {
                     title: 1,
                     category: 1,
@@ -69,17 +65,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     objectives: 1,
                     relatedProd: 1,
                 }
-            }).toArray();
+            });
 
-            if (services.length === 0) {
+            if (!service) {
                 return res.status(404).json({ error: 'Service not found' });
             }
 
-            console.log('Services fetched:', services);
+            console.log('Service fetched:', service);
 
-            res.status(200).json({ services });
-        } catch (error) {
-            console.error('Failed to fetch service:', error);
+            res.status(200).json({ service });
+        } catch (error) {            console.error('Failed to fetch service:', error);
             res.status(500).json({ error: 'Failed to fetch service' });
         }
     } else {
@@ -87,3 +82,4 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         res.status(405).end(`Method ${req.method} Not Allowed`);
     }
 }
+
