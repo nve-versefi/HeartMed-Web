@@ -17,6 +17,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             const db = client.db('Web');
             const servicesCollection = db.collection('Tratamientos');
 
+            // Construct the query object based on the parameters
             const query: any = {};
             if (title) query.title = title;
             if (objectives) query.objectives = { $in: [objectives] };
@@ -24,49 +25,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
             console.log('Query:', query);
 
-            const service = await servicesCollection.findOne(query, {
-                projection: {
-                    title: 1,
-                    category: 1,
-                    subcategory: 1,
-                    cover: 1,
-                    image1: 1,
-                    image2: 1,
-                    image3: 1,
-                    what: 1,
-                    anesthesia: 1,
-                    time: 1,
-                    finance: 1,
-                    results: 1,
-                    hospital: 1,
-                    how: 1,
-                    area: 1,
-                    objective1: 1,
-                    objective2: 1,
-                    extra: 1,
-                    faq1: 1,
-                    answer1: 1,
-                    faq2: 1,
-                    answer2: 1,
-                    faq3: 1,
-                    answer3: 1,
-                    faq4: 1,
-                    answer4: 1,
-                    faq5: 1,
-                    answer5: 1,
-                    faq6: 1,
-                    answer6: 1,
-                    faq7: 1,
-                    answer7: 1,
-                    faq8: 1,
-                    answer8: 1,
-                    faq9: 1,
-                    answer9: 1,
-                    targetAreas: 1,
-                    objectives: 1,
-                    relatedProd: 1,
-                }
+            // Fetch the document that matches the query
+            const partialService = await servicesCollection.findOne(query, {
+                projection: { _id: 1 } // Only fetch the _id to minimize data transfer
             });
+
+            if (!partialService) {
+                return res.status(404).json({ error: 'Service not found' });
+            }
+
+            // Fetch all fields for the matching document
+            const service = await servicesCollection.findOne({ _id: partialService._id });
 
             if (!service) {
                 return res.status(404).json({ error: 'Service not found' });
