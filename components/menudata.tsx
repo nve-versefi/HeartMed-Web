@@ -4,13 +4,13 @@ const menuData: MenuItem[]= [
     {
       id: 1,
       title: "Medicina Estética",
-      path: "/estetica",
+      path: "/medicina-estetica",
       image:"/images/estetica.menu.jpg",
       newTab: false,
       submenu: [
         { 
           name: 'Tratamientos Faciales', 
-          path: '/estetica/facial',
+          path: '/tratamientos-faciales',
           imagePath:'/images/placeholder_image.png',
           imageUrl: '/images/placeholder_image.png',
           problems: [
@@ -164,7 +164,7 @@ const menuData: MenuItem[]= [
         },
         { 
           name: 'Tratamientos Corporales', 
-          path: '/estetica/corporal',
+          path: '/tratamiento-corporales',
           imageUrl: '/images/placeholder_image.png',
           imagePath:'/images/OZONOTERAPIA.CELULITIS.png',
           
@@ -262,7 +262,7 @@ const menuData: MenuItem[]= [
         },
         { 
           name: 'Medicina Estética Masculina', 
-          path: '/estetica/masculina',
+          path: '/estetica-masculina',
           imageUrl: '/images/placeholder_image.png',
           imagePath:'/images/estetica.masculina.png',
           problems: [
@@ -382,7 +382,7 @@ const menuData: MenuItem[]= [
         },
         { 
           name: 'Cirugías Medicoestéticas', 
-          path: '/estetica/cirugias',
+          path: '/cirugias-medicoesteticas',
           imageUrl: '/images/placeholder_image.png',
           imagePath:'/images/estetica.cirugias.png',
           problems: [
@@ -434,7 +434,7 @@ const menuData: MenuItem[]= [
     {
       id: 2,
       title: "Medicina Regenerativa",
-      path: "/anti-aging",
+      path: "/medicina-antiaging",
       
       image:"/images/antiaging.png",
       newTab: false,

@@ -5,10 +5,10 @@ import Form from './form';
 import { FaCheckCircle, FaCog, FaUserTie, FaStar, FaMapMarkerAlt } from 'react-icons/fa';
 
 const AntiAgingMenu: React.FC = () => {
-  const antiagingMenu = menuData.find((menu) => menu.title === 'Medicina Anti-Aging');
+  const antiagingMenu = menuData.find((menu) => menu.title === 'Medicina Regenerativa');
 
   if (!antiagingMenu) {
-    return <div>Medicina Estética menu not found.</div>;
+    return <div>Medicina Regenerativa Menu not found.</div>;
   }
 
   return (
@@ -109,18 +109,7 @@ const AntiAgingMenu: React.FC = () => {
             </div>
           ))}
         </div>
-        <div className="submenu-item flex flex-col items-center">
-          <Link href={antiagingMenu.submenu[4].path}>
-            <h3 className="text-xl text-center font-semibold mb-2 cursor-pointer">
-              {antiagingMenu.submenu[4].name}
-            </h3>
-            <img
-              src={antiagingMenu.submenu[4].imageUrl}
-              alt={antiagingMenu.submenu[4].name}
-              className="mb-4 w-48 h-48 object-cover cursor-pointer"
-            />
-          </Link>
-        </div>
+
       </div>
 
       <div id="masInformacion" className="mas-informacion my-8">
