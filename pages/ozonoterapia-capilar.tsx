@@ -9,9 +9,8 @@ const Home: React.FC = () => {
   useEffect(() => {
     const fetchServiceData = async () => {
       try {
-        const encodedTitle = encodeURIComponent('Varices y Arañas Vasculares');
-        const encodedSubcategory = encodeURIComponent('terapia-epigenetica');
-        const response = await fetch(`/api/services?title=${encodedTitle}&subcategory=${encodedSubcategory}`);
+        const encodedTitle = encodeURIComponent('Ozonoterapia Capilar');
+        const response = await fetch(`/api/services?title=${encodedTitle}`);
         
         if (response.ok) {
           const data = await response.json();
