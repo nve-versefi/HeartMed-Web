@@ -7,8 +7,8 @@ let cachedClient: MongoClient | null = null;
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'GET') {
     try {
-      const { title, objectives, subcategory } = req.query;
-      console.log('Received query params:', { title, objectives, subcategory });
+      const { title, objectives, subcategory, targetAreas} = req.query;
+      console.log('Received query params:', { title, objectives, subcategory, targetAreas});
 
       // Start time for logging
       const startTime = Date.now();
@@ -31,6 +31,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const query: any = {};
       if (title) query.title = title;
       if (objectives) query.objectives = { $in: [objectives] };
+      if (targetAreas) query.targetAreas = { $in: [targetAreas]};
       if (subcategory) query.subcategory = subcategory;
 
       console.log('Constructed query:', query);
