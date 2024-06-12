@@ -28,9 +28,9 @@ const menuData: MenuItem[]= [
               name: 'Corrección de manchas',
               imageUrl: '/images/PORTADA_EMBELLECIMIENTO_PIEL.png',
               services: [
-                { serviceName: 'Peeling Químico', servicePath: '/tratamientos-faciales/peeling' },
-                { serviceName: 'Rejuvenecimiento con IPL', servicePath: '/estetica/facial/ipl'},
-                { serviceName: 'Láser CO2 Fraccionado', servicePath: '/estetica/facial/laser-co2'},
+                { serviceName: 'Peeling Químico', servicePath: '/tratamientos-faciales/corregir-manchas/peeling-quimico' },
+                { serviceName: 'Rejuvenecimiento con IPL', servicePath: '/tratamientos-faciales/corregir-manchas/ipl'},
+                { serviceName: 'Láser CO2 Fraccionado', servicePath: '/tratamientos-faciales/corregir-manchas/laser-co2'},
               ]
             },
             {
@@ -375,7 +375,7 @@ const menuData: MenuItem[]= [
                 { serviceName: 'Eliminar Verrugas', servicePath: '/estetica-masculina/trastornos-piel/eliminar-verrugas'},
                 { serviceName: 'Poros Dilatados', servicePath: '/estetica-masculina/trastornos-piel/poros-dilatados'},
                 { serviceName: 'Puntos de Rubí', servicePath: '/estetica-masculina/trastornos-piel/puntos-rubi'},
-                { serviceName: 'Rosácea', servicePath: '/estetica-masculina/trastornos-piel/rosacea'},
+                { serviceName: 'Rosácea', servicePath: '/estetica-masculina/trastornos-piel/rosacea-couperosis'},
               ]
             },
           ]
@@ -433,7 +433,7 @@ const menuData: MenuItem[]= [
     },
     {
       id: 2,
-      title: "Medicina Anti-Aging",
+      title: "Medicina Regenerativa",
       path: "/anti-aging",
       
       image:"/images/antiaging.png",
@@ -441,7 +441,7 @@ const menuData: MenuItem[]= [
       submenu: [
         { 
           name: 'Ozonoterapia Médica y Estética', 
-          path: '/anti-aging/ozonoterapia',
+          path: '/ozonoterapia-medicoestetica',
           imageUrl: '/images/placeholder_image.png',
           imagePath:'/images/antiaging.ozonoterapia.png',
           problems: [
@@ -449,52 +449,51 @@ const menuData: MenuItem[]= [
               name: 'Ozonoterapia Capilar',
               imageUrl: '/images/ozonoterapiacapilar.jpeg',
               services: [
-                { serviceName: 'Ozonoterapia Capilar', servicePath: '/anti-aging/ozonoterapia/capilar'},
+                { serviceName: 'Ozonoterapia Capilar', servicePath: '/ozonoterapia-capilar/ozonoterapia-capilar'},
               ]
             },
             {
               name: 'Ozonoterapia Estética',
               imageUrl: '/images/ozonoterapiaestetica.jpeg',
               services: [
-                { serviceName: 'Acné', servicePath: '/anti-aging/ozonoterapia/acne'},
-                { serviceName: 'Celulitis', servicePath: '/anti-aging/ozonoterapia/celulitis'},
-                { serviceName: 'Embellecimiento de la Piel', servicePath: '/anti-aging/ozonoterapia/embellecimiento-piel'},
-                { serviceName: 'Post-Cirugía', servicePath: '/anti-aging/ozonoterapia/post-cirugia'},
-                { serviceName: 'Post-Dermopigmentación', servicePath: '/anti-aging/ozonoterapia/post-dermopigmentacion'},
-                { serviceName: 'Rejuvenecimiento Facial', servicePath: '/anti-aging/ozonoterapia/rejuvenecimiento-facial'},
-                { serviceName: 'Rosácea', servicePath: '/anti-aging/ozonoterapia/rosacea'},
-                { serviceName: 'Varices y Arañas Vasculares', servicePath: '/anti-aging/ozonoterapia/varices-aranas-vasculares'},
+                { serviceName: 'Acné', servicePath: '/ozonoterapia-estetica/corregir-acne'},
+                { serviceName: 'Celulitis', servicePath: '/ozonoterapia-estetica/eliminar-celulitis'},
+                { serviceName: 'Embellecimiento de la Piel', servicePath: '/ozonoterapia-estetica/embellecer-piel'},
+                { serviceName: 'Post-Cirugía', servicePath: '/ozonoterapia-estetica/post-cirugia'},
+                { serviceName: 'Post-Dermopigmentación', servicePath: '/ozonoterapia-estetica/post-dermopigmentacion'},
+                { serviceName: 'Rejuvenecimiento Facial', servicePath: '/ozonoterapia-estetica/rejuvenecimiento-facial'},
+                { serviceName: 'Rosácea', servicePath: '/ozonoterapia-estetica/rosacea-couperosis'},
+                { serviceName: 'Varices y Arañas Vasculares', servicePath: '/ozonoterapia-estetica/arañas-y-varices'},
               ]
             },
             {
               name: 'Ozonoterapia Médica',
               imageUrl: '/images/ozonoterapiamedica.jpeg',
               services: [
-                { serviceName: 'Atrosis de Cadera', servicePath: '/anti-aging/ozonoterapia/atrosis-cadera'},
-                { serviceName: 'Bursitis de Cadera', servicePath: '/anti-aging/ozonoterapia/bursitis-cadera'},
-                { serviceName: 'Necrosis de Cadera', servicePath: '/anti-aging/ozonoterapia/necrosis-cadera'},
-                { serviceName: 'Trocanteritis de Cadera', servicePath: '/anti-aging/ozonoterapia/trocanteritis-cadera'},
-                { serviceName: 'Atrosis y Artritis de Codo', servicePath: '/anti-aging/ozonoterapia/hifu'},
-                { serviceName: 'Bursitis de Codo', servicePath: '/anti-aging/ozonoterapia/atrosis-codo'},
-                { serviceName: 'Epicondulitis de Codo', servicePath: '/anti-aging/ozonoterapia/epicondulitis-codo'},
-                { serviceName: 'Tendinitis de Codo', servicePath: '/anti-aging/ozonoterapia/tendinitis-codo'},
-                { serviceName: 'Atrosis de Columna', servicePath: '/anti-aging/ozonoterapia/atrosis-columna'},
-                { serviceName: 'Ciatica de Columna', servicePath: '/anti-aging/ozonoterapia/ciatica-columna'},
-                { serviceName: 'Dolor de Espalda', servicePath: '/anti-aging/ozonoterapia/dolor-espalda'},
-                { serviceName: 'Hernia Discal, Cervical, Dorsal y Lumbar', servicePath: '/anti-aging/ozonoterapia/hernias'},
-                { serviceName: 'Atrosis y Artritis de Hombro', servicePath: '/anti-aging/ozonoterapia/atrosis-hombro'},
-                { serviceName: 'Bursitis de Hombro', servicePath: '/anti-aging/ozonoterapia/bursitis-hombro'},
-                { serviceName: 'Tendinitis de Bicipital', servicePath: '/anti-aging/ozonoterapia/tendinitis-bicipital'},
-                { serviceName: 'Tendinitis del Supraespinoso', servicePath: '/anti-aging/ozonoterapia/tendinitis-supraespinoso'},
-                { serviceName: 'Tendinitis de Manguito Rotador', servicePath: '/anti-aging/ozonoterapia/tendinitis-manguito-rotador'},
+                { serviceName: 'Atrosis de Cadera', servicePath: '/ozonoterapia-medica/cadera/atrosis'},
+                { serviceName: 'Bursitis de Cadera', servicePath: '/ozonoterapia-medica/cadera/bursitis'},
+                { serviceName: 'Necrosis de Cadera', servicePath: '/ozonoterapia-medica/cadera/necrosis'},
+                { serviceName: 'Trocanteritis de Cadera', servicePath: '/ozonoterapia-medica/cadera/trocanteritis'},
+                { serviceName: 'Atrosis y Artritis de Codo', servicePath: '/ozonoterapia-medica/codo/artrosis-y-artritis'},
+                { serviceName: 'Bursitis de Codo', servicePath: '/ozonoterapia-medica/codo/bursitis'},
+                { serviceName: 'Epicondulitis de Codo', servicePath: '/ozonoterapia-medica/codo/epicondulitis'},
+                { serviceName: 'Tendinitis de Codo', servicePath: '/ozonoterapia-medica/codo/tendinitis'},
+                { serviceName: 'Atrosis de Columna', servicePath: '/ozonoterapia-medica/espalda/atrosis-columna'},
+                { serviceName: 'Ciatica de Columna', servicePath: '/ozonoterapia-medica/espalda/ciatica-columna'},
+                { serviceName: 'Dolor de Espalda', servicePath: '/ozonoterapia-medica/espalda/dolor-espalda'},
+                { serviceName: 'Hernia Discal, Cervical, Dorsal y Lumbar', servicePath: '/ozonoterapia-medica/espalda/hernias'},
+                { serviceName: 'Atrosis y Artritis de Hombro', servicePath: '/ozonoterapia-medica/hombro/artrosis-y-artritis'},
+                { serviceName: 'Bursitis de Hombro', servicePath: '/ozonoterapia-medica/hombro/bursitis'},
+                { serviceName: 'Tendinitis de Bicipital', servicePath: '/ozonoterapia-medica/hombro/tendinitis-bicipital'},
+                { serviceName: 'Tendinitis del Supraespinoso', servicePath: '/ozonoterapia-medica/hombro/tendinitis-supraespinoso'},
+                { serviceName: 'Tendinitis de Manguito Rotador', servicePath: '/ozonoterapia-medica/hombro/tendinitis-manguito'},
               ]
             },
           ]
         },
-        { name: 'Equilibrio Hormonal Chip de la Juventud', imagePath: '/images/estet.jpg', path: '/anti-aging/chip-juventud', imageUrl: '/images/placeholder_image.png'},
-        { name: 'Turismo de salud', imagePath: '/images/medic.jpg', path: '/anti-aging/turismo-salud', imageUrl: '/images/placeholder_image.png'},
-        { name: 'Medicina Funcional y Nutrición Celular Ortomolecular', imagePath: '/images/placeholder-image.png', path: '/anti-aging/nutricion-funcional', imageUrl: '/images/placeholder_image.png'},
-        { name: 'Sueroterapia', imagePath: '/images/estetica.menu.jpg', path: '/anti-aging/sueroterapia', imageUrl: '/images/placeholder_image.png'},
+        { name: 'Terapia con Péptidos', imagePath: '/images/estet.jpg', path: '/terapia-peptidos', imageUrl: '/images/placeholder_image.png'},
+        { name: 'Medicina Funcional y Nutrición Celular Ortomolecular', imagePath: '/images/placeholder-image.png', path: '/medicina-ortomolecular', imageUrl: '/images/placeholder_image.png'},
+        { name: 'Sueroterapia', imagePath: '/images/estetica.menu.jpg', path: '/sueroterapia', imageUrl: '/images/placeholder_image.png'},
 
         ],
     },
