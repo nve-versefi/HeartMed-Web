@@ -10,9 +10,8 @@ const Home: React.FC = () => {
     const fetchServiceData = async () => {
       try {
         const encodedTitle = encodeURIComponent('Post-Dermopigmentación');
-        const encodedObjectives = encodeURIComponent('estetica');
-        const encodedSubcategory = encodeURIComponent('ozonoterapia-medicoestetica');
-        const response = await fetch(`/api/services?title=${encodedTitle}&objectives=${encodedObjectives}&subcategory=${encodedSubcategory}`);
+        const encodedSubcategory = encodeURIComponent('ozonoterapia-estetica');
+        const response = await fetch(`/api/services?title=${encodedTitle}&subcategory=${encodedSubcategory}`);
         
         if (response.ok) {
           const data = await response.json();

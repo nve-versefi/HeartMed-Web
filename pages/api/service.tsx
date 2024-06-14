@@ -18,16 +18,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                             title: 1,
                             category: 1,
                             subcategory: 1,
-                            cover: 1,
-                            image1: 1,
-                            image2: 1,
-                            image3: 1,
+                            image1_title: 1,
+                            image2_title: 1,
+                            image3_title: 1,
                             what: 1,
                             anesthesia: 1,
                             time: 1,
                             finance: 1,
                             results: 1,
-                            hospital:1,
+                            hospital: 1,
                             how: 1,
                             area: 1,
                             objective1: 1,
@@ -70,25 +69,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     projection: {
                         title: 1,
                         category: 1,
-                        what:1,
-                        how:1,
-                        area:1,
                         subcategory: 1,
+                        what: 1,
+                        how: 1,
+                        area: 1,
                         finance: 1,
-                        time:1,
-                        anesthesia:1,
-                        results:1,
-                        hospital:1,
-                        cover: 1,
-                        image1: 1,
-                        image2: 1,
-                        image3: 1,
-                        objectives: 1 
+                        time: 1,
+                        anesthesia: 1,
+                        results: 1,
+                        hospital: 1,
+                        image1_title: 1,
+                        image2_title: 1,
+                        image3_title: 1,
+                        objectives: 1
                     }
                 }).toArray();
-
                 //console.log('Services fetched:', services);
-
                 res.status(200).json({ services });
             }
         } catch (error) {

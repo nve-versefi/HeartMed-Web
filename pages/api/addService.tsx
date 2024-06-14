@@ -3,14 +3,18 @@ import connect from '@/app/lib/mongodb';
 import multer from 'multer';
 import { MongoClient } from 'mongodb';
 
-// Extend NextApiRequest to include files property
 interface NextApiRequestWithFiles extends NextApiRequest {
   files?: {
     [fieldname: string]: Express.Multer.File[];
   };
 }
 
-const upload = multer({ storage: multer.memoryStorage() });
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: 10 * 1024 * 1024, // 10 MB file size limit
+  },
+});
 
 export const config = {
   api: {
@@ -23,6 +27,10 @@ const convertFileToBase64 = (file: Express.Multer.File | undefined): string => {
   return `data:${file.mimetype};base64,${file.buffer.toString('base64')}`;
 };
 
+const getFileName = (file: Express.Multer.File | undefined): string => {
+  return file ? file.originalname : '';
+};
+
 const handler = async (req: NextApiRequestWithFiles, res: NextApiResponse) => {
   if (req.method === 'POST') {
     try {
@@ -30,7 +38,6 @@ const handler = async (req: NextApiRequestWithFiles, res: NextApiResponse) => {
 
       await new Promise<void>((resolve, reject) => {
         upload.fields([
-          { name: 'cover', maxCount: 1 },
           { name: 'image1', maxCount: 1 },
           { name: 'image2', maxCount: 1 },
           { name: 'image3', maxCount: 1 },
@@ -46,11 +53,18 @@ const handler = async (req: NextApiRequestWithFiles, res: NextApiResponse) => {
       });
 
       const { title, category, subcategory, what, how, area, time, anesthesia, finance, results, hospital, objective1, objective2, extra, faq1, answer1, faq2, answer2, faq3, answer3, faq4, answer4, faq5, answer5, faq6, answer6, faq7, answer7, faq8, answer8, faq9, answer9, targetAreas, objectives, relatedProd } = req.body;
+      
+      const image1File = req.files?.['image1']?.[0];
+      const image2File = req.files?.['image2']?.[0];
+      const image3File = req.files?.['image3']?.[0];
+      
+      const image1 = convertFileToBase64(image1File);
+      const image2 = convertFileToBase64(image2File);
+      const image3 = convertFileToBase64(image3File);
 
-      const cover = convertFileToBase64(req.files?.['cover']?.[0]);
-      const image1 = convertFileToBase64(req.files?.['image1']?.[0]);
-      const image2 = convertFileToBase64(req.files?.['image2']?.[0]);
-      const image3 = convertFileToBase64(req.files?.['image3']?.[0]);
+      const image1_title = getFileName(image1File);
+      const image2_title = getFileName(image2File);
+      const image3_title = getFileName(image3File);
 
       console.log("Images converted to base64 successfully.");
 
@@ -58,7 +72,9 @@ const handler = async (req: NextApiRequestWithFiles, res: NextApiResponse) => {
         title,
         category,
         subcategory,
-        cover,
+        image1_title,
+        image2_title,
+        image3_title,
         image1,
         image2,
         image3,
