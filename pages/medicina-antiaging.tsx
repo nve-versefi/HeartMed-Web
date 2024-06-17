@@ -2,7 +2,7 @@ import RootLayout from '@/app/layout';
 import DefaultLayout from '@/app/(default)/layout';
 import Head from 'next/head';
 import AntiAgingMenu from '@/components/antiagingmenu';
-import Accordion from '@/components/accordion'
+
 
 const Estetica: React.FC = () => {
   return (
@@ -14,7 +14,7 @@ const Estetica: React.FC = () => {
         <DefaultLayout>
           <div className='md:mx-48 sm:mx-24'>
             <AntiAgingMenu/>
-            <Accordion/>
+
           </div>
         </DefaultLayout>
     </RootLayout>
