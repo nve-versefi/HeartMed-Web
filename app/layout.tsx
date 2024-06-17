@@ -27,8 +27,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <>
       <Head>
-      <title>Clínicas HeartMed</title>
-      <meta name="description" content="A brief description of your page" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <link rel="icon" href="/images/logo.png" />
       </Head>

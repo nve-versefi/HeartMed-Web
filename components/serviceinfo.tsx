@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaHourglassHalf, FaMoneyBillWave, FaSyringe } from 'react-icons/fa';
 import AccordionComponent from './accordion';
+import Head from 'next/head';
 
 const renderTextWithLineBreaks = (text: string | undefined) => {
   if (!text) return null;
@@ -24,6 +25,46 @@ const ServiceInfo: React.FC<ServiceInfoProps> = ({ serviceData }) => {
   //console.log('ServiceData:', serviceData); 
 
   return (
+    <>
+    <Head>
+        <title>{serviceData.title} - HeartMed</title>
+        <meta name="description" content={serviceData.what} />
+        <meta property="og:title" content={serviceData.title} />
+        <meta property="og:description" content={serviceData.what} />
+        <meta property="og:type" content="website"/>
+        <meta property="og:url" content={`https://heart-med.vercel.app/${serviceData.subcategory}/${serviceData.objectives}/${serviceData.title}`} />
+        <link rel="canonical" href={`https://heart-med.vercel.app/${serviceData.subcategory}/${serviceData.objectives}/${serviceData.title}`} />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "http://schema.org",
+            "@type": "Service",
+            "serviceType": "TratamientoDeBelleza",
+            "provider": {
+              "@type": "Organization",
+              "name": "Heart Med",
+              "url": "https://heart-med.vercel.app",
+              // "location": {
+              //   "@type": "Place",
+              //   "address": {
+              //     "@type": "PostalAddress",
+              //     "streetAddress": "Calle Falsa 123",
+              //     "addressLocality": "Ciudad",
+              //     "addressRegion": "Región",
+              //     "postalCode": "12345",
+              //     "addressCountry": "ES"
+              //   }
+              // }
+            },
+            "areaServed": {
+              "@type": "Place",
+              "name": "España"
+            },
+            "url": `https://heart-med.vercel.app/${serviceData.subcategory}/${serviceData.objectives}/${serviceData.title}`,
+            "name": serviceData.title,
+            "description": serviceData.what
+          })}
+        </script>
+      </Head>
     <div className="container mx-auto">
       <div className="banner-container">
         <div className="w-screen h-64 overflow-hidden relative">
@@ -31,7 +72,7 @@ const ServiceInfo: React.FC<ServiceInfoProps> = ({ serviceData }) => {
             className="bg-cover bg-center h-full w-screen flex items-center justify-center absolute top-0 left-0"
             style={{ backgroundImage: `url(${serviceData.image1 || ''})` }}
           >
-            <h1 className="text-2xl font-bold text-white mb-4">{serviceData.title}</h1>
+            <h1 className="text-3xl font-bold text-white mb-4">{serviceData.title}</h1>
           </div>
         </div>
       </div>
@@ -109,6 +150,7 @@ const ServiceInfo: React.FC<ServiceInfoProps> = ({ serviceData }) => {
         <AccordionComponent serviceData={serviceData} />
       </div>
     </div>
+    </>
   );
 };
 
