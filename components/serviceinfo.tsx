@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaHourglassHalf, FaMoneyBillWave, FaSyringe } from 'react-icons/fa';
-import AccordionComponent from './accordion copy';
+import AccordionComponent from './accordion';
 
 const renderTextWithLineBreaks = (text: string | undefined) => {
   if (!text) return null;
@@ -21,7 +21,7 @@ const ServiceInfo: React.FC<ServiceInfoProps> = ({ serviceData }) => {
     return <p>Loading...</p>;
   }
 
-  console.log('ServiceData:', serviceData); // Debugging output
+  //console.log('ServiceData:', serviceData); 
 
   return (
     <div className="container mx-auto">
@@ -36,56 +36,46 @@ const ServiceInfo: React.FC<ServiceInfoProps> = ({ serviceData }) => {
         </div>
       </div>
       <div className="container mx-auto">
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 mb-4">
-          <div>
-            <h2 className="text-2xl text-thunderbird-500 font-bold">¿Por qué elegir nuestra Rinomodelación?</h2>
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8 mb-4">
+          <div className="ml-8">
+            <h2 className="text-2xl text-thunderbird-500 font-bold">{serviceData.subtitle1 ?? 'Subtitulo 1'}</h2>
             <p className="text-lg text-woodsmoke-700 font-regular">{renderTextWithLineBreaks(serviceData.what)}</p>
           </div>
 
-          <div>
-            <h2 className="text-2xl text-thunderbird-500 font-bold">No Invasiva</h2>
+          <div className="mr-12">
+            <h2 className="text-2xl text-thunderbird-500 font-bold">{serviceData.subtitle2 ?? 'Subtitulo 2'}</h2>
             <p className="text-lg text-woodsmoke-700 font-regular">{renderTextWithLineBreaks(serviceData.how)}</p>
           </div>
+        </div>
 
-          <div>
-            <h2 className="text-2xl text-thunderbird-500 font-bold">Resultados Inmediatos</h2>
+        <div className="mt-12">
+            <h2 className="text-2xl text-center text-thunderbird-500 font-bold">{serviceData.subtitle3 ?? 'Subtitulo 3'}</h2>
             <p className="text-lg text-woodsmoke-700 font-regular">{renderTextWithLineBreaks(serviceData.area)}</p>
-          </div>
-
-          {serviceData.extra && (
-            <div>
-              <h2 className="text-2xl text-thunderbird-500 font-bold">¿Listo para transformar tu nariz sin cirugía?</h2>
-              <p className="text-lg text-woodsmoke-700 font-regular">{renderTextWithLineBreaks(serviceData.extra)}</p>
-            </div>
-          )}
         </div>
 
         <div className="mb-4 text-center">
-          <h2 className="text-2xl text-thunderbird-500 font-bold">Recuperación Rápida, Sin Marcas ni Cicatrices</h2>
           <p className="text-lg">{renderTextWithLineBreaks(serviceData.objective1)}</p>
           <p className="text-lg">{renderTextWithLineBreaks(serviceData.objective2)}</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-          {serviceData.image1 && (
-            <div className="w-full h-64">
-              <img
-                src={serviceData.image2}
-                alt="Service Image 1"
-                className="w-full h-full object-cover"
-              />
-            </div>
-          )}
-          {serviceData.image2 && (
-            <div className="w-full h-64">
-              <img
-                src={serviceData.image3}
-                alt="Service Image 2"
-                className="w-full h-full object-cover"
-              />
-            </div>
-          )}
-        </div>
+  <div className="w-full h-64">
+    <img
+      src={serviceData.image2 || "/images/placeholder-image.png"}
+      alt="Service Image 1"
+      className="w-full h-full object-cover"
+    />
+  </div>
+  <div className="w-full h-64">
+    <img
+      src={serviceData.image3 || "/images/placeholder-image.png"}
+      alt="Service Image 2"
+      className="w-full h-full object-cover"
+    />
+  </div>
+</div>
+
+
 
         <div className="p-6 my-8">
           <div className="grid grid-cols-3 gap-6">

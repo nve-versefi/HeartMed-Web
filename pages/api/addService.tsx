@@ -107,9 +107,9 @@ const handler = async (req: NextApiRequestWithFiles, res: NextApiResponse) => {
         answer8,
         faq9,
         answer9,
-        targetAreas: Array.isArray(targetAreas) ? targetAreas : [],
-        objectives: Array.isArray(objectives) ? objectives : [],
-        relatedProd: Array.isArray(relatedProd) ? relatedProd : [],
+        targetAreas: Array.isArray(targetAreas) ? targetAreas : JSON.parse(targetAreas),
+        objectives: Array.isArray(objectives) ? objectives : JSON.parse(objectives),
+        relatedProd: Array.isArray(relatedProd) ? relatedProd : JSON.parse(relatedProd),
       };
 
       console.log("Service object created:", service);

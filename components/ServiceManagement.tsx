@@ -14,13 +14,16 @@ interface Service {
   image1?: string;
   image2?: string;
   image3?: string;
+  subtitle1?: string;
   what?: string;
   anesthesia?: string;
   time?: string;
   finance?: string;
   results?: string;
   hospital?: string;
+  subtitle2?: string;
   how?: string;
+  subtitle3?: string;
   area?: string;
   objective1?: string;
   objective2?: string;
@@ -105,8 +108,11 @@ const ServiceManagement: React.FC = () => {
       if (imageFiles.image1) formData.append('image1', imageFiles.image1 as File);
       if (imageFiles.image2) formData.append('image2', imageFiles.image2 as File);
       if (imageFiles.image3) formData.append('image3', imageFiles.image3 as File);
+      formData.append('subtitle1', service.image1_title);
       formData.append('what', service.what || '');
+      formData.append('subtitle1', service.image2_title);
       formData.append('how', service.how || '');
+      formData.append('subtitle1', service.image3_title);
       formData.append('area', service.area || '');
       formData.append('objective1', service.objective1 || '');
       formData.append('objective2', service.objective2 || '');
@@ -158,15 +164,18 @@ const ServiceManagement: React.FC = () => {
   const updateService = async (service: Service) => {
     try {
         const formData = new FormData();
-        formData.append('_id', service._id); // Ensure the ID is included
+        formData.append('_id', service._id); 
         formData.append('title', service.title);
         formData.append('category', service.category);
         formData.append('subcategory', service.subcategory);
         formData.append('image1_title', service.image1_title);
         formData.append('image2_title', service.image2_title);
         formData.append('image3_title', service.image3_title);
+        formData.append('subtitle1', service.image1_title);
         formData.append('what', service.what || '');
+        formData.append('subtitle1', service.image2_title);
         formData.append('how', service.how || '');
+        formData.append('subtitle1', service.image3_title);
         formData.append('area', service.area || '');
         formData.append('objective1', service.objective1 || '');
         formData.append('objective2', service.objective2 || '');
@@ -260,8 +269,11 @@ const deleteService = async (serviceId: string) => {
       image1_title: formData.get('image1_title') as string,
       image2_title: formData.get('image2_title') as string,
       image3_title: formData.get('image3_title') as string,
+      subtitle1: formData.get('subtitle1') as string,
       what: formData.get('what') as string,
+      subtitle2: formData.get('subtitle2') as string,
       how: formData.get('how') as string,
+      subtitle3: formData.get('subtitle3') as string,
       area: formData.get('area') as string,
       objective1: formData.get('objective1') as string,
       objective2: formData.get('objective2') as string,
@@ -330,12 +342,24 @@ const deleteService = async (serviceId: string) => {
           <input type="file" name="image1" onChange={(e) => handleImageUpload(e, 'image1')} className="border rounded p-2" />
         </div>
         <div className="flex flex-col">
+          <label className="font-semibold">Subtítulo 1</label>
+          <input type="text" name="subtitle1" placeholder="Subtítulo de Texto 1" defaultValue={editingService?.subtitle1} className="border rounded p-2" />
+        </div>
+        <div className="flex flex-col">
           <label className="font-semibold">Texto 1</label>
           <textarea name="what" placeholder="What" defaultValue={editingService?.what} className="border rounded p-2" onChange={handleTextareaChange}></textarea>
         </div>
         <div className="flex flex-col">
+          <label className="font-semibold">Subtítulo 2</label>
+          <input type="text" name="subtitle2" placeholder="Subtítulo de Texto 2" defaultValue={editingService?.subtitle2} className="border rounded p-2" />
+        </div>
+        <div className="flex flex-col">
           <label className="font-semibold">Texto 2</label>
           <textarea name="how" placeholder="How" defaultValue={editingService?.how} className="border rounded p-2" onChange={handleTextareaChange}></textarea>
+        </div>
+        <div className="flex flex-col">
+          <label className="font-semibold">Subtítulo 3</label>
+          <input type="text" name="subtitle3" placeholder="Subtítulo de Texto 3" defaultValue={editingService?.subtitle3} className="border rounded p-2" />
         </div>
         <div className="flex flex-col">
           <label className="font-semibold">Texto 3</label>

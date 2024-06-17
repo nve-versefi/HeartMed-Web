@@ -3,7 +3,6 @@ import RootLayout from '@/app/layout';
 import DefaultLayout from '@/app/(default)/layout';
 import Head from 'next/head';
 import EsteticaMenu from '@/components/esteticamenu';
-import Accordion from '@/components/accordion'
 
 const Estetica: React.FC = () => {
   return (
@@ -15,7 +14,7 @@ const Estetica: React.FC = () => {
         <DefaultLayout>
           <div className='md:mx-48 sm:mx-24'>
             <EsteticaMenu/>
-            <Accordion/>
+   
           </div>
         </DefaultLayout>
     </RootLayout>

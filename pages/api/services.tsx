@@ -10,7 +10,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const { title, objectives, subcategory, targetAreas} = req.query;
       console.log('Received query params:', { title, objectives, subcategory, targetAreas});
 
-      // Start time for logging
       const startTime = Date.now();
 
       try {
@@ -27,7 +26,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const db = client.db('Web');
       const servicesCollection = db.collection('Tratamientos');
 
-      // Construct the query object based on the parameters
       const query: any = {};
       if (title) query.title = title;
       if (objectives) query.objectives = { $in: [objectives] };
@@ -36,7 +34,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       console.log('Constructed query:', query);
 
-      // Fetch the document that matches the query
       const serviceStartTime = Date.now();
       let service;
       try {
