@@ -9,9 +9,9 @@ const Home: React.FC = () => {
   useEffect(() => {
     const fetchServiceData = async () => {
       try {
-        const encodedTitle = encodeURIComponent('Mentoplastia');
-        const encodedObjectives = encodeURIComponent('cirugia-facial');
-        const encodedSubcategory = encodeURIComponent('cirugias');
+        const encodedTitle = encodeURIComponent('Proyección del Mentón');
+        const encodedObjectives = encodeURIComponent('definicion-mandibular');
+        const encodedSubcategory = encodeURIComponent('estetica-masculina');
         const response = await fetch(`/api/services?title=${encodedTitle}&objectives=${encodedObjectives}&subcategory=${encodedSubcategory}`);
         
         if (response.ok) {

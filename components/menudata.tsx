@@ -20,7 +20,7 @@ const menuData: MenuItem[]= [
               services: [
                 { serviceName: 'HIFU', servicePath: '/tratamientos-faciales/cejas-caidas/hifu'},
                 { serviceName: 'Hilos Tensores', servicePath: '/tratamientos-faciales/cejas-caidas/hilos-tensores'},
-                { serviceName: 'Dermopigmentación', servicePath: '/tratamientos-faciales/dermopigmentacion'},
+                { serviceName: 'Dermopigmentación', servicePath: '/tratamientos-faciales/cejas-caidas/dermopigmentacion'},
                 { serviceName: 'Neuromoduladores', servicePath: '/tratamientos-faciales/cejas-caidas/neuromoduladores'},
               ]
             },
@@ -77,7 +77,7 @@ const menuData: MenuItem[]= [
             },
             {
               name: 'Eliminar ojeras',
-              imageUrl: '/images/CEJAS NEUROMODULADORES.png',
+              imageUrl: '/images/MenuEstetica/eliminar-ojeras.png',
               services: [
                 { serviceName: 'Ácido hialurónico', servicePath: '/tratamientos-faciales/eliminar-ojeras/acido-hialuronico'},
                 { serviceName: 'Láser CO2 Fraccionado', servicePath: '/tratamientos-faciales/eliminar-ojeras/laser-co2'},
@@ -272,12 +272,13 @@ const menuData: MenuItem[]= [
               name: 'Definición Mandibular',
               imageUrl: '/images/MenuEstetica/masc-definicion-mandibular.png',
               services: [
-                { serviceName: 'Ácido Hialurónico', servicePath: '/estetica-masculina/definicion-mandibular/acido-hialuronico'},
+                { serviceName: 'Marcación Mandibular', servicePath: '/estetica-masculina/definicion-mandibular/acido-hialuronico'},
                 { serviceName: 'Mentoplastia', servicePath: '/estetica-masculina/definicion-mandibular/mentoplastia'},
+                { serviceName: 'Proyección del Mentón', servicePath: '/estetica-masculina/definicion-mandibular/proyeccion-menton'},
               ]
             },
             {
-              name: 'Marcar Abdominales',
+              name: 'Marcación Abdominal',
               imageUrl: '/images/MenuEstetica/masc-marcacion-abdominal.png',
               services: [
                 { serviceName: 'Marcación Abdominal', servicePath: '/estetica-masculina/marcar-adbominal/marcacion-abdominal'},
@@ -307,7 +308,7 @@ const menuData: MenuItem[]= [
             },
             {
               name: 'Elimina Papada sin Cirugía',
-              imageUrl: '/images/eliminapapada.jpeg',
+              imageUrl: '/images/MenuEstetica/masc-eliminar-papada.png',
               services: [
                 { serviceName: 'Lipopapada Enzimática', servicePath: '/estetica-masculina/eliminar-papada/lipopapada-enzimatica'},
               ]
@@ -363,7 +364,7 @@ const menuData: MenuItem[]= [
             },
             {
               name: 'Trastornos de la Piel',
-              imageUrl: '/images/trastornospiel.jpeg',
+              imageUrl: '/images/MenuEstetica/masc-trastornos-piel.png',
               services: [
                 { serviceName: 'Arañas Vasculares', servicePath: '/estetica-masculina/trastornos-piel/arañas-vasculares'},
                 { serviceName: 'Eliminar Verrugas', servicePath: '/estetica-masculina/trastornos-piel/eliminar-verrugas'},
@@ -416,7 +417,6 @@ const menuData: MenuItem[]= [
                 { serviceName: 'Liting Facial', servicePath: ' /cirugias-medicoesteticas/facial/lifting-facial'},
                 { serviceName: 'Liposucción de Papada', servicePath: '/cirugias-medicoesteticas/facial/liposuccion-papada'},
                 { serviceName: 'Lobuloplastia', servicePath: '/cirugias-medicoesteticas/facial/lobuloplastia'},
-                { serviceName: 'Mentoplastia', servicePath: '/cirugias-medicoesteticas/facial/mentoplastia'},
                 { serviceName: 'Otoplastia', servicePath: '/cirugias-medicoesteticas/facial/otoplastia '},
               ]
             },
@@ -502,7 +502,6 @@ const menuData: MenuItem[]= [
             },
           ]
         },
-        { name: 'Terapia con Péptidos', imagePath: '/images/estet.jpg', path: '/images/MenuAntiAging/ozonoterapia-medica.png', imageUrl: '/images/placeholder_image.png'},
         { name: 'Medicina Funcional y Nutrición Celular Ortomolecular', imagePath: '/images/MenuAntiAging/medicina-funcional.jpg', path: '/medicina-ortomolecular', imageUrl: '/images/placeholder_image.png'},
         { name: 'Sueroterapia', imagePath: '/images/MenuAntiAging/sueroterapia.png', path: '/sueroterapia', imageUrl: '/images/placeholder_image.png'},
 
