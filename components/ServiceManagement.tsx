@@ -110,9 +110,9 @@ const ServiceManagement: React.FC = () => {
       if (imageFiles.image3) formData.append('image3', imageFiles.image3 as File);
       formData.append('subtitle1', service.subtitle1 || '');
       formData.append('what', service.what || '');
-      formData.append('subtitle1', service.subtitle2 || '');
+      formData.append('subtitle2', service.subtitle2 || '');
       formData.append('how', service.how || '');
-      formData.append('subtitle1', service.subtitle3 || '');
+      formData.append('subtitle3', service.subtitle3 || '');
       formData.append('area', service.area || '');
       formData.append('objective1', service.objective1 || '');
       formData.append('objective2', service.objective2 || '');
@@ -173,9 +173,9 @@ const ServiceManagement: React.FC = () => {
         formData.append('image3_title', service.image3_title);
         formData.append('subtitle1', service.subtitle1 || '');
         formData.append('what', service.what || '');
-        formData.append('subtitle1', service.subtitle2|| '');
+        formData.append('subtitle2', service.subtitle2|| '');
         formData.append('how', service.how || '');
-        formData.append('subtitle1', service.subtitle3 || '');
+        formData.append('subtitle3', service.subtitle3 || '');
         formData.append('area', service.area || '');
         formData.append('objective1', service.objective1 || '');
         formData.append('objective2', service.objective2 || '');
