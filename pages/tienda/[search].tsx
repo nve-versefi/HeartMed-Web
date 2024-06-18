@@ -1,19 +1,20 @@
-import RootLayout from '@/app/layout';
+// pages/shop/index.tsx
+import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
-import DefaultLayout from '@/app/(default)/layout';
-import { useRouter} from 'next/router';
 import { useState, useEffect } from 'react';
 import { Product } from '@/components/Product';
+import axios from 'axios';
 import 'rc-slider/assets/index.css';
 
-  const Slider = dynamic(() => import('rc-slider'), { ssr: false });
+const Slider = dynamic(() => import('rc-slider'), { ssr: false });
 
-  const mockProducts: Product[] = [
-    { id: 1, name: 'Product 1', description: 'Description 1', price: 10, image: 'https://via.placeholder.com/150', brand: 'Alfa Cosmetica', category: 'Salud y Belleza', useCase: 'Hidratar'},
-    { id: 2, name: 'Product 2', description: 'Description 2', price: 20, image: 'https://via.placeholder.com/150', brand: 'Indiba', category: 'Material de Prácticas', useCase: 'Practicar'},
-  ];
+const mockProducts: Product[] = [
+  { id: 1, name: 'Product 1', description: 'Description 1', price: 10, image: 'https://via.placeholder.com/150', brand: 'Alfa Cosmetica', category: 'Salud y Belelza', useCase: 'Hidratar'},
+  { id: 2, name: 'Product 2', description: 'Description 2', price: 20, image: 'https://via.placeholder.com/150', brand: 'Indiba', category: 'Material de Prácticas', useCase: 'Practicar'},
+  // Add more mock products as needed
+];
 
-  export default function Shop() {
+export default function Shop() {
     const router = useRouter();
     const { search } = router.query;
     const [products, setProducts] = useState<Product[]>(mockProducts);
@@ -30,54 +31,50 @@ import 'rc-slider/assets/index.css';
       // axios.get('/api/products')
       //   .then(response => setProducts(response.data))
       //   .catch(error => console.error('Error fetching products:', error));
-      setProducts(mockProducts); 
-      setFilteredProducts(mockProducts);
+      setProducts(mockProducts); // Set mock products initially
     }, []);
-  
-    useEffect(() => {
-      let filtered = products;
-  
-      if (search) {
-        filtered = filtered.filter(product =>
-          product.name.toLowerCase().includes((search as string).toLowerCase())
-        );
-      }
-  
-      filtered = filtered.filter(product => 
-        product.price >= priceRange[0] && product.price <= priceRange[1]
-      );
-  
-      if (selectedCategory) {
-        filtered = filtered.filter(product => 
-          product.category.toLowerCase() === selectedCategory.toLowerCase()
-        );
-      }
 
-      if (selectedBrand) {
+    useEffect(() => {
+        let filtered = products;
+    
+        if (search) {
+          filtered = filtered.filter(product =>
+            product.name.toLowerCase().includes((search as string).toLowerCase())
+          );
+        }
+    
         filtered = filtered.filter(product => 
-          product.brand.toLowerCase() === selectedBrand.toLowerCase()
+          product.price >= priceRange[0] && product.price <= priceRange[1]
         );
-      }
+    
+        if (selectedCategory) {
+          filtered = filtered.filter(product => 
+            product.category.toLowerCase() === selectedCategory.toLowerCase()
+          );
+        }
+
+        if (selectedBrand) {
+            filtered = filtered.filter(product => 
+              product.brand.toLowerCase() === selectedBrand.toLowerCase()
+            );
+          }
+    
+        if (selectedUseCase) {
+          filtered = filtered.filter(product => 
+            product.useCase.toLowerCase() === selectedUseCase.toLowerCase()
+          );
+        }
+    
+        setFilteredProducts(filtered);
+      }, [search, products, priceRange, selectedCategory, selectedUseCase, selectedBrand]);
+    
+      const handlePriceChange = (value: number | number[]) => {
+        if (Array.isArray(value)) {
+          setPriceRange([value[0], value[1]]);
+        }
+      };
   
-      if (selectedUseCase) {
-        filtered = filtered.filter(product => 
-          product.useCase.toLowerCase() === selectedUseCase.toLowerCase()
-        );
-      }
-  
-      setFilteredProducts(filtered);
-    }, [search, products, priceRange, selectedCategory, selectedUseCase, selectedBrand]);
-  
-    const handlePriceChange = (value: number | number[]) => {
-      if (Array.isArray(value)) {
-        setPriceRange([value[0], value[1]]);
-      }
-    };
-  
-  return(
-    <>
-    <RootLayout>
-        <DefaultLayout>
+    return (
         <div className="container mx-auto px-4 py-8">
       <div className="mb-8 flex justify-center">
         <input
@@ -90,9 +87,9 @@ import 'rc-slider/assets/index.css';
       </div>
       <div className="flex">
         <div className="w-1/4 pr-4">
-          <h2 className="text-xl mb-4">Filtros</h2>
+          <h2 className="text-xl mb-4">Filters</h2>
           <div className="mb-4">
-            <label className="block mb-2">Rango de Precio</label>
+            <label className="block mb-2">Price Range</label>
             <Slider
               range
               min={0}
@@ -101,12 +98,12 @@ import 'rc-slider/assets/index.css';
               onChange={handlePriceChange}
             />
             <div className="flex justify-between">
-              <span>€{priceRange[0]}</span>
-              <span>€{priceRange[1]}</span>
+              <span>${priceRange[0]}</span>
+              <span>${priceRange[1]}</span>
             </div>
           </div>
           <div className="mb-4">
-            <label className="block mb-2">Categorías</label>
+            <label className="block mb-2">Category</label>
             <select
               value={selectedCategory}
               onChange={e => setSelectedCategory(e.target.value)}
@@ -156,8 +153,5 @@ import 'rc-slider/assets/index.css';
         </div>
       </div>
     </div>
-        </DefaultLayout>
-    </RootLayout>
-    </>
-  );
-};
+    );
+  }
