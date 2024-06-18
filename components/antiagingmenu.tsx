@@ -78,13 +78,25 @@ const AntiAgingMenu: React.FC = () => {
         </a>
       </div>
       
-      <div id="tratamientos" className="submenu-grid grid grid-cols-1 gap-8">
+      <div id="tratamientos" className="submenu-grid grid grid-cols-1 gap-8 ">
   {antiagingMenu.submenu.map((submenuItem, index) => (
-    <div key={index} className="submenu-item">
-      <Link href={submenuItem.path}>
-        <h3 className="text-3xl text-center text-thunderbird-500 font-semibold mb-2 cursor-pointer">{submenuItem.name}</h3>
-        <img src={submenuItem.imagePath} alt={submenuItem.name} className="mb-4 w-48 h-48 object-cover cursor-pointer mx-auto" />
-      </Link>
+    <div key={index} className="submenu-item ">
+      <div key={index} className="block submenu-item ">
+      <a href={submenuItem.path || '#'} className="group">
+        <div className="banner-container">
+          <div className="w-screen h-64 overflow-hidden relative">
+            <img
+              src={submenuItem.imagePath || '/mnt/data/image.png'}
+              alt={submenuItem.name}
+              className="object-cover h-full w-full absolute top-0 left-0"
+            />
+            <div className="w-screen h-64 flex items-center justify-center absolute top-0 left-0 bg-black bg-opacity-50 group-hover:bg-opacity-0 transition duration-300">
+              <h1 className="text-3xl font-bold text-white">{submenuItem.name}</h1>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
       <div className="problems-grid grid grid-cols-2 gap-8">
         {submenuItem.problems?.map((problem, problemIndex) => (
           <div key={problemIndex} className="problem-item">

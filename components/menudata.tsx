@@ -11,8 +11,8 @@ const menuData: MenuItem[]= [
         { 
           name: 'Tratamientos Faciales', 
           path: '/tratamientos-faciales',
-          imagePath:'/images/placeholder_image.png',
-          imageUrl: '/images/placeholder_image.png',
+          imagePath:'/images/MenuEstetica/tratamientos-faciales.jpg',
+          imageUrl: '/images/MenuEstetica/tratamientos-faciales.jpg',
           problems: [
             {
               name: 'Cejas caídas',
@@ -25,8 +25,8 @@ const menuData: MenuItem[]= [
               ]
             },
             {
-              name: 'Corrección de manchas',//
-              imageUrl: '/images/PORTADA_EMBELLECIMIENTO_PIEL.png',
+              name: 'Corrección de manchas',
+              imageUrl: '/images/MenuEstetica/eliminar-manchas.png',
               services: [
                 { serviceName: 'Peeling Químico', servicePath: '/tratamientos-faciales/corregir-manchas/peeling-quimico' },
                 { serviceName: 'Rejuvenecimiento con IPL', servicePath: '/tratamientos-faciales/corregir-manchas/ipl'},
@@ -115,7 +115,7 @@ const menuData: MenuItem[]= [
               ]
             },
             {
-              name: 'Corregir el Acné',//
+              name: 'Corregir el Acné',
               imageUrl: '/images/MenuEstetica/corregir-acne.png',
               services: [
                 { serviceName: 'Láser', servicePath: '/tratamientos-faciales/corregir-acne/laser'},
@@ -165,8 +165,8 @@ const menuData: MenuItem[]= [
         { 
           name: 'Tratamientos Corporales', 
           path: '/tratamiento-corporales',
-          imageUrl: '/images/placeholder_image.png',
-          imagePath:'/images/OZONOTERAPIA.CELULITIS.png',
+          imageUrl: '/images/MenuEstetica/tratamientos-corporales.jpg',
+          imagePath:'/images/MenuEstetica/tratamientos-corporales.jpg',
           
           problems: [
             {
@@ -378,12 +378,12 @@ const menuData: MenuItem[]= [
         { 
           name: 'Cirugías Medicoestéticas', 
           path: '/cirugias-medicoesteticas',
-          imageUrl: '/images/placeholder_image.png',
-          imagePath:'/images/estetica.cirugias.png',
+          imageUrl: '/images/MenuEstetica/cirugias-medicoesteticas.jpg',
+          imagePath:'/images/MenuEstetica/cirugias-medicoesteticas.jpg',
           problems: [
             {
               name: 'Cirugía de Pecho',
-              imageUrl: '/images/cirugiapecho.jpeg',
+              imageUrl: '/images/MenuEstetica/cirugiapecho.png',
               services: [
                 { serviceName: 'Aumento de Pecho', servicePath: '/cirugias-medicoesteticas/pecho/aumento-pecho'},
                 { serviceName: 'Cambio de Prótesis', servicePath: '/cirugias-medicoesteticas/pecho/cambio-protesis'},

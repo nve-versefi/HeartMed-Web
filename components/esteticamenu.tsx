@@ -14,7 +14,7 @@ const EsteticaMenu: React.FC = () => {
 
   return (
     <div className="estetica-menu mt-8">
-      <h2 className="text-4xl font-bold mb-4 text-thunderbird-500 text-center">{esteticaMenu.title}</h2>
+      <h1 className="text-4xl font-bold mb-4 text-thunderbird-500 text-center">{esteticaMenu.title}</h1>
 
       <p className="my-4 text-2xl text-center mx-16 mb-16">
       Ciencia salud y belleza unidas en armonía
@@ -50,14 +50,26 @@ const EsteticaMenu: React.FC = () => {
       <div id="tratamientos" className="submenu-grid grid grid-cols-1 gap-8">
   {esteticaMenu.submenu.map((submenuItem, index) => (
     <div key={index} className="submenu-item">
-      <Link href={submenuItem.path}>
-        <h3 className="text-3xl text-center text-thunderbird-500 font-semibold mb-2 cursor-pointer">{submenuItem.name}</h3>
-        <img src={submenuItem.imagePath} alt={submenuItem.name} className="mb-4 w-48 h-48 object-cover cursor-pointer mx-auto" />
-      </Link>
+    <div key={index} className="block submenu-item">
+      <a href={submenuItem.path || '#'} className="group">
+        <div className="banner-container">
+          <div className="w-screen h-64 overflow-hidden relative">
+            <img
+              src={submenuItem.imagePath || '/mnt/data/image.png'}
+              alt={submenuItem.name}
+              className="object-cover h-full w-full absolute top-0 left-0"
+            />
+            <div className="w-screen h-64 flex items-center justify-center absolute top-0 left-0 bg-black bg-opacity-50 group-hover:bg-opacity-0 transition duration-300">
+              <h1 className="text-3xl font-bold text-white mb-4">{submenuItem.name}</h1>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
       <div className="problems-grid grid grid-cols-2 gap-8">
         {submenuItem.problems?.map((problem, problemIndex) => (
           <div key={problemIndex} className="problem-item">
-            <h4 className="text-3xl text-thunderbird-500 text-center font-bold mb-2">{problem.name}</h4>
+            <h3 className="text-3xl text-thunderbird-500 text-center font-bold mb-2">{problem.name}</h3>
             <img src={problem.imageUrl} alt={problem.name} className="mb-4 w-full h-80 object-cover object-center" />
             <div className="services-grid grid grid-cols-2 gap-4">
               {problem.services.map((service, serviceIndex) => (
@@ -76,7 +88,7 @@ const EsteticaMenu: React.FC = () => {
 </div>
       
       <div id="masInformacion" className="mas-informacion my-8">
-        <h3 className="text-xl font-semibold mb-4">Tratamientos de Medicina Estética más demandados</h3>
+        <h4 className="text-xl font-semibold mb-4">Tratamientos de Medicina Estética más demandados</h4>
         <p className="mb-4">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nulla sit amet aliquam lacinia, nisl nisl aliquam nisl, nec aliquam nisl nisl sit amet nisl. Sed euismod, nulla sit amet aliquam lacinia, nisl nisl aliquam nisl, nec aliquam nisl nisl sit amet nisl.
         </p>
