@@ -79,18 +79,18 @@ const ServiceInfo: React.FC<ServiceInfoProps> = ({ serviceData }) => {
       <div className="container mx-auto">
         <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8 mb-4">
           <div className="ml-8">
-            <h2 className="text-2xl text-thunderbird-500 font-bold">{serviceData.subtitle1 ?? 'Subtitulo 1'}</h2>
+            <h2 className="text-2xl text-thunderbird-500 font-bold mb-4">{serviceData.subtitle1 ?? 'Subtitulo 1'}</h2>
             <p className="text-lg text-woodsmoke-700 font-regular">{renderTextWithLineBreaks(serviceData.what)}</p>
           </div>
 
           <div className="mr-12">
-            <h2 className="text-2xl text-thunderbird-500 font-bold">{serviceData.subtitle2 ?? 'Subtitulo 2'}</h2>
+            <h2 className="text-2xl text-thunderbird-500 font-bold mb-4">{serviceData.subtitle2 ?? 'Subtitulo 2'}</h2>
             <p className="text-lg text-woodsmoke-700 font-regular">{renderTextWithLineBreaks(serviceData.how)}</p>
           </div>
         </div>
 
         <div className="mt-12">
-            <h2 className="text-2xl text-center text-thunderbird-500 font-bold">{serviceData.subtitle3 ?? 'Subtitulo 3'}</h2>
+            <h2 className="text-2xl text-center text-thunderbird-500 font-bold mb-4">{serviceData.subtitle3 ?? 'Subtitulo 3'}</h2>
             <p className="text-lg text-woodsmoke-700 font-regular">{renderTextWithLineBreaks(serviceData.area)}</p>
         </div>
 

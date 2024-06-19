@@ -29,7 +29,7 @@ const menuData: MenuItem[]= [
               imageUrl: '/images/MenuEstetica/eliminar-manchas.png',
               services: [
                 { serviceName: 'Peeling Químico', servicePath: '/tratamientos-faciales/corregir-manchas/peeling-quimico' },
-                { serviceName: 'Rejuvenecimiento con IPL', servicePath: '/tratamientos-faciales/corregir-manchas/ipl'},
+                { serviceName: 'IPL Ellipse Light', servicePath: '/tratamientos-faciales/corregir-manchas/ipl'},
                 { serviceName: 'Láser CO2 Fraccionado', servicePath: '/tratamientos-faciales/corregir-manchas/laser-co2'},
               ]
             },
@@ -46,7 +46,7 @@ const menuData: MenuItem[]= [
               name: 'Elevación de pómulos',
               imageUrl: '/images/MenuEstetica/elevar-pomulos.png',
               services: [
-                { serviceName: 'Ácido hialurónico', servicePath: '/tratamientos-faciales/elevar-pomulos/acido-hialuronico'},
+                { serviceName: 'Proyección de Pómulos', servicePath: '/tratamientos-faciales/elevar-pomulos/acido-hialuronico'},
                 { serviceName: 'HIFU', servicePath: '/tratamientos-faciales/elevar-pomulos/hifu'},
                 { serviceName: 'Hilos Tensores', servicePath: '/tratamientos-faciales/elevar-pomulos/hilos-tensores'},
               ]
@@ -55,7 +55,7 @@ const menuData: MenuItem[]= [
               name: 'Eliminar arrugas',
               imageUrl: '/images/MenuEstetica/eliminar-arrugas.png',
               services: [
-                { serviceName: 'Ácido hialurónico', servicePath: '/tratamientos-faciales/eliminar-arrugas/acido-hialuronico'},
+                { serviceName: 'Ácido Hialurónico', servicePath: '/tratamientos-faciales/eliminar-arrugas/acido-hialuronico'},
                 { serviceName: 'HIFU', servicePath: '/tratamientos-faciales/eliminar-arrugas/hifu'},
                 { serviceName: 'Hilos Tensores', servicePath: '/tratamientos-faciales/eliminar-arrugas/hilos-faciales'},
                 { serviceName: 'Láser CO2 Fraccionado', servicePath: '/tratamientos-faciales/eliminar-arrugas/laser-co2'},
@@ -217,7 +217,7 @@ const menuData: MenuItem[]= [
               services: [
                 { serviceName: 'Ácido hialurónico', servicePath: '/tratamientos-corporales/rejuvenecimiento-manos/acido-hialuronico'},
                 { serviceName: 'HIFU Corporal', servicePath: '/tratamientos-corporales/rejuvenecimiento-manos/hifu'},
-                { serviceName: 'IPL Eclipse Light', servicePath: '/tratamientos-corporales/rejuvenecimiento-manos/ipl'},
+                { serviceName: 'IPL Ellipse Light', servicePath: '/tratamientos-corporales/rejuvenecimiento-manos/ipl'},
                 { serviceName: 'Sudaración excesiva', servicePath: '/tratamientos-corporales/rejuvenecimiento-manos/sudor-excesivo'},
                 { serviceName: 'Láser CO2 Fraccionado', servicePath: '/tratamientos-corporales/rejuvenecimiento-manos/laser-co2-fraccionado'},
                 { serviceName: 'PRP Plasma Rico en Plaquetas', servicePath: '/tratamientos-corporales/rejuvenecimiento-manos/plasma-rico-plaquetas' },
@@ -257,8 +257,8 @@ const menuData: MenuItem[]= [
         { 
           name: 'Medicina Estética Masculina', 
           path: '/estetica-masculina',
-          imageUrl: '/images/placeholder_image.png',
-          imagePath:'/images/estetica.masculina.png',
+          imageUrl: '/images/MenuEstetica/estetica-masculina.png',
+          imagePath:'/images/MenuEstetica/estetica-masculina.png',
           problems: [
             {
               name: 'Corrección de la nariz',
@@ -375,6 +375,7 @@ const menuData: MenuItem[]= [
             },
           ]
         },
+        
         { 
           name: 'Cirugías Medicoestéticas', 
           path: '/cirugias-medicoesteticas',
@@ -420,6 +421,14 @@ const menuData: MenuItem[]= [
                 { serviceName: 'Otoplastia', servicePath: '/cirugias-medicoesteticas/facial/otoplastia '},
               ]
             },
+          ]
+        },
+        { 
+          name: 'Fotos Antes y Después', 
+          path: '/cirugias-medicoesteticas',
+          imageUrl: '/images/MenuEstetica/cirugias-medicasoesteticas.jpg',
+          imagePath:'/images/MenuEstetica/cirugias-medicasoesteticas.jpg',
+          problems: [
           ]
         },
    

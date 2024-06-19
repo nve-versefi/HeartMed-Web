@@ -28,7 +28,7 @@ const EsteticaMenu: React.FC = () => {
         Nuestro principal objetivo: la restauración de la armonía facial y corporal, la mejora de la calidad de la piel y el retraso del envejecimiento.
         </p>
         <p className="mb-4 text-2xl text-center mx-16">
-        Para ello contamos con un elenco multidisciplinar de profesionales médicos y estéticos especializados en diferentes técnicas de vanguardia y en constante aprendizaje de los avances que nos ofrece la ciencia.
+        Para ello contamos con un equipo multidisciplinar de profesionales médicos y estéticos especializados en diferentes técnicas de vanguardia y en constante aprendizaje de los avances que nos ofrece la ciencia.
         </p>
         <p className="mb-4 text-2xl text-center mx-16">
         LA FELICIDAD COMIENZA POR SENTIRSE BIEN CON UNO MISMO
