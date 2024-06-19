@@ -15,7 +15,7 @@ const menuData: MenuItem[]= [
           imageUrl: '/images/MenuEstetica/tratamientos-faciales.jpg',
           problems: [
             {
-              name: 'Cejas caídas',
+              name: 'Cejas Caídas',
               imageUrl: '/images/MenuEstetica/cejas-caidas.png',
               services: [
                 { serviceName: 'HIFU', servicePath: '/tratamientos-faciales/cejas-caidas/hifu'},
@@ -25,7 +25,7 @@ const menuData: MenuItem[]= [
               ]
             },
             {
-              name: 'Corrección de manchas',
+              name: 'Corrección de Manchas',
               imageUrl: '/images/MenuEstetica/eliminar-manchas.png',
               services: [
                 { serviceName: 'Peeling Químico', servicePath: '/tratamientos-faciales/corregir-manchas/peeling-quimico' },
@@ -34,7 +34,7 @@ const menuData: MenuItem[]= [
               ]
             },
             {
-              name: 'Corracción malas praxis',//
+              name: 'Corrección de Malas Praxis',//
               imageUrl: '/images/ELIMINAR_MANCHAS PRP..png',
               services: [
                 { serviceName: 'Micropigmentación', servicePath: '/tratamientos-faciales/corregir-mala-praxis/micropigmentacion'},
@@ -43,7 +43,7 @@ const menuData: MenuItem[]= [
               ]
             },
             {
-              name: 'Elevación de pómulos',
+              name: 'Elevación de Pómulos',
               imageUrl: '/images/MenuEstetica/elevar-pomulos.png',
               services: [
                 { serviceName: 'Proyección de Pómulos', servicePath: '/tratamientos-faciales/elevar-pomulos/acido-hialuronico'},
@@ -52,7 +52,7 @@ const menuData: MenuItem[]= [
               ]
             },
             {
-              name: 'Eliminar arrugas',
+              name: 'Eliminar Arrugas',
               imageUrl: '/images/MenuEstetica/eliminar-arrugas.png',
               services: [
                 { serviceName: 'Ácido Hialurónico', servicePath: '/tratamientos-faciales/eliminar-arrugas/acido-hialuronico'},
@@ -67,7 +67,7 @@ const menuData: MenuItem[]= [
               ]
             },
             {
-              name: 'Eliminar bolsas',
+              name: 'Eliminar Bolsas',
               imageUrl: '/images/MenuEstetica/eliminar-bolsas.png',
               services: [
                 { serviceName: 'Enzimas PB Serum', servicePath: '/tratamientos-faciales/eliminar-bolsas/enzimas-pb'},
@@ -76,7 +76,7 @@ const menuData: MenuItem[]= [
               ]
             },
             {
-              name: 'Eliminar ojeras',
+              name: 'Eliminar Ojeras',
               imageUrl: '/images/MenuEstetica/eliminar-ojeras.png',
               services: [
                 { serviceName: 'Ácido hialurónico', servicePath: '/tratamientos-faciales/eliminar-ojeras/acido-hialuronico'},
@@ -84,14 +84,14 @@ const menuData: MenuItem[]= [
               ]
             },
             {
-              name: 'Eliminar papada',
+              name: 'Eliminar Papada',
               imageUrl: '/images/MenuEstetica/eliminar-papada.png',
               services: [
                 { serviceName: 'Lipopapada Enzimática', servicePath: '/tratamientos-faciales/eliminar-papada/lipopapada'},
               ]
             },
             {
-              name: 'Embellecimiento de la piel',
+              name: 'Embellecimiento de la Piel',
               imageUrl: '/images/MenuEstetica/embellecer-piel.png',
               services: [
                 { serviceName: 'Arañas Vasculares', servicePath: '/tratamientos-faciales/embellecer-piel/arañas-vasculares'},
@@ -108,7 +108,7 @@ const menuData: MenuItem[]= [
               ]
             },
             {
-              name: 'Estética de la nariz',
+              name: 'Estética de la Nariz',
               imageUrl: '/images/MenuEstetica/estetica-nariz.jpg',
               services: [
                 { serviceName: 'Rinomodelación no quirurgica', servicePath: '/tratamientos-faciales/estetica-nariz/rinomodelacion'},
@@ -125,7 +125,7 @@ const menuData: MenuItem[]= [
               ]
             },
             {
-              name: 'Flacidez de rostro',
+              name: 'Flacidez de Rostro',
               imageUrl: '/images/MenuEstetica/flacidez-rostro.png',
               services: [
                 { serviceName: 'Elástica', servicePath: '/tratamientos-faciales/flacidez-rostro/elastica'},
@@ -212,7 +212,7 @@ const menuData: MenuItem[]= [
               ]
             },
             {
-              name: 'Rejuvenecimiento de las manos',
+              name: 'Rejuvenecimiento de las Manos',
               imageUrl: '/images/MenuEstetica/rejuvenecimiento-manos.png',
               services: [
                 { serviceName: 'Ácido hialurónico', servicePath: '/tratamientos-corporales/rejuvenecimiento-manos/acido-hialuronico'},
@@ -235,7 +235,7 @@ const menuData: MenuItem[]= [
             },
             {
     
-              name: 'Remodelación glúteos',
+              name: 'Remodelación Glúteos',
               imageUrl: '/images/MenuEstetica/remodelacion-gluteos.jpg',
               services: [
                 { serviceName: 'Hilos Tensores', servicePath: '/tratamientos-corporales/remodelacion-gluteos/hilos-tensores'},
@@ -261,7 +261,7 @@ const menuData: MenuItem[]= [
           imagePath:'/images/MenuEstetica/estetica-masculina.png',
           problems: [
             {
-              name: 'Corrección de la nariz',
+              name: 'Corrección de la Nariz',
               imageUrl: '/images/MenuEstetica/masc-corregir-nariz.png',
               services: [
                 { serviceName: 'Rinomodelación no quirurgica', servicePath: '/estetica-masculina/corregir-nariz/rinomodelacion'},
@@ -518,7 +518,7 @@ const menuData: MenuItem[]= [
     },
     {
       id: 3,
-      title: "Alquiler y venta de equipos",
+      title: "Alquiler y Venta de equipos",
       path: "/equipos",
       image:"/images/equipos.menu.png",
       newTab: false,
