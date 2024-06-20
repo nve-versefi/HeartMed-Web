@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import multer from 'multer';
+import { MongoClient } from 'mongodb';
 import connect from '@/app/lib/mongodb';
 
 interface NextApiRequestWithFiles extends NextApiRequest {
@@ -31,6 +32,7 @@ const handler = async (req: NextApiRequestWithFiles, res: NextApiResponse) => {
     try {
       await new Promise<void>((resolve, reject) => {
         upload.fields([
+          { name: 'thumbnail', maxCount: 1 },
           { name: 'image1', maxCount: 1 },
           { name: 'image2', maxCount: 1 },
         ])(req as any, res as any, (err) => {
@@ -42,15 +44,25 @@ const handler = async (req: NextApiRequestWithFiles, res: NextApiResponse) => {
         });
       });
 
-      const { title, description, category, thumbnail, activeIngredient, brand, useCase, price } = req.body;
+      const {
+        title,
+        description,
+        category,
+        activeIngredient,
+        brand,
+        useCase,
+        price,
+      } = req.body;
 
+      const thumbnailFile = req.files?.['thumbnail']?.[0];
       const image1File = req.files?.['image1']?.[0];
       const image2File = req.files?.['image2']?.[0];
 
+      const thumbnail = convertFileToBase64(thumbnailFile);
       const image1 = convertFileToBase64(image1File);
       const image2 = convertFileToBase64(image2File);
 
-      const product = {
+      const newProduct = {
         title,
         description,
         category,
@@ -58,15 +70,18 @@ const handler = async (req: NextApiRequestWithFiles, res: NextApiResponse) => {
         activeIngredient,
         brand,
         useCase,
-        price,
+        price: parseFloat(price),
+        thumbnailTitle: thumbnailFile ? thumbnailFile.originalname : '',
+        image1Title: image1File ? image1File.originalname : '',
+        image2Title: image2File ? image2File.originalname : '',
         image1,
         image2,
       };
 
-      const client = await connect();
+      const client: MongoClient = await connect();
       const db = client.db(process.env.DB_NAME);
       const productsCollection = db.collection('products');
-      const result = await productsCollection.insertOne(product);
+      const result = await productsCollection.insertOne(newProduct);
 
       res.status(201).json(result);
     } catch (error) {

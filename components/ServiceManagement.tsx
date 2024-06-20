@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import 'tailwindcss/tailwind.css';
-import { FaUser, FaLock } from 'react-icons/fa';
 import { GiArm, GiLeg, GiBodyHeight, GiBrain, GiNeckBite } from 'react-icons/gi';
 
 interface Service {
@@ -53,10 +52,16 @@ interface Service {
 
 const ServiceManagement: React.FC = () => {
   const [services, setServices] = useState<Service[]>([]);
+  const [filteredServices, setFilteredServices] = useState<Service[]>([]);
   const [editingService, setEditingService] = useState<Service | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const [imageFiles, setImageFiles] = useState<{ [key: string]: File | string | null }>({ image1: null, image2: null, image3: null });
+  const [filterCategory, setFilterCategory] = useState<string>('');
+  const [filterSubcategory, setFilterSubcategory] = useState<string>('');
+  const [filterProblem, setFilterProblem] = useState<string>('');
+  const [sortField, setSortField] = useState<string>('title');
+  const [sortOrder, setSortOrder] = useState<string>('asc');
 
   const iconMapping: { [key: string]: React.ReactNode } = {
     'Arm': <GiArm />,
@@ -70,6 +75,10 @@ const ServiceManagement: React.FC = () => {
     fetchServices();
   }, []);
 
+  useEffect(() => {
+    filterAndSortServices();
+  }, [services, filterCategory, filterSubcategory, filterProblem, sortField, sortOrder]);
+
   const fetchServices = async () => {
     try {
       const response = await fetch('/api/service');
@@ -81,6 +90,39 @@ const ServiceManagement: React.FC = () => {
     } catch (error) {
       console.error('Failed to fetch services:', error);
     }
+  };
+
+  const filterAndSortServices = () => {
+    let filtered = [...services];
+
+    if (filterCategory) {
+      filtered = filtered.filter(service => service.category === filterCategory);
+    }
+
+    if (filterSubcategory) {
+      filtered = filtered.filter(service => service.subcategory === filterSubcategory);
+    }
+
+    if (filterProblem) {
+      filtered = filtered.filter(service => service.objectives?.includes(filterProblem));
+    }
+
+    filtered.sort((a, b) => {
+      const aValue = a[sortField as keyof Service];
+      const bValue = b[sortField as keyof Service];
+
+      if (aValue && bValue) {
+        if (aValue < bValue) {
+          return sortOrder === 'asc' ? -1 : 1;
+        }
+        if (aValue > bValue) {
+          return sortOrder === 'asc' ? 1 : -1;
+        }
+      }
+      return 0;
+    });
+
+    setFilteredServices(filtered);
   };
 
   const fetchServiceDetails = async (id: string) => {
@@ -163,86 +205,86 @@ const ServiceManagement: React.FC = () => {
 
   const updateService = async (service: Service) => {
     try {
-        const formData = new FormData();
-        formData.append('_id', service._id); 
-        formData.append('title', service.title);
-        formData.append('category', service.category);
-        formData.append('subcategory', service.subcategory);
-        formData.append('image1_title', service.image1_title);
-        formData.append('image2_title', service.image2_title);
-        formData.append('image3_title', service.image3_title);
-        formData.append('subtitle1', service.subtitle1 || '');
-        formData.append('what', service.what || '');
-        formData.append('subtitle2', service.subtitle2|| '');
-        formData.append('how', service.how || '');
-        formData.append('subtitle3', service.subtitle3 || '');
-        formData.append('area', service.area || '');
-        formData.append('objective1', service.objective1 || '');
-        formData.append('objective2', service.objective2 || '');
-        formData.append('extra', service.extra || '');
-        formData.append('time', service.time || '');
-        formData.append('anesthesia', service.anesthesia || '');
-        formData.append('finance', service.finance || '');
-        formData.append('results', service.results || '');
-        formData.append('hospital', service.hospital || '');
-        formData.append('faq1', service.faq1 || '');
-        formData.append('answer1', service.answer1 || '');
-        formData.append('faq2', service.faq2 || '');
-        formData.append('answer2', service.answer2 || '');
-        formData.append('faq3', service.faq3 || '');
-        formData.append('answer3', service.answer3 || '');
-        formData.append('faq4', service.faq4 || '');
-        formData.append('answer4', service.answer4 || '');
-        formData.append('faq5', service.faq5 || '');
-        formData.append('answer5', service.answer5 || '');
-        formData.append('faq6', service.faq6 || '');
-        formData.append('answer6', service.answer6 || '');
-        formData.append('faq7', service.faq7 || '');
-        formData.append('answer7', service.answer7 || '');
-        formData.append('faq8', service.faq8 || '');
-        formData.append('answer8', service.answer8 || '');
-        formData.append('faq9', service.faq9 || '');
-        formData.append('answer9', service.answer9 || '');
-        formData.append('targetAreas', JSON.stringify(service.targetAreas || []));
-        formData.append('objectives', JSON.stringify(service.objectives || []));
-        formData.append('relatedProd', JSON.stringify(service.relatedProd || []));
+      const formData = new FormData();
+      formData.append('_id', service._id);
+      formData.append('title', service.title);
+      formData.append('category', service.category);
+      formData.append('subcategory', service.subcategory);
+      formData.append('image1_title', service.image1_title);
+      formData.append('image2_title', service.image2_title);
+      formData.append('image3_title', service.image3_title);
+      formData.append('subtitle1', service.subtitle1 || '');
+      formData.append('what', service.what || '');
+      formData.append('subtitle2', service.subtitle2 || '');
+      formData.append('how', service.how || '');
+      formData.append('subtitle3', service.subtitle3 || '');
+      formData.append('area', service.area || '');
+      formData.append('objective1', service.objective1 || '');
+      formData.append('objective2', service.objective2 || '');
+      formData.append('extra', service.extra || '');
+      formData.append('time', service.time || '');
+      formData.append('anesthesia', service.anesthesia || '');
+      formData.append('finance', service.finance || '');
+      formData.append('results', service.results || '');
+      formData.append('hospital', service.hospital || '');
+      formData.append('faq1', service.faq1 || '');
+      formData.append('answer1', service.answer1 || '');
+      formData.append('faq2', service.faq2 || '');
+      formData.append('answer2', service.answer2 || '');
+      formData.append('faq3', service.faq3 || '');
+      formData.append('answer3', service.answer3 || '');
+      formData.append('faq4', service.faq4 || '');
+      formData.append('answer4', service.answer4 || '');
+      formData.append('faq5', service.faq5 || '');
+      formData.append('answer5', service.answer5 || '');
+      formData.append('faq6', service.faq6 || '');
+      formData.append('answer6', service.answer6 || '');
+      formData.append('faq7', service.faq7 || '');
+      formData.append('answer7', service.answer7 || '');
+      formData.append('faq8', service.faq8 || '');
+      formData.append('answer8', service.answer8 || '');
+      formData.append('faq9', service.faq9 || '');
+      formData.append('answer9', service.answer9 || '');
+      formData.append('targetAreas', JSON.stringify(service.targetAreas || []));
+      formData.append('objectives', JSON.stringify(service.objectives || []));
+      formData.append('relatedProd', JSON.stringify(service.relatedProd || []));
 
-        if (imageFiles.image1) formData.append('image1', imageFiles.image1 as File);
-        if (imageFiles.image2) formData.append('image2', imageFiles.image2 as File);
-        if (imageFiles.image3) formData.append('image3', imageFiles.image3 as File);
+      if (imageFiles.image1) formData.append('image1', imageFiles.image1 as File);
+      if (imageFiles.image2) formData.append('image2', imageFiles.image2 as File);
+      if (imageFiles.image3) formData.append('image3', imageFiles.image3 as File);
 
-        const response = await fetch('/api/updateService', {
-            method: 'PUT',
-            body: formData,
-        });
+      const response = await fetch('/api/updateService', {
+        method: 'PUT',
+        body: formData,
+      });
 
-        if (response.ok) {
-            console.log('Service updated successfully.');
-            setSuccessMessage('Service updated successfully.');
-            setTimeout(() => setSuccessMessage(null), 5000);
-            fetchServices();
-        } else {
-            console.error('Failed to update service', response.statusText);
-        }
+      if (response.ok) {
+        console.log('Service updated successfully.');
+        setSuccessMessage('Service updated successfully.');
+        setTimeout(() => setSuccessMessage(null), 5000);
+        fetchServices();
+      } else {
+        console.error('Failed to update service', response.statusText);
+      }
     } catch (error) {
-        console.error('Failed to update service:', error);
+      console.error('Failed to update service:', error);
     }
-};
+  };
 
-const deleteService = async (serviceId: string) => {
+  const deleteService = async (serviceId: string) => {
     try {
-        const response = await fetch(`/api/deleteService?id=${serviceId}`, {
-            method: 'DELETE',
-        });
-        if (response.ok) {
-            fetchServices();
-        } else {
-            console.error('Failed to delete service');
-        }
+      const response = await fetch(`/api/deleteService?id=${serviceId}`, {
+        method: 'DELETE',
+      });
+      if (response.ok) {
+        fetchServices();
+      } else {
+        console.error('Failed to delete service');
+      }
     } catch (error) {
-        console.error('Failed to delete service:', error);
+      console.error('Failed to delete service:', error);
     }
-};
+  };
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, field: 'image1' | 'image2' | 'image3') => {
     const file = e.target.files?.[0];
@@ -319,6 +361,25 @@ const deleteService = async (serviceId: string) => {
     }
   };
 
+  const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>, type: 'category' | 'subcategory' | 'problem') => {
+    if (type === 'category') {
+      setFilterCategory(e.target.value);
+    } else if (type === 'subcategory') {
+      setFilterSubcategory(e.target.value);
+    } else if (type === 'problem') {
+      setFilterProblem(e.target.value);
+    }
+  };
+
+  const handleSortChange = (field: string) => {
+    if (sortField === field) {
+      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortField(field);
+      setSortOrder('asc');
+    }
+  };
+
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold my-4 text-center">Plataforma de Edición de Tratamientos</h1>
@@ -333,7 +394,7 @@ const deleteService = async (serviceId: string) => {
           <label className="font-semibold">Categoría</label>
           <input type="text" name="category" placeholder="Categoría" defaultValue={editingService?.category} className="border rounded p-2" />
         </div>
-        <div className="flex.flex-col">
+        <div className="flex flex-col">
           <label className="font-semibold">Subcategoría</label>
           <input type="text" name="subcategory" placeholder="Subcategoría" defaultValue={editingService?.subcategory} className="border rounded p-2" />
         </div>
@@ -437,8 +498,45 @@ const deleteService = async (serviceId: string) => {
       </form>
 
       <h2 className="text-xl font-semibold mt-8 mb-4">Lista de Tratamientos</h2>
+      <div className="flex justify-between mb-4">
+        <div>
+          <label className="mr-2 font-semibold">Filtrar por Categoría:</label>
+          <select value={filterCategory} onChange={(e) => handleFilterChange(e, 'category')} className="border rounded p-2">
+            <option value="">Todas</option>
+            {Array.from(new Set(services.map(service => service.category))).map(category => (
+              <option key={category} value={category}>{category}</option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label className="mr-2 font-semibold">Filtrar por Subcategoría:</label>
+          <select value={filterSubcategory} onChange={(e) => handleFilterChange(e, 'subcategory')} className="border rounded p-2">
+            <option value="">Todas</option>
+            {Array.from(new Set(services.map(service => service.subcategory))).map(subcategory => (
+              <option key={subcategory} value={subcategory}>{subcategory}</option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label className="mr-2 font-semibold">Filtrar por Problema:</label>
+          <select value={filterProblem} onChange={(e) => handleFilterChange(e, 'problem')} className="border rounded p-2">
+            <option value="">Todos</option>
+            {Array.from(new Set(services.flatMap(service => service.objectives || []))).map(problem => (
+              <option key={problem} value={problem}>{problem}</option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label className="mr-2 font-semibold">Ordenar por:</label>
+          <select value={sortField} onChange={(e) => setSortField(e.target.value)} className="border rounded p-2">
+            <option value="title">Título</option>
+            <option value="category">Categoría</option>
+          </select>
+          <button onClick={() => handleSortChange(sortField)} className="ml-2 border rounded p-2">{sortOrder === 'asc' ? 'Ascendente' : 'Descendente'}</button>
+        </div>
+      </div>
       <ul className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        {services.map(service => {
+        {filteredServices.map(service => {
           const missingFields = [];
           if (!service.finance) missingFields.push('Financiación');
           if (!service.time) missingFields.push('Tiempo');
@@ -481,73 +579,6 @@ const deleteService = async (serviceId: string) => {
       </ul>
     </div>
   );
-
 };
 
-const LoginPage: React.FC<{ onLogin: () => void }> = ({ onLogin }) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState<string | null>(null);
-
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    const envUsername = process.env.NEXT_PUBLIC_ENV_USERNAME;
-    const envPassword = process.env.NEXT_PUBLIC_ENV_PASSWORD;
-
-    if (username === envUsername && password === envPassword) {
-      localStorage.setItem('isLoggedIn', 'true');
-      onLogin();
-    } else {
-      setError('Invalid username or password');
-    }
-  };
-
-  return (
-    <div className="flex items-center justify-center h-screen bg-gray-100">
-      <form onSubmit={handleLogin} className="bg-white p-8 rounded shadow-md w-80">
-        <h2 className="text-2xl font-bold mb-6 text-center">Portal HeartMed</h2>
-        {error && <div className="text-red-500 mb-4">{error}</div>}
-        <div className="flex items-center mb-4 border-b-2 py-2">
-          <FaUser className="mr-2 text-gray-400" />
-          <input
-            type="text"
-            placeholder="Usuario"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            className="w-full p-2 focus:outline-none"
-          />
-        </div>
-        <div className="flex items-center mb-6 border-b-2 py-2">
-          <FaLock className="mr-2 text-gray-400" />
-          <input
-            type="password"
-            placeholder="Contraseña"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full p-2 focus:outline-none"
-          />
-        </div>
-        <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">
-          Entrar
-        </button>
-      </form>
-    </div>
-  );
-};
-
-const App: React.FC = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-
-  useEffect(() => {
-    const loggedIn = localStorage.getItem('isLoggedIn') === 'true';
-    setIsLoggedIn(loggedIn);
-  }, []);
-
-  const handleLogin = () => {
-    setIsLoggedIn(true);
-  };
-
-  return isLoggedIn ? <ServiceManagement /> : <LoginPage onLogin={handleLogin} />;
-};
-
-export default App;
+export default ServiceManagement;

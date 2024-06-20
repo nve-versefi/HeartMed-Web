@@ -495,7 +495,7 @@ const menuData: MenuItem[]= [
           ]
         },
         { 
-          name: 'Medicina Epigenética', 
+          name: 'Test Epigenético', 
           path: '/terapia-epigenetica',
           imageUrl: '/images/placeholder_image.png',
           imagePath:'/images/antiaging.ozonoterapia.png',
@@ -559,7 +559,7 @@ const menuData: MenuItem[]= [
       id: 6,
       title: "Packs",
       path: "/packs",
-      image:"/images/packs.menu.png",
+      image:"/images/packs.menu.png", 
       newTab: false,
       submenu: [
         { name: 'Packs Medicina Estetica', imagePath: '/images/packs.estetica.png', path: '/medicina-estetica', imageUrl: '/images/placeholder_image.png'},
