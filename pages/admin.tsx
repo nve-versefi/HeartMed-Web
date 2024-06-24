@@ -4,6 +4,7 @@ import ServiceManagement from '@/components/ServiceManagement';
 import ProductManagement from '@/components/ProductManagement';
 import TrainingManagement from '@/components/TrainingManagement';
 import MachineryManagement from '@/components/MachineryManagement';
+import MenuManagement from '@/components/NavbarManagement';
 
 const AdminPage: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -21,8 +22,8 @@ const AdminPage: React.FC = () => {
 
   const renderContent = () => {
     switch (activeTab) {
-      // case 'menus':
-      //   return <MenuManagement />;
+      case 'menus':
+        return <MenuManagement />;
       case 'services':
         return <ServiceManagement />;
       case 'products':

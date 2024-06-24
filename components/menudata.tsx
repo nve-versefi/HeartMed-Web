@@ -326,7 +326,7 @@ const menuData: MenuItem[]= [
               imageUrl: '/images/MenuEstetica/masc-parpados-caidos.jpg',
               services: [
                // { serviceName: 'HIFU', servicePath: '/estetica/estetica-masculina/parpados-caidos/hifu'},
-                { serviceName: 'Láser CO2', servicePath: 'estetica-masculina/parpados-caidos/laser-co2'},
+                { serviceName: 'Blefaroplastia', servicePath: 'estetica-masculina/parpados-caidos/blefaroplastia'},
                 { serviceName: 'Blefaroplastia sin cirugía con láser CO2', servicePath: '/estetica-masculina/parpados-caidos/blefaroplastia'},
               ]
             },

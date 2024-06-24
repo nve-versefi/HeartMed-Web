@@ -1,14 +1,10 @@
+import { Suspense } from 'react';
 import './css/style.css';
 import { Inter, Architects_Daughter } from 'next/font/google';
-import Head from 'next/head';
+import ServerHeader from '@/components/ui/ServerHeader';
 import CookieBanner from '@/components/cookieconsent';
-import dynamic from 'next/dynamic';
 import StickyIcons from '@/components/ui/StickyIcons';
-
-
-const Header = dynamic(() => import('@/components/ui/header'), {
-  ssr: false,
-});
+import Head from 'next/head';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -33,7 +29,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
       
         <div className="flex flex-col bg-boulder-100 min-h-screen overflow-hidden">
-          <Header />
+
+            <ServerHeader />
+
           <div id="main-content">
             <div>{children}</div>
             <CookieBanner />

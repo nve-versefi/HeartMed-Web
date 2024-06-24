@@ -1,20 +1,18 @@
-'use client'
-import React, { useState } from 'react';
-import menuData from '@/components/menudata';
+import React from 'react';
 import { MenuItem, SubMenuItem } from '@/components/menudata.types';
 
-const Navbar = () => {
+interface ClientHeaderProps {
+  initialMenuData: MenuItem[];
+}
+
+const ClientHeader: React.FC<ClientHeaderProps> = ({ initialMenuData }) => {
   return (
     <div className="bg-gray-100 shadow-md">
-
       <div className="flex justify-between items-center">
-   
         <div className="flex-1"></div>
-   
         <div className="flex-initial">
           <img src="/images/logo.png" alt="Logo" className="h-16 w-auto" /> 
         </div>
-
         <div className="flex-1 flex justify-end items-center">
           <a href="/carrito" className="mx-12 text-lg text-woodsmoke-700 font-medium hover:underline">
             <img src="/images/cart.png" alt="Carrito" className="h-8 w-auto" /> 
@@ -24,7 +22,7 @@ const Navbar = () => {
       
       <nav className="flex justify-center p-2">
         <ul className="flex space-x-24">
-          {menuData.map((item) => (
+          {initialMenuData.map((item) => (
             <NavItem key={item.id} item={item} />
           ))}
         </ul>
@@ -34,7 +32,7 @@ const Navbar = () => {
 };
 
 const NavItem = ({ item }: { item: MenuItem }) => {
-  const [isHovered, setIsHovered] = useState(false);
+  const [isHovered, setIsHovered] = React.useState(false);
 
   return (
     <li
@@ -43,9 +41,9 @@ const NavItem = ({ item }: { item: MenuItem }) => {
       onMouseOut={() => setIsHovered(false)}
     >
       <a href={item.path}>
-      <button className="text-xl font-semibold text-woodsmoke-700 hover:bg-gray-200">
-        {item.title}
-      </button>
+        <button className="text-xl font-semibold text-woodsmoke-700 hover:bg-gray-200">
+          {item.title}
+        </button>
       </a>
       {isHovered && item.submenu && item.submenu.length > 0 && (
         <Dropdown items={item.submenu} />
@@ -83,9 +81,4 @@ const Dropdown = ({ items }: { items: SubMenuItem[] }) => {
   );
 };
 
-
-
-
-
-
-export default Navbar;
+export default ClientHeader;
