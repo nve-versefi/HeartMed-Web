@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { ObjectId } from 'mongodb';
 import connect from '@/app/lib/mongodb';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -12,15 +11,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   console.log('Received request:', { level, id, parentId, problemId, itemData });
 
-  if (!level || Array.isArray(level)) {
-    return res.status(400).json({ message: 'Missing or invalid required parameter: level' });
+  if (!level || Array.isArray(level) || !id || Array.isArray(id)) {
+    return res.status(400).json({ message: 'Missing or invalid required parameters: level and id' });
   }
 
-  if (!id || Array.isArray(id)) {
-    return res.status(400).json({ message: 'Missing or invalid required parameter: id' });
-  }
-
-  // Ensure parentId and problemId are strings if present
   const parentIdString = Array.isArray(parentId) ? parentId[0] : parentId;
   const problemIdString = Array.isArray(problemId) ? problemId[0] : problemId;
 
@@ -29,16 +23,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const db = client.db(process.env.DB_NAME);
     const collection = db.collection('menuItems');
 
-    // Log the entire document structure
-    const allDocuments = await collection.find({}).toArray();
-    console.log('Current document structure:', JSON.stringify(allDocuments, null, 2));
-
     let result;
 
     switch (level) {
       case 'menuItem':
         result = await collection.updateOne(
-          { _id: new ObjectId(id) },
+          { id: parseInt(id) },
           {
             $set: {
               title: itemData.title,
@@ -54,9 +44,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         if (!parentIdString) {
           return res.status(400).json({ message: 'Missing required parameter: parentId for submenu' });
         }
-
         result = await collection.updateOne(
-          { _id: new ObjectId(parentIdString), 'submenu.name': id },
+          { id: parseInt(parentIdString), 'submenu.name': id },
           {
             $set: {
               'submenu.$.name': itemData.title,
@@ -71,7 +60,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         if (!parentIdString) {
           return res.status(400).json({ message: 'Missing required parameter: parentId for problem' });
         }
-
         result = await collection.updateOne(
           { 'submenu.name': parentIdString, 'submenu.problems.name': id },
           {
@@ -93,7 +81,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         if (!parentIdString || !problemIdString) {
           return res.status(400).json({ message: 'Missing required parameters: parentId and problemId for service' });
         }
-
         result = await collection.updateOne(
           { 'submenu.name': parentIdString, 'submenu.problems.name': problemIdString, 'submenu.problems.services.serviceName': id },
           {
@@ -118,20 +105,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     console.log('Operation result:', result);
 
-    if ('matchedCount' in result && result.matchedCount === 0) {
-      return res.status(404).json({ message: 'Failed to update item: No matching document found' });
+    if (result.matchedCount === 0) {
+      return res.status(404).json({ message: 'Item not found. No update performed.' });
     }
-    if ('modifiedCount' in result && result.modifiedCount === 0) {
-      return res.status(404).json({ message: 'Failed to update item: No document modified' });
+    if (result.modifiedCount === 0) {
+      return res.status(200).json({ message: 'Item found, but no changes were needed.' });
     }
 
     res.status(200).json({ message: 'Item updated successfully', result });
   } catch (error) {
     console.error('Error updating item:', error);
-    if (error instanceof Error) {
-      res.status(500).json({ message: `Error updating item: ${error.message}` });
-    } else {
-      res.status(500).json({ message: 'An unknown error occurred' });
-    }
+    res.status(500).json({ message: `Error updating item: ${error instanceof Error ? error.message : 'Unknown error'}` });
   }
 }

@@ -327,7 +327,7 @@ const menuData: MenuItem[]= [
               services: [
                // { serviceName: 'HIFU', servicePath: '/estetica/estetica-masculina/parpados-caidos/hifu'},
                 { serviceName: 'Blefaroplastia', servicePath: 'estetica-masculina/parpados-caidos/blefaroplastia'},
-                { serviceName: 'Blefaroplastia sin cirugía con láser CO2', servicePath: '/estetica-masculina/parpados-caidos/blefaroplastia'},
+                { serviceName: 'Blefaroplastia sin cirugía con láser CO2', servicePath: '/estetica-masculina/parpados-caidos/laser-co2'},
               ]
             },
             {
@@ -425,13 +425,20 @@ const menuData: MenuItem[]= [
         },
         { 
           name: 'Fotos Antes y Después', 
-          path: '/cirugias-medicoesteticas',
-          imageUrl: '/images/MenuEstetica/cirugias-medicasoesteticas.jpg',
-          imagePath:'/images/MenuEstetica/cirugias-medicasoesteticas.jpg',
+          path: '/antes-y-despues',
+          imageUrl: '/images/MenuEstetica/antes-y-despues.jpg',
+          imagePath:'/images/MenuEstetica/antes-y-despues.jpg',
           problems: [
           ]
         },
-   
+        { 
+          name: 'Precios', 
+          path: '/precios',
+          imageUrl: '/images/MenuEstetica/precios.jpg',
+          imagePath:'/images/MenuEstetica/precios.jpg',
+          problems: [
+          ]
+        },
         ],
     },
     {
