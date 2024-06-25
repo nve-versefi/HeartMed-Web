@@ -1,51 +1,64 @@
 'use client'
 import { useState, useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 const CookieBanner = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [userId, setUserId] = useState<string | null>(null);
+
   useEffect(() => {
-    const consent = getCookie('userConsent');
-    if (!consent) {
-      setIsVisible(true);
+    const storedUserId = localStorage.getItem('userId');
+    if (storedUserId) {
+      setUserId(storedUserId);
+    } else {
+      const newUserId = uuidv4();
+      localStorage.setItem('userId', newUserId);
+      setUserId(newUserId);
     }
   }, []);
 
-  const handleConsentDecision = (decision: 'all' | 'essential' | 'none') => {
-    console.log("Current cookies:", document.cookie);
-    setIsVisible(false);
-    setCookie('userConsent', decision);
-        console.log("Cookie set. Checking value...");
-        console.log(`Cookie value for userConsent:`, getCookie('userConsent'));
+  useEffect(() => {
+    const fetchCookieConsent = async () => {
+      if (userId) {
+        try {
+          const response = await fetch(`/api/cookieConsent?userId=${userId}`);
+          if (response.ok) {
+            const data = await response.json();
+            if (!data.consentDetails) {
+              setIsVisible(true);
+            }
+          } else {
+            setIsVisible(true);
+          }
+        } catch (error) {
+          console.error('Error retrieving cookie consent:', error);
+          setIsVisible(true);
+        }
+      }
+    };
 
-    if (decision === 'all') {
-      fetch('/api/storeConsent', {
+    fetchCookieConsent();
+  }, [userId]);
+
+  const handleConsentDecision = async (consentDetails: { essential: boolean; performance: boolean; marketing: boolean }) => {
+    setIsVisible(false);
+
+    try {
+      await fetch('/api/cookieConsent', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ consent: decision }),
+        body: JSON.stringify({
+          userId,
+          consentDetails,
+          consentVersion: '1.0',
+        }),
       });
+    } catch (error) {
+      console.error('Error updating cookie consent:', error);
     }
   };
-
-  const setCookie = (name: string, value: string) => {
-    document.cookie = `${name}=${value}; path=/; max-age=31536000`;
-  };
-
-  const getCookie = (name: string): string | null => {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) {
-      const cookiePart = parts.pop();
-      if (cookiePart) {
-        const cookieValue = cookiePart.split(';').shift();
-        console.log(`Cookie value for ${name}:`, cookieValue);
-        return cookieValue ? cookieValue : null;
-      }
-    }
-    return null;
-  };
-  
 
   if (!isVisible) return null;
 
@@ -53,9 +66,42 @@ const CookieBanner = () => {
     <div className="fixed inset-x-0 bottom-0 bg-white p-4 shadow-md text-center">
       <p className="text-sm mb-4">Usamos cookies para mejorar tu experiencia. Por favor indica tu preferencia abajo. Puedes modificarlas en cualquier momento</p>
       <div className="flex justify-center space-x-2">
-        <button onClick={() => handleConsentDecision('all')} className="bg-pomegranate-500 text-white px-4 py-2 rounded hover:pomegranate-400">Aceptar</button>
-        <button onClick={() => handleConsentDecision('essential')} className="bg-pomegranate-300 text-white px-4 py-2 rounded hover:bg-gray-600">Aceptar solo las esenciales</button>
-        <button onClick={() => handleConsentDecision('none')} className="bg-boulder-600 text-white px-4 py-2 rounded hover:bg-red-600">Denegar</button>
+        <button
+          onClick={() =>
+            handleConsentDecision({
+              essential: true,
+              performance: true,
+              marketing: true,
+            })
+          }
+          className="bg-pomegranate-500 text-white px-4 py-2 rounded hover:pomegranate-400"
+        >
+          Aceptar
+        </button>
+        <button
+          onClick={() =>
+            handleConsentDecision({
+              essential: true,
+              performance: true,
+              marketing: false,
+            })
+          }
+          className="bg-pomegranate-300 text-white px-4 py-2 rounded hover:bg-gray-600"
+        >
+          Aceptar solo las esenciales
+        </button>
+        <button
+          onClick={() =>
+            handleConsentDecision({
+              essential: false,
+              performance: false,
+              marketing: false,
+            })
+          }
+          className="bg-boulder-600 text-white px-4 py-2 rounded hover:bg-red-600"
+        >
+          Denegar
+        </button>
       </div>
     </div>
   );
