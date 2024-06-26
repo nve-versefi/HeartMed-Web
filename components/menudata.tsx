@@ -125,7 +125,7 @@ const menuData: MenuItem[]= [
               ]
             },
             {
-              name: 'Flacidez de Rostro',
+              name: 'Flacidez del Rostro',
               imageUrl: '/images/MenuEstetica/flacidez-rostro.png',
               services: [
                 { serviceName: 'Elástica', servicePath: '/tratamientos-faciales/flacidez-rostro/elastica'},
@@ -146,7 +146,6 @@ const menuData: MenuItem[]= [
               services: [
                 { serviceName: 'HIFU', servicePath: '/tratamientos-faciales/parpados-caidos/hifu'},
                 { serviceName: 'Hilos Tensores', servicePath: '/tratamientos-faciales/parpados-caidos/hilos-tensores'},
-                { serviceName: 'Neuromoduladores', servicePath: '/tratamientos-faciales/parpados-caidos/neuromoduladores'},
                 { serviceName: 'Blefaroplastia sin cirugía con láser CO2', servicePath: '/tratamientos-faciales/parpados-caidos/blefaroplastia'},
               ]
             },
@@ -221,7 +220,6 @@ const menuData: MenuItem[]= [
                 { serviceName: 'Sudaración excesiva', servicePath: '/tratamientos-corporales/rejuvenecimiento-manos/sudor-excesivo'},
                 { serviceName: 'Láser CO2 Fraccionado', servicePath: '/tratamientos-corporales/rejuvenecimiento-manos/laser-co2-fraccionado'},
                 { serviceName: 'PRP Plasma Rico en Plaquetas', servicePath: '/tratamientos-corporales/rejuvenecimiento-manos/plasma-rico-plaquetas' },
-               // { serviceName: 'TMT Systems - Mesoterapia Virtual', servicePath: '/tratamientos-corporales/rejuvenecimiento-manos/psoterapia-virtual'},
                 { serviceName: 'Skinbooster Rejuvenecimiento', servicePath: '/tratamientos-corporales/rejuvenecimiento-manos/skinbooster'},
               ]
             },
@@ -358,8 +356,8 @@ const menuData: MenuItem[]= [
               services: [
                 { serviceName: 'Peeling Químico', servicePath: '/estetica-masculina/corregir-acne/peeling-quimico' },
                 { serviceName: 'IPL Pulsada Intensa', servicePath: '/estetica-masculina/corregir-acne/ipl'},
-                { serviceName: 'Láser CO2', servicePath: '/estetica-masculina/corregir-acne/laser-co2' },
-                { serviceName: 'Mesoterapia', servicePath: '/estetica-masculina/corregir-acne/mesoterapia'},
+                { serviceName: 'Láser CO2 Fraccionado', servicePath: '/estetica-masculina/corregir-acne/laser-co2' },
+                { serviceName: 'Mesoterapia Facial', servicePath: '/estetica-masculina/corregir-acne/mesoterapia'},
               ]
             },
             {
