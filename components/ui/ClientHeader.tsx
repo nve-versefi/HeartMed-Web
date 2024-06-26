@@ -1,5 +1,6 @@
 import React from 'react';
 import { MenuItem, SubMenuItem } from '@/components/menudata.types';
+import SearchBar from '../SearchBar';
 
 interface ClientHeaderProps {
   initialMenuData: MenuItem[];
@@ -8,8 +9,12 @@ interface ClientHeaderProps {
 const ClientHeader: React.FC<ClientHeaderProps> = ({ initialMenuData }) => {
   return (
     <div className="bg-gray-100 shadow-md">
-      <div className="flex justify-between items-center">
-        <div className="flex-1"></div>
+      <div className="flex justify-between items-center p-2">
+        <div className="flex-1 flex justify-start items-center">
+          <div className="pl-32">
+            <SearchBar />
+          </div>
+        </div>
         <div className="flex-initial">
           <img src="/images/logo.png" alt="Logo" className="h-16 w-auto" /> 
         </div>
