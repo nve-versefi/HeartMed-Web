@@ -88,30 +88,27 @@ const ServiceInfo: React.FC<ServiceInfoProps> = ({ serviceData }) => {
             <p className="text-lg text-woodsmoke-700 font-regular">{renderTextWithLineBreaks(serviceData.how)}</p>
           </div>
         </div>
-
         <div className="mt-12">
             <h2 className="text-2xl text-center text-thunderbird-500 font-bold mb-4">{serviceData.subtitle3 ?? 'Subtitulo 3'}</h2>
             <p className="text-lg text-woodsmoke-700 font-regular">{renderTextWithLineBreaks(serviceData.area)}</p>
         </div>
-
         <div className="mb-4 text-center">
           <p className="text-lg">{renderTextWithLineBreaks(serviceData.objective1)}</p>
           <p className="text-lg">{renderTextWithLineBreaks(serviceData.objective2)}</p>
         </div>
-
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-  <div className="w-full h-64">
+  <div className="flex justify-center" style={{ height: '450px', width: 'auto' }}>
     <img
-      src={serviceData.image2 || "/images/placeholder-image.png"}
+      src={serviceData.image2 || "/mnt/data/image.png"}
       alt="Service Image 1"
-      className="w-full h-full object-cover"
+      style={{ width: '450px', height: '450px', objectFit: 'cover' }}
     />
   </div>
-  <div className="w-full h-64">
+  <div className="flex justify-center" style={{ height: '450px', width: 'auto' }}>
     <img
-      src={serviceData.image3 || "/images/placeholder-image.png"}
+      src={serviceData.image3 || "/mnt/data/image.png"}
       alt="Service Image 2"
-      className="w-full h-full object-cover"
+      style={{ width: '450px', height: '450px', objectFit: 'cover' }}
     />
   </div>
 </div>
@@ -124,7 +121,7 @@ const ServiceInfo: React.FC<ServiceInfoProps> = ({ serviceData }) => {
               <FaHourglassHalf className="text-4xl text-thunderbird-500 mx-auto mb-4" />
               <p className="text-gray-700">
                 <strong>Tiempo de realización</strong>
-                <br />
+                <br/>
                 {renderTextWithLineBreaks(serviceData.time)}
               </p>
             </div>
@@ -132,7 +129,7 @@ const ServiceInfo: React.FC<ServiceInfoProps> = ({ serviceData }) => {
               <FaMoneyBillWave className="text-4xl text-thunderbird-500 mx-auto mb-4" />
               <p className="text-gray-700">
                 <strong>Financiación</strong>
-                <br />
+                <br/>
                 {renderTextWithLineBreaks(serviceData.finance)}
               </p>
             </div>
@@ -140,13 +137,12 @@ const ServiceInfo: React.FC<ServiceInfoProps> = ({ serviceData }) => {
               <FaSyringe className="text-4xl text-thunderbird-500 mx-auto mb-4" />
               <p className="text-gray-700">
                 <strong>Anestesia</strong>
-                <br />
+                <br/>
                 {renderTextWithLineBreaks(serviceData.anesthesia)}
               </p>
             </div>
           </div>
         </div>
-
         <AccordionComponent serviceData={serviceData} />
       </div>
     </div>
