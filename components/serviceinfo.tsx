@@ -27,7 +27,7 @@ const ServiceInfo: React.FC<ServiceInfoProps> = ({ serviceData }) => {
   return (
     <>
     <Head>
-        <title>{serviceData.title} - HeartMed</title>
+        <title>{`${serviceData.title} - HeartMed`}</title>
         <meta name="description" content={serviceData.what} />
         <meta property="og:title" content={serviceData.title} />
         <meta property="og:description" content={serviceData.what} />
@@ -43,17 +43,6 @@ const ServiceInfo: React.FC<ServiceInfoProps> = ({ serviceData }) => {
               "@type": "Organization",
               "name": "Heart Med",
               "url": "https://heart-med.vercel.app",
-              // "location": {
-              //   "@type": "Place",
-              //   "address": {
-              //     "@type": "PostalAddress",
-              //     "streetAddress": "Calle Falsa 123",
-              //     "addressLocality": "Ciudad",
-              //     "addressRegion": "Región",
-              //     "postalCode": "12345",
-              //     "addressCountry": "ES"
-              //   }
-              // }
             },
             "areaServed": {
               "@type": "Place",
