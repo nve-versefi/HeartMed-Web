@@ -22,7 +22,7 @@ const ServiceInfo: React.FC<ServiceInfoProps> = ({ serviceData }) => {
     return <p>Loading...</p>;
   }
 
-  //console.log('ServiceData:', serviceData); 
+  console.log('ServiceData:', serviceData); 
 
   return (
     <>

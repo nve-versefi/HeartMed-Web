@@ -70,7 +70,7 @@ const AntiAgingMenu: React.FC = () => {
 
       <LazyLoad>
         <div className="text-sections">
-          <h3 className="text-xl font-semibold text-thunderbird-500 text-center mx-16 mb-2">¿Qué es la Medicina Estética?</h3>
+          <h3 className="text-xl font-semibold text-thunderbird-500 text-center mx-16 mb-2">¿Qué es la Medicina Regenerativa?</h3>
           <p className="mb-4 text-center mx-16">
             En HeartMed, nos especializamos en la Medicina Antiaging, un campo dedicado a mejorar la edad biológica, fomentando un envejecimiento saludable y una calidad de vida óptima. Nuestro enfoque científico y holístico se centra en revitalizar tanto el cuerpo como la mente, para que puedas disfrutar plenamente de la vida con una energía renovada.
           </p>
