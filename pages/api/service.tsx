@@ -56,6 +56,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                             targetAreas: 1,
                             objectives: 1,
                             relatedProd: 1,
+                            image1: 1,
+                            image2: 1,
+                            image3: 1,
                         }
                     }
                 );
@@ -87,7 +90,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                         image1_title: 1,
                         image2_title: 1,
                         image3_title: 1,
-                        objectives: 1
+                        objectives: 1,
+                        targetAreas: 1
                     }
                 }).toArray();
                 //console.log('Services fetched:', services);
