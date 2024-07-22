@@ -1,3 +1,4 @@
+'use client'
 import React from 'react';
 import { Accordion, AccordionItem, AccordionButton, AccordionPanel, Box, Text } from '@chakra-ui/react';
 import { motion } from 'framer-motion';

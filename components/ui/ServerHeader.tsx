@@ -14,7 +14,8 @@ async function fetchMenuData(): Promise<MenuItem[]> {
   });
 
   if (!res.ok) {
-    throw new Error(`Failed to fetch menu data: ${res.status} ${res.statusText}`);
+    const errorData = await res.json();
+    throw new Error(`Failed to fetch menu data: ${errorData.message}`);
   }
 
   return res.json();
@@ -33,7 +34,7 @@ export default function ServerHeader() {
       })
       .catch(err => {
         console.error('Error fetching menu data:', err);
-        setError('Failed to load menu data');
+        setError(err.message || 'Failed to load menu data');
         setLoading(false);
       });
   }, []);
@@ -43,8 +44,10 @@ export default function ServerHeader() {
   }
 
   if (error) {
-    return <div>{error}</div>;
+    return <div>Error: {error}</div>;
   }
 
-  return <ClientHeader initialMenuData={menuData} />;
+  return (
+    <ClientHeader initialMenuData={menuData} />
+  );
 }

@@ -1,3 +1,5 @@
+// src/app/lib/mongodb.ts
+
 import { MongoClient } from "mongodb";
 
 if (!process.env.DB_USERNAME || !process.env.DB_PASSWORD || !process.env.MONGODB_URI || !process.env.DB_NAME) {
@@ -9,8 +11,7 @@ const encodedPassword = encodeURIComponent(process.env.DB_PASSWORD);
 
 const uri = `${process.env.MONGODB_URI.replace("mongodb+srv://", `mongodb+srv://${encodedUsername}:${encodedPassword}@`)}/?retryWrites=true&w=majority&appName=JaviHermosa`;
 
-const options = {
-};
+const options = {};
 
 let client: MongoClient;
 

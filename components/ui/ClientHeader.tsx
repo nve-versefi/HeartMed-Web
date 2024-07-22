@@ -1,12 +1,20 @@
-import React from 'react';
+// components/ui/ClientHeader.tsx
+import React, { useEffect, useState } from 'react';
 import { MenuItem, SubMenuItem } from '@/components/menudata.types';
 import SearchBar from '../SearchBar';
+import { useCart } from './CartContext';
+import { FaShoppingCart } from 'react-icons/fa';
+import CartDropdown from './Cart';
 
 interface ClientHeaderProps {
   initialMenuData: MenuItem[];
 }
 
 const ClientHeader: React.FC<ClientHeaderProps> = ({ initialMenuData }) => {
+  const { state } = useCart();
+  const [isCartHovered, setIsCartHovered] = useState(false);
+  const [menuData, setMenuData] = useState<MenuItem[]>(initialMenuData);
+
   return (
     <div className="bg-gray-100 shadow-md">
       <div className="flex justify-between items-center p-2">
@@ -16,18 +24,30 @@ const ClientHeader: React.FC<ClientHeaderProps> = ({ initialMenuData }) => {
           </div>
         </div>
         <div className="flex-initial">
-          <img src="/images/logo.png" alt="Logo" className="h-16 w-auto" /> 
+          <img src="/images/logo.png" alt="Logo" className="h-16 w-auto" />
         </div>
         <div className="flex-1 flex justify-end items-center">
-          <a href="/carrito" className="mx-12 text-lg text-woodsmoke-700 font-medium hover:underline">
-            <img src="/images/cart.png" alt="Carrito" className="h-8 w-auto" /> 
-          </a>
+          <div 
+            className="mx-12 relative"
+            onMouseEnter={() => setIsCartHovered(true)}
+            onMouseLeave={() => setIsCartHovered(false)}
+          >
+            <FaShoppingCart 
+              className={`text-3xl text-thunderbird-400 transition-transform duration-300 ${isCartHovered ? 'transform scale-110' : ''}`}
+            />
+            {state.items.length > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                {state.items.length}
+              </span>
+            )}
+            {isCartHovered && <CartDropdown />}
+          </div>
         </div>
       </div>
       
       <nav className="flex justify-center p-2">
         <ul className="flex space-x-24">
-          {initialMenuData.map((item) => (
+          {menuData.map((item) => (
             <NavItem key={item.id} item={item} />
           ))}
         </ul>

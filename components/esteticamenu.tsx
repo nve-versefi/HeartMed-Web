@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -30,17 +32,28 @@ const EsteticaMenu: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchMedicinaEsteticaData = async () => {
+    const fetchMedicinaEsteticaData = async (retries = 3) => {
       try {
+        setLoading(true);
         const response = await fetch('/api/medicina-estetica');
         if (!response.ok) {
-          throw new Error('Failed to fetch Medicina Estética data');
+          throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const data = await response.json();
+        if (data.error) {
+          throw new Error(data.error);
+        }
+        //console.log('Fetched data:', data);
         setSubmenuData(data);
+        setError(null);
       } catch (err) {
-        setError('Error fetching Medicina Estética data');
-        console.error(err);
+        //console.error('Error fetching Medicina Estética data:', err);
+        if (retries > 0) {
+          //console.log(`Retrying... (${retries} attempts left)`);
+          setTimeout(() => fetchMedicinaEsteticaData(retries - 1), 500);
+        } else {
+          setError('Error fetching Medicina Estética data. Please try again later.');
+        }
       } finally {
         setLoading(false);
       }
@@ -50,8 +63,10 @@ const EsteticaMenu: React.FC = () => {
   }, []);
 
   if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
-  if (submenuData.length === 0) return <div>No Medicina Estética data found.</div>;
+  if (error) return <div>Error: {error}</div>;
+  if (!submenuData || submenuData.length === 0) return <div>No Medicina Estética data found.</div>;
+
+  //console.log('Rendering with submenuData:', submenuData);
 
   return (
     <div className="estetica-menu mt-8">
@@ -116,7 +131,7 @@ const EsteticaMenu: React.FC = () => {
                 {submenuItem.problems?.map((problem, problemIndex) => (
                   <div key={problemIndex} className="problem-item">
                     <h3 className="text-3xl text-thunderbird-500 text-center font-bold mb-2">{problem.name}</h3>
-                    <div className="w-full h-0 pb-[56.25%] relative mb-4"> {/* 16:9 aspect ratio for problem images */}
+                    <div className="w-full h-0 pb-[56.25%] relative mb-4">
                       <Image
                         src={problem.imageUrl}
                         alt={problem.name}

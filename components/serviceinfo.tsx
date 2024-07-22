@@ -1,59 +1,24 @@
 import React from 'react';
 import { FaHourglassHalf, FaMoneyBillWave, FaSyringe } from 'react-icons/fa';
 import AccordionComponent from './accordion';
-import Head from 'next/head';
+import { ServiceData } from '@/app/[subcategory]/[problem]/[service]/page';
+
+interface ServiceInfoProps {
+  serviceData: ServiceData;
+}
 
 const renderTextWithLineBreaks = (text: string | undefined) => {
   if (!text) return null;
-
   return text.split('\n').map((line: string, index: number) => (
     <React.Fragment key={index}>
-      {line}{index < text.split('\n').length - 1 && <br />}
+      {line}
+      {index < text.split('\n').length - 1 && <br />}
     </React.Fragment>
   ));
 };
 
-interface ServiceInfoProps {
-  serviceData: any;
-}
-
 const ServiceInfo: React.FC<ServiceInfoProps> = ({ serviceData }) => {
-  if (!serviceData) {
-    return <p>Loading...</p>;
-  }
-
-  console.log('ServiceData:', serviceData); 
-
   return (
-    <>
-    <Head>
-        <title>{`${serviceData.title} - HeartMed`}</title>
-        <meta name="description" content={serviceData.what} />
-        <meta property="og:title" content={serviceData.title} />
-        <meta property="og:description" content={serviceData.what} />
-        <meta property="og:type" content="website"/>
-        <meta property="og:url" content={`https://heart-med.vercel.app/${serviceData.subcategory}/${serviceData.objectives}/${serviceData.title}`} />
-        <link rel="canonical" href={`https://heart-med.vercel.app/${serviceData.subcategory}/${serviceData.objectives}/${serviceData.title}`} />
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "http://schema.org",
-            "@type": "Service",
-            "serviceType": "TratamientoDeBelleza",
-            "provider": {
-              "@type": "Organization",
-              "name": "Heart Med",
-              "url": "https://heart-med.vercel.app",
-            },
-            "areaServed": {
-              "@type": "Place",
-              "name": "España"
-            },
-            "url": `https://heart-med.vercel.app/${serviceData.subcategory}/${serviceData.objectives}/${serviceData.title}`,
-            "name": serviceData.title,
-            "description": serviceData.what
-          })}
-        </script>
-      </Head>
     <div className="container mx-auto px-4">
       <div className="banner-container">
         <div className="w-screen h-64 overflow-hidden relative">
@@ -71,7 +36,6 @@ const ServiceInfo: React.FC<ServiceInfoProps> = ({ serviceData }) => {
             <h2 className="text-2xl text-thunderbird-500 font-bold mb-4">{serviceData.subtitle1 ?? 'Subtitulo 1'}</h2>
             <p className="text-lg text-woodsmoke-700 font-regular">{renderTextWithLineBreaks(serviceData.what)}</p>
           </div>
-
           <div className="md:mr-12">
             <h2 className="text-2xl text-thunderbird-500 font-bold mb-4">{serviceData.subtitle2 ?? 'Subtitulo 2'}</h2>
             <p className="text-lg text-woodsmoke-700 font-regular">{renderTextWithLineBreaks(serviceData.how)}</p>
@@ -132,7 +96,6 @@ const ServiceInfo: React.FC<ServiceInfoProps> = ({ serviceData }) => {
         <AccordionComponent serviceData={serviceData} />
       </div>
     </div>
-    </>
   );
 };
 

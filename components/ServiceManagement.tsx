@@ -1,8 +1,8 @@
-//components/ServiceManagement.tsx
+// components/ServiceManagement.tsx
 
 import React, { useState, useEffect, useRef } from 'react';
-import Modal from './modal';  
-import ServiceInfoPreview from './ServiceInfoPreview';  
+import Modal from './modal';
+import ServiceInfoPreview from './ServiceInfoPreview';
 import 'tailwindcss/tailwind.css';
 import {
   GiArm, GiAbdominalArmor, GiChestArmor, GiLips, GiLeg, GiBodyHeight,
@@ -74,8 +74,17 @@ const ServiceManagement: React.FC = () => {
   const [filterProblem, setFilterProblem] = useState<string>('');
   const [sortField, setSortField] = useState<string>('title');
   const [sortOrder, setSortOrder] = useState<string>('asc');
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);  
-  const [serviceData, setServiceData] = useState<Service>({} as Service);  
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [serviceData, setServiceData] = useState<Service>({} as Service);
+
+  const parseJSONField = (field: string) => {
+    try {
+      return JSON.parse(field);
+    } catch (error) {
+      return field.split(',').map(item => item.trim());
+    }
+  };
+  
 
   const iconMapping: { [key: string]: React.ReactNode } = {
     'hombros': <GiArm />,
@@ -94,7 +103,7 @@ const ServiceManagement: React.FC = () => {
     'mejillas': <FaFaceLaughBeam />,
     'ojos': <FaRegEye />,
     'labios': <GiLips />,
-    'gluteos': < MdOutlineAirlineSeatLegroomExtra />,
+    'gluteos': <MdOutlineAirlineSeatLegroomExtra />,
     'abdomen': <GiAbdominalArmor />,
     'pecho': <GiChestArmor />,
     'orejas': <FaEarListen />,
@@ -116,7 +125,6 @@ const ServiceManagement: React.FC = () => {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       const data = await response.json();
-      //console.log('Fetched services data:', data); 
       setServices(data.services);
     } catch (error) {
       console.error('Failed to fetch services:', error);
@@ -163,13 +171,67 @@ const ServiceManagement: React.FC = () => {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       const data = await response.json();
-      setEditingService(data.service);
-      setServiceData(data.service); 
-      setIsModalOpen(true);  
+      const service = unwrapServiceData(data.service);
+      setEditingService(service);
+      setServiceData(service);
+      setIsModalOpen(true);
     } catch (error) {
       console.error('Failed to fetch service details:', error);
     }
   };
+
+  const unwrapServiceData = (data: any) => {
+    const unwrapField = (field: any) => Array.isArray(field) ? field[0] : field;
+  
+    return {
+      _id: data._id,
+      title: unwrapField(data.title),
+      category: unwrapField(data.category),
+      subcategory: unwrapField(data.subcategory),
+      image1_title: unwrapField(data.image1_title),
+      image2_title: unwrapField(data.image2_title),
+      image3_title: unwrapField(data.image3_title),
+      image1: unwrapField(data.image1),
+      image2: unwrapField(data.image2),
+      image3: unwrapField(data.image3),
+      subtitle1: unwrapField(data.subtitle1),
+      what: unwrapField(data.what),
+      subtitle2: unwrapField(data.subtitle2),
+      how: unwrapField(data.how),
+      subtitle3: unwrapField(data.subtitle3),
+      area: unwrapField(data.area),
+      time: unwrapField(data.time),
+      anesthesia: unwrapField(data.anesthesia),
+      finance: unwrapField(data.finance),
+      results: unwrapField(data.results),
+      hospital: unwrapField(data.hospital),
+      objective1: unwrapField(data.objective1),
+      objective2: unwrapField(data.objective2),
+      extra: unwrapField(data.extra),
+      faq1: unwrapField(data.faq1),
+      answer1: unwrapField(data.answer1),
+      faq2: unwrapField(data.faq2),
+      answer2: unwrapField(data.answer2),
+      faq3: unwrapField(data.faq3),
+      answer3: unwrapField(data.answer3),
+      faq4: unwrapField(data.faq4),
+      answer4: unwrapField(data.answer4),
+      faq5: unwrapField(data.faq5),
+      answer5: unwrapField(data.answer5),
+      faq6: unwrapField(data.faq6),
+      answer6: unwrapField(data.answer6),
+      faq7: unwrapField(data.faq7),
+      answer7: unwrapField(data.answer7),
+      faq8: unwrapField(data.faq8),
+      answer8: unwrapField(data.answer8),
+      faq9: unwrapField(data.faq9),
+      answer9: unwrapField(data.answer9),
+      targetAreas: parseJSONField(unwrapField(data.targetAreas)),
+      objectives: parseJSONField(unwrapField(data.objectives)),
+      relatedProd: parseJSONField(unwrapField(data.relatedProd)),
+    };
+  };
+  
 
   const addService = async (service: Omit<Service, '_id'>) => {
     try {
@@ -326,16 +388,15 @@ const ServiceManagement: React.FC = () => {
         ...prevFiles,
         [field]: file,
       }));
-      setServiceData(prevData => ({
-        ...prevData,
-        [field]: URL.createObjectURL(file)  
-      }));
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setServiceData(prevData => ({
+          ...prevData,
+          [field]: reader.result as string
+        }));
+      };
+      reader.readAsDataURL(file);
     }
-  };
-
-  const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    e.target.style.height = 'auto';
-    e.target.style.height = e.target.scrollHeight + 'px';
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -344,6 +405,19 @@ const ServiceManagement: React.FC = () => {
       ...prevData,
       [name]: value
     }));
+  };
+
+  const handleArrayChange = (e: React.ChangeEvent<HTMLInputElement>, field: 'targetAreas' | 'objectives' | 'relatedProd') => {
+    const value = e.target.value.split(',').map(item => item.trim());
+    setServiceData(prevData => ({
+      ...prevData,
+      [field]: value
+    }));
+  };
+
+  const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    e.target.style.height = 'auto';
+    e.target.style.height = e.target.scrollHeight + 'px';
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -402,13 +476,42 @@ const ServiceManagement: React.FC = () => {
     if (formRef.current) {
       formRef.current.reset();
       resetFormFields();
-      setIsModalOpen(false); 
+      setIsModalOpen(false);
     }
   };
 
   const handleCancel = () => {
     resetFormFields();
     setIsModalOpen(false);
+  };
+
+  const formatURL = (subcategory: string, objectives: string[], title: string): string => {
+    const removeSpecialChars = (str: string): string => {
+      return str
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[ñ]/g, "n")
+        .replace(/[^a-z0-9\s-]/g, "")
+        .trim()
+        .replace(/[\s_]+/g, '-');
+    };
+
+    const removeCommonWords = (str: string): string => {
+      const commonWords = ['de', 'la', 'el', 'los', 'las', 'del', 'y', 'e', 'o', 'u', 'a', 'en', 'con', 'por', 'para'];
+      return str.split('-')
+        .filter(word => !commonWords.includes(word))
+        .join('-');
+    };
+
+    const formattedSubcategory = removeSpecialChars(subcategory);
+    const formattedObjectives = objectives.map(removeSpecialChars).join('-');
+    const formattedTitle = removeCommonWords(removeSpecialChars(title))
+      .split('-')
+      .slice(0, 3)
+      .join('-');
+
+    return `https://heart-med.vercel.app/${formattedSubcategory}/${formattedObjectives}/${formattedTitle}`;
   };
 
   const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>, type: 'category' | 'subcategory' | 'problem') => {
@@ -431,22 +534,16 @@ const ServiceManagement: React.FC = () => {
   };
 
   const getIconForTargetArea = (targetAreas: string[] | undefined): React.ReactNode => {
-    //console.log("getIconForTargetArea input:", targetAreas);  
-
     if (!targetAreas || targetAreas.length === 0) {
-      //console.log("No target areas found"); 
       return <ImCross />;
     }
 
     const area = targetAreas[0].toLowerCase().trim();
-    //console.log("Selected area:", area); 
 
     const icon = iconMapping[area];
     if (icon) {
-      //console.log("Icon found for area:", area); 
       return icon;
     } else {
-      //console.log("No icon found for area:", area);  
       return <ImCross />;
     }
   };
@@ -460,127 +557,334 @@ const ServiceManagement: React.FC = () => {
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold my-4 text-center">Plataforma de Edición de Tratamientos</h1>
-      
-      <button onClick={() => { resetFormFields(); setIsModalOpen(true); setServiceData({} as Service); }} className="bg-blue-500 text-white px-4 py-2 rounded mb-4">Añadir Tratamiento</button>  {/* Add button to open modal */}
-
-      <Modal isOpen={isModalOpen} onClose={() => {resetFormFields(); setIsModalOpen(false);}}>
+      <button onClick={() => { resetFormFields(); setIsModalOpen(true); setServiceData({} as Service); }} className="bg-blue-500 text-white px-4 py-2 rounded mb-4">Añadir Tratamiento</button>
+      <Modal isOpen={isModalOpen} onClose={() => { resetFormFields(); setIsModalOpen(false); }}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
+          <div className="overflow-y-auto">
             <h2 className="text-xl font-semibold mb-4">{editingService ? 'Editar Tratamiento' : 'Añadir Tratamiento'}</h2>
             <form onSubmit={handleSubmit} ref={formRef} className="grid grid-cols-1 gap-6">
               <div className="flex flex-col">
                 <label className="font-semibold">Título</label>
-                <input type="text" name="title" placeholder="Title" defaultValue={editingService?.title} onChange={handleChange} className="border rounded p-2" />
+                <input
+                  type="text"
+                  name="title"
+                  placeholder="Title"
+                  value={serviceData.title || ''}
+                  onChange={handleChange}
+                  className="border rounded p-2"
+                />
               </div>
               <div className="flex flex-col">
                 <label className="font-semibold">Categoría</label>
-                <input type="text" name="category" placeholder="Categoría" defaultValue={editingService?.category} onChange={handleChange} className="border rounded p-2" />
+                <input
+                  type="text"
+                  name="category"
+                  placeholder="Categoría"
+                  value={serviceData.category || ''}
+                  onChange={handleChange}
+                  className="border rounded p-2"
+                />
               </div>
               <div className="flex flex-col">
                 <label className="font-semibold">Subcategoría</label>
-                <input type="text" name="subcategory" placeholder="Subcategoría" defaultValue={editingService?.subcategory} onChange={handleChange} className="border rounded p-2" />
+                <input
+                  type="text"
+                  name="subcategory"
+                  placeholder="Subcategoría"
+                  value={serviceData.subcategory || ''}
+                  onChange={handleChange}
+                  className="border rounded p-2"
+                />
               </div>
               <div className="flex flex-col">
-                <label className="font-semibold">Imagen 1 {editingService?.image1_title ? '✔️' : '❌'}</label>
-                <input type="file" name="image1" onChange={(e) => handleImageUpload(e, 'image1')} className="border rounded p-2" />
+                <label className="font-semibold">Imagen 1 {serviceData.image1_title ? '✔️' : '❌'}</label>
+                <input
+                  type="file"
+                  name="image1"
+                  onChange={(e) => handleImageUpload(e, 'image1')}
+                  className="border rounded p-2"
+                />
               </div>
               <div className="flex flex-col">
                 <label className="font-semibold">Subtítulo 1</label>
-                <input type="text" name="subtitle1" placeholder="Subtítulo de Texto 1" defaultValue={editingService?.subtitle1} onChange={handleChange} className="border rounded p-2" />
+                <input
+                  type="text"
+                  name="subtitle1"
+                  placeholder="Subtítulo de Texto 1"
+                  value={serviceData.subtitle1 || ''}
+                  onChange={handleChange}
+                  className="border rounded p-2"
+                />
               </div>
               <div className="flex flex-col">
                 <label className="font-semibold">Texto 1</label>
-                <textarea name="what" placeholder="What" defaultValue={editingService?.what} onChange={handleChange} className="border rounded p-2" onChange={handleTextareaChange}></textarea>
+                <textarea
+                  name="what"
+                  placeholder="What"
+                  value={serviceData.what || ''}
+                  onChange={(e) => {
+                    handleChange(e);
+                    handleTextareaChange(e);
+                  }}
+                  className="border rounded p-2"
+                ></textarea>
               </div>
               <div className="flex flex-col">
                 <label className="font-semibold">Subtítulo 2</label>
-                <input type="text" name="subtitle2" placeholder="Subtítulo de Texto 2" defaultValue={editingService?.subtitle2} onChange={handleChange} className="border rounded p-2" />
+                <input
+                  type="text"
+                  name="subtitle2"
+                  placeholder="Subtítulo de Texto 2"
+                  value={serviceData.subtitle2 || ''}
+                  onChange={handleChange}
+                  className="border rounded p-2"
+                />
               </div>
               <div className="flex flex-col">
                 <label className="font-semibold">Texto 2</label>
-                <textarea name="how" placeholder="How" defaultValue={editingService?.how} onChange={handleChange} className="border rounded p-2" onChange={handleTextareaChange}></textarea>
+                <textarea
+                  name="how"
+                  placeholder="How"
+                  value={serviceData.how || ''}
+                  onChange={(e) => {
+                    handleChange(e);
+                    handleTextareaChange(e);
+                  }}
+                  className="border rounded p-2"
+                ></textarea>
               </div>
               <div className="flex flex-col">
                 <label className="font-semibold">Subtítulo 3</label>
-                <input type="text" name="subtitle3" placeholder="Subtítulo de Texto 3" defaultValue={editingService?.subtitle3} onChange={handleChange} className="border rounded p-2" />
+                <input
+                  type="text"
+                  name="subtitle3"
+                  placeholder="Subtítulo de Texto 3"
+                  value={serviceData.subtitle3 || ''}
+                  onChange={handleChange}
+                  className="border rounded p-2"
+                />
               </div>
               <div className="flex flex-col">
                 <label className="font-semibold">Texto 3</label>
-                <textarea name="area" placeholder="Area" defaultValue={editingService?.area} onChange={handleChange} className="border rounded p-2" onChange={handleTextareaChange}></textarea>
+                <textarea
+                  name="area"
+                  placeholder="Area"
+                  value={serviceData.area || ''}
+                  onChange={(e) => {
+                    handleChange(e);
+                    handleTextareaChange(e);
+                  }}
+                  className="border rounded p-2"
+                ></textarea>
               </div>
               <div className="flex flex-col">
                 <label className="font-semibold">Texto Pequeño 1</label>
-                <input type="text" name="objective1" placeholder="Objective 1" defaultValue={editingService?.objective1} onChange={handleChange} className="border rounded p-2" />
+                <input
+                  type="text"
+                  name="objective1"
+                  placeholder="Objective 1"
+                  value={serviceData.objective1 || ''}
+                  onChange={handleChange}
+                  className="border rounded p-2"
+                />
               </div>
               <div className="flex flex-col">
                 <label className="font-semibold">Texto Pequeño 2</label>
-                <input type="text" name="objective2" placeholder="Objective 2" defaultValue={editingService?.objective2} onChange={handleChange} className="border rounded p-2" />
+                <input
+                  type="text"
+                  name="objective2"
+                  placeholder="Objective 2"
+                  value={serviceData.objective2 || ''}
+                  onChange={handleChange}
+                  className="border rounded p-2"
+                />
               </div>
               <div className="flex flex-col">
                 <label className="font-semibold">Extra</label>
-                <textarea name="extra" placeholder="Extra" defaultValue={editingService?.extra} onChange={handleChange} className="border rounded p-2" onChange={handleTextareaChange}></textarea>
+                <textarea
+                  name="extra"
+                  placeholder="Extra"
+                  value={serviceData.extra || ''}
+                  onChange={(e) => {
+                    handleChange(e);
+                    handleTextareaChange(e);
+                  }}
+                  className="border rounded p-2"
+                ></textarea>
               </div>
               <div className="flex flex-col">
-                <label className="font-semibold">Imagen 2 {editingService?.image2_title ? '✔️' : '❌'}</label>
-                <input type="file" name="image2" onChange={(e) => handleImageUpload(e, 'image2')} className="border rounded p-2" />
+                <label className="font-semibold">Imagen 2 {serviceData.image2_title ? '✔️' : '❌'}</label>
+                <input
+                  type="file"
+                  name="image2"
+                  onChange={(e) => handleImageUpload(e, 'image2')}
+                  className="border rounded p-2"
+                />
               </div>
               <div className="flex flex-col">
-                <label className="font-semibold">Imagen 3 {editingService?.image3_title ? '✔️' : '❌'}</label>
-                <input type="file" name="image3" onChange={(e) => handleImageUpload(e, 'image3')} className="border rounded p-2" />
+                <label className="font-semibold">Imagen 3 {serviceData.image3_title ? '✔️' : '❌'}</label>
+                <input
+                  type="file"
+                  name="image3"
+                  onChange={(e) => handleImageUpload(e, 'image3')}
+                  className="border rounded p-2"
+                />
               </div>
               <div className="flex flex-col">
                 <label className="font-semibold">Tiempo de Realización</label>
-                <input type="text" name="time" placeholder="Tiempo de Realización" defaultValue={editingService?.time} onChange={handleChange} className="border rounded p-2" />
+                <input
+                  type="text"
+                  name="time"
+                  placeholder="Tiempo de Realización"
+                  value={serviceData.time || ''}
+                  onChange={handleChange}
+                  className="border rounded p-2"
+                />
               </div>
               <div className="flex flex-col">
                 <label className="font-semibold">Anestesia</label>
-                <input type="text" name="anesthesia" placeholder="Anestesia" defaultValue={editingService?.anesthesia} onChange={handleChange} className="border rounded p-2" />
+                <input
+                  type="text"
+                  name="anesthesia"
+                  placeholder="Anestesia"
+                  value={serviceData.anesthesia || ''}
+                  onChange={handleChange}
+                  className="border rounded p-2"
+                />
               </div>
               <div className="flex flex-col">
                 <label className="font-semibold">Financiación</label>
-                <textarea name="finance" placeholder="Financiación" defaultValue={editingService?.finance} onChange={handleChange} className="border rounded p-2" onChange={handleTextareaChange}></textarea>
+                <textarea
+                  name="finance"
+                  placeholder="Financiación"
+                  value={serviceData.finance || ''}
+                  onChange={(e) => {
+                    handleChange(e);
+                    handleTextareaChange(e);
+                  }}
+                  className="border rounded p-2"
+                ></textarea>
               </div>
               <div className="flex flex-col">
                 <label className="font-semibold">Resultados</label>
-                <textarea name="results" placeholder="Resultados" defaultValue={editingService?.results} onChange={handleChange} className="border rounded p-2" onChange={handleTextareaChange}></textarea>
+                <textarea
+                  name="results"
+                  placeholder="Resultados"
+                  value={serviceData.results || ''}
+                  onChange={(e) => {
+                    handleChange(e);
+                    handleTextareaChange(e);
+                  }}
+                  className="border rounded p-2"
+                ></textarea>
               </div>
               <div className="flex flex-col">
                 <label className="font-semibold">Hospitalización</label>
-                <textarea name="hospital" placeholder="Detalles, tiempo, etc" defaultValue={editingService?.hospital} onChange={handleChange} className="border rounded p-2" onChange={handleTextareaChange}></textarea>
+                <textarea
+                  name="hospital"
+                  placeholder="Detalles, tiempo, etc"
+                  value={serviceData.hospital || ''}
+                  onChange={(e) => {
+                    handleChange(e);
+                    handleTextareaChange(e);
+                  }}
+                  className="border rounded p-2"
+                ></textarea>
               </div>
               <div className="flex flex-col">
                 <label className="font-semibold">FAQ 1</label>
-                <input type="text" name="faq1" placeholder="Pregunta Frecuente 1" defaultValue={editingService?.faq1} onChange={handleChange} className="border rounded p-2" />
+                <input
+                  type="text"
+                  name="faq1"
+                  placeholder="Pregunta Frecuente 1"
+                  value={serviceData.faq1 || ''}
+                  onChange={handleChange}
+                  className="border rounded p-2"
+                />
               </div>
               <div className="flex flex-col">
                 <label className="font-semibold">Respuesta 1</label>
-                <textarea name="answer1" placeholder="Respuesta 1" defaultValue={editingService?.answer1} onChange={handleChange} className="border rounded p-2" onChange={handleTextareaChange}></textarea>
+                <textarea
+                  name="answer1"
+                  placeholder="Respuesta 1"
+                  value={serviceData.answer1 || ''}
+                  onChange={(e) => {
+                    handleChange(e);
+                    handleTextareaChange(e);
+                  }}
+                  className="border rounded p-2"
+                ></textarea>
               </div>
               <div className="flex flex-col">
                 <label className="font-semibold">FAQ 2</label>
-                <input type="text" name="faq2" placeholder="Pregunta Frecuente 2" defaultValue={editingService?.faq2} onChange={handleChange} className="border rounded p-2" />
+                <input
+                  type="text"
+                  name="faq2"
+                  placeholder="Pregunta Frecuente 2"
+                  value={serviceData.faq2 || ''}
+                  onChange={handleChange}
+                  className="border rounded p-2"
+                />
               </div>
               <div className="flex flex-col md:col-span-2">
                 <label className="font-semibold">Área Corporal</label>
-                <input type="text" name="targetAreas" placeholder="En que zona? Facial, Corporal, etc" defaultValue={editingService?.targetAreas?.join(',')} onChange={handleChange} className="border rounded p-2" />
+                <input
+                  type="text"
+                  name="targetAreas"
+                  placeholder="En que zona? Facial, Corporal, etc"
+                  value={serviceData.targetAreas?.join(',') || ''}
+                  onChange={(e) => handleArrayChange(e, 'targetAreas')}
+                  className="border rounded p-2"
+                />
               </div>
               <div className="flex flex-col md:col-span-2">
                 <label className="font-semibold">Objetivos</label>
-                <input type="text" name="objectives" placeholder="Que arregla? Reducir Arrugas, Corregir Acné, etc" defaultValue={editingService?.objectives?.join(',')} onChange={handleChange} className="border rounded p-2" />
+                <input
+                  type="text"
+                  name="objectives"
+                  placeholder="Que arregla? Reducir Arrugas, Corregir Acné, etc"
+                  value={serviceData.objectives?.join(',') || ''}
+                  onChange={(e) => handleArrayChange(e, 'objectives')}
+                  className="border rounded p-2"
+                />
               </div>
               <div className="flex flex-col md:col-span-2">
-                <label className="font-semibold">Tratamientos/Productos Relacionados</label>
-                <input type="text" name="relatedProd" placeholder="Cualquier tratamiento o producto relacionado por objetivo o área" defaultValue={editingService?.relatedProd?.join(',')} onChange={handleChange} className="border rounded p-2" />
-              </div>
-              <div className="flex justify-end md:col-span-2">
-                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">{editingService ? 'Actualizar' : 'Añadir'}</button>
-                {editingService && <button type="button" onClick={handleCancel} className="bg-red-500 text-white px-4 py-2 rounded ml-2">Cancelar</button>}
+                      <label className="font-semibold">Tratamientos/Productos Relacionados</label>
+                      <input
+                        type="text"
+                        name="relatedProd"
+                        placeholder="Cualquier tratamiento o producto relacionado por objetivo o área"
+                        value={serviceData.relatedProd?.join(',') || ''}
+                        onChange={(e) => handleArrayChange(e, 'relatedProd')}
+                        className="border rounded p-2"
+                      />
+                    </div>
+                    <div className="flex justify-end md:col-span-2">
+                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
+                  {editingService ? 'Actualizar' : 'Añadir'}
+                </button>
+                {editingService && (
+                  <button type="button" onClick={handleCancel} className="bg-red-500 text-white px-4 py-2 rounded ml-2">
+                    Cancelar
+                  </button>
+                )}
               </div>
               {successMessage && <div className="bg-green-500 text-white p-2 rounded mt-2">{successMessage}</div>}
             </form>
           </div>
-          <div>
-            <ServiceInfoPreview serviceData={serviceData} />
+          <div className="overflow-hidden">
+            <div className="bg-gray-100 p-2 mb-4 rounded">
+              <p className="text-sm font-mono whitespace-nowrap overflow-hidden text-ellipsis">
+                {formatURL(
+                  serviceData.subcategory || '',
+                  serviceData.objectives || [],
+                  serviceData.title || ''
+                )}
+              </p>
+            </div>
+            <div className="max-h-[60vh]">
+              <ServiceInfoPreview serviceData={serviceData} />
+            </div>
           </div>
         </div>
       </Modal>
@@ -625,7 +929,6 @@ const ServiceManagement: React.FC = () => {
       </div>
       <ul className="grid grid-cols-1 md:grid-cols-4 gap-4">
         {filteredServices.map(service => {
-          //console.log("Rendering service:", service.title, "Target Areas:", service.targetAreas);  
           const missingFields = [];
           if (!service.finance) missingFields.push('Financiación');
           if (!service.time) missingFields.push('Tiempo');
@@ -645,7 +948,7 @@ const ServiceManagement: React.FC = () => {
                 </div>
               </div>
               <p className='text-sm'>
-                {service.category} &gt; {service.subcategory} &gt; 
+                {service.category} &gt; {service.subcategory} &gt;
                 <span className="text-green-500 font-bold">{service.objectives ? service.objectives.join(', ') : 'Falta objetivo/problema'}</span>
               </p>
               <div className="grid grid-cols-2 gap-2 mb-2">
@@ -654,7 +957,7 @@ const ServiceManagement: React.FC = () => {
                 <p>Imagen 2: {service.image3_title ? '✔️' : '❌'}</p>
               </div>
               <div>
-                {missingFields.length > 0 || 
+                {missingFields.length > 0 ||
                 !(service.what && service.how && service.area) ? (
                   <>
                     {missingFields.length > 0 && (
