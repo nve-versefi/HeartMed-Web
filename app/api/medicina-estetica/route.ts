@@ -1,40 +1,55 @@
-import { NextResponse } from 'next/server';
-import connect from '@/app/lib/mongodb';
+import React from 'react';
+import Link from 'next/link';
 
-export async function GET() {
-    let client;
-    try {
-        console.log('Attempting to connect to MongoDB...');
-        client = await connect();
-        console.log('Connected to MongoDB successfully');
+async function getMedicinaEsteticaData(): Promise<any> {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/medicina-estetica`, { cache: 'no-store' });
+  if (!res.ok) {
+    throw new Error('Failed to fetch Medicina Estética data');
+  }
+  return res.json();
+}
 
-        const db = client.db(process.env.DB_NAME);
-        console.log('Using database:', process.env.DB_NAME);
-
-        const menuItemsCollection = db.collection('menuItems');
-        console.log('Accessing menuItems collection');
-
-        const medicinaEsteticaData = await menuItemsCollection.findOne(
-            { title: "Medicina Estética" },
-            { projection: { _id: 0, submenu: 1 } }
-        );
-        console.log('Query result:', JSON.stringify(medicinaEsteticaData, null, 2));
-
-        if (!medicinaEsteticaData) {
-            console.log('Medicina Estética data not found');
-            return NextResponse.json({ error: 'Medicina Estética data not found' }, { status: 404 });
-        }
-
-        console.log('Returning Medicina Estética data');
-        return NextResponse.json(medicinaEsteticaData.submenu);
-    } catch (error) {
-        console.error('Failed to fetch Medicina Estética data:', error);
-        console.error('Error details:', JSON.stringify(error, Object.getOwnPropertyNames(error)));
-        return NextResponse.json({ error: 'Failed to fetch Medicina Estética data', details: error.message }, { status: 500 });
-    } finally {
-        if (client) {
-            console.log('Closing MongoDB connection');
-            await client.close();
-        }
+async function getMedicinaEsteticaDataWithRetry(retries = 3): Promise<any> {
+  try {
+    return await getMedicinaEsteticaData();
+  } catch (error) {
+    if (retries > 0) {
+      console.log(`Retrying... (${retries} attempts left)`);
+      await new Promise(resolve => setTimeout(resolve, 1000)); // Wait for 1 second before retrying
+      return getMedicinaEsteticaDataWithRetry(retries - 1);
+    } else {
+      throw error;
     }
+  }
+}
+
+export default async function MedicinaEsteticaPage() {
+  let data;
+  try {
+    data = await getMedicinaEsteticaDataWithRetry();
+  } catch (error) {
+    console.error('Failed to fetch Medicina Estética data:', error);
+    return <div>Error loading Medicina Estética data. Please try again later.</div>;
+  }
+
+  return (
+    <div>
+      <h1>Medicina Estética</h1>
+      {data.map((item: any) => (
+        <div key={item.name}>
+          <h2>{item.name}</h2>
+          <img src={item.imageUrl} alt={item.name} />
+          <ul>
+            {item.problems.map((problem: any) => (
+              <li key={problem.name}>
+                <Link href={`/medicina-estetica/${item.name}/${problem.name}`}>
+                  {problem.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  );
 }

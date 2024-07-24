@@ -1,33 +1,25 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextRequest, NextResponse } from 'next/server';
 import { ObjectId, Document } from 'mongodb';
 import connect from '@/app/lib/mongodb';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ message: 'Method Not Allowed' });
-  }
+export async function POST(request: NextRequest) {
+  const { searchParams } = new URL(request.url);
+  const level = searchParams.get('level');
+  const parentId = searchParams.get('parentId');
+  const problemId = searchParams.get('problemId');
 
-  const { level, parentId, problemId } = req.query;
-  const itemData = req.body;
+  const itemData = await request.json();
 
   console.log('Received request:', { level, parentId, problemId, itemData });
 
-  if (!level || Array.isArray(level)) {
-    return res.status(400).json({ message: 'Missing or invalid required parameter: level' });
+  if (!level) {
+    return NextResponse.json({ message: 'Missing or invalid required parameter: level' }, { status: 400 });
   }
-
-  // Ensure parentId and problemId are strings if present
-  const parentIdString = Array.isArray(parentId) ? parentId[0] : parentId;
-  const problemIdString = Array.isArray(problemId) ? problemId[0] : problemId;
 
   try {
     const client = await connect();
     const db = client.db(process.env.DB_NAME);
     const collection = db.collection('menuItems');
-
-    // Log the entire document structure
-    const allDocuments = await collection.find({}).toArray();
-    console.log('Current document structure:', JSON.stringify(allDocuments, null, 2));
 
     let result;
 
@@ -42,18 +34,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         });
         break;
 
-        case 'submenu':
-        if (!parentIdString) {
-          return res.status(400).json({ message: 'Missing required parameter: parentId for submenu' });
+      case 'submenu':
+        if (!parentId) {
+          return NextResponse.json({ message: 'Missing required parameter: parentId for submenu' }, { status: 400 });
         }
         
-        let query;
-        if (ObjectId.isValid(parentIdString)) {
-          query = { _id: new ObjectId(parentIdString) };
+        let query: Document;
+        if (ObjectId.isValid(parentId)) {
+          query = { _id: new ObjectId(parentId) };
         } else {
-          const parentIdInt = parseInt(parentIdString, 10);
+          const parentIdInt = parseInt(parentId, 10);
           if (isNaN(parentIdInt)) {
-            return res.status(400).json({ message: 'Invalid parentId: must be a valid ObjectId or an integer' });
+            return NextResponse.json({ message: 'Invalid parentId: must be a valid ObjectId or an integer' }, { status: 400 });
           }
           query = { id: parentIdInt };
         }
@@ -68,18 +60,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 imagePath: itemData.image,
                 imageUrl: itemData.image,
                 problems: []
-              } as any // Type assertion to bypass TypeScript's strict checking
-            }
+              }
+            } as any
           }
         );
         break;
 
       case 'problem':
-        if (!parentIdString) {
-          return res.status(400).json({ message: 'Missing required parameter: parentId for problem' });
+        if (!parentId) {
+          return NextResponse.json({ message: 'Missing required parameter: parentId for problem' }, { status: 400 });
         }
         result = await collection.updateOne(
-          { "submenu.name": parentIdString },
+          { "submenu.name": parentId },
           {
             $push: {
               "submenu.$.problems": {
@@ -93,13 +85,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         break;
 
       case 'service':
-        if (!parentIdString || !problemIdString) {
-          return res.status(400).json({ message: 'Missing required parameters: parentId and problemId for service' });
+        if (!parentId || !problemId) {
+          return NextResponse.json({ message: 'Missing required parameters: parentId and problemId for service' }, { status: 400 });
         }
-        console.log('Attempting to add service:', { parentIdString, problemIdString, itemData });
+        console.log('Attempting to add service:', { parentId, problemId, itemData });
         
         result = await collection.updateOne(
-          { "submenu.name": parentIdString, "submenu.problems.name": problemIdString },
+          { "submenu.name": parentId, "submenu.problems.name": problemId },
           {
             $push: {
               "submenu.$[submenu].problems.$[problem].services": {
@@ -110,8 +102,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           },
           {
             arrayFilters: [
-              { "submenu.name": parentIdString },
-              { "problem.name": problemIdString }
+              { "submenu.name": parentId },
+              { "problem.name": problemId }
             ]
           }
         );
@@ -119,25 +111,25 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         break;
 
       default:
-        return res.status(400).json({ message: `Invalid level: ${level}` });
+        return NextResponse.json({ message: `Invalid level: ${level}` }, { status: 400 });
     }
 
     console.log('Operation result:', result);
 
     if ('matchedCount' in result && result.matchedCount === 0) {
-      return res.status(404).json({ message: 'Failed to add item: No matching document found' });
+      return NextResponse.json({ message: 'Failed to add item: No matching document found' }, { status: 404 });
     }
     if ('modifiedCount' in result && result.modifiedCount === 0 && level !== 'menuItem') {
-      return res.status(404).json({ message: 'Failed to add item: No document modified' });
+      return NextResponse.json({ message: 'Failed to add item: No document modified' }, { status: 404 });
     }
 
-    res.status(200).json({ message: 'Item added successfully', result });
+    return NextResponse.json({ message: 'Item added successfully', result }, { status: 200 });
   } catch (error) {
     console.error('Error adding item:', error);
     if (error instanceof Error) {
-      res.status(500).json({ message: `Error adding item: ${error.message}` });
+      return NextResponse.json({ message: `Error adding item: ${error.message}` }, { status: 500 });
     } else {
-      res.status(500).json({ message: 'An unknown error occurred' });
+      return NextResponse.json({ message: 'An unknown error occurred' }, { status: 500 });
     }
   }
 }

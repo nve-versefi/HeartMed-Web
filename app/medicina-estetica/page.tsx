@@ -48,6 +48,14 @@ export async function generateMetadata(): Promise<Metadata> {
     },
   };
 }
+async function getMedicinaEsteticaData(): Promise<any> {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/medicina-estetica`, { cache: 'no-store' });
+  if (!res.ok) {
+    throw new Error('Failed to fetch Medicina Estética data');
+  }
+  return res.json();
+}
+
 async function getMedicinaEsteticaDataWithRetry(retries = 3): Promise<any> {
   try {
     return await getMedicinaEsteticaData();
@@ -70,6 +78,16 @@ export default async function Estetica() {
   } catch (e) {
     console.error('Failed to fetch Medicina Estética data:', e);
     error = 'Failed to load Medicina Estética data. Please try again later.';
+  }
+
+  if (error) {
+    return (
+      <DefaultLayout>
+        <div className='md:mx-48 sm:mx-24'>
+          <div>Error: {error}</div>
+        </div>
+      </DefaultLayout>
+    );
   }
 
   return (

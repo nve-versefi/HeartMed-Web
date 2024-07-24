@@ -1,8 +1,8 @@
-// pages/api/sendEmail.ts
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
-const path = require("path");
-const hbs = require("nodemailer-express-handlebars");
+import path from "path";
+import hbs from "nodemailer-express-handlebars";
+import { Options } from "nodemailer/lib/smtp-transport";
 
 interface Data {
     nameSurname: string;
@@ -12,9 +12,9 @@ interface Data {
     token: string;
 }
 
-const handlebarOptions = {
+const handlebarOptions: hbs.NodemailerExpressHandlebarsOptions = {
     viewEngine: {
-        extName: ".handlebars",
+        extname: ".handlebars",
         partialsDir: path.resolve("./templates/"),
         defaultLayout: false,
     },
@@ -22,18 +22,15 @@ const handlebarOptions = {
     extName: ".handlebars",
 };
 
-export default async function ContactApi(
-    req: NextApiRequest,
-    res: NextApiResponse,
-) {
-    const { nameSurname, email, phone, message, token }: Data = req.body;
+export async function POST(request: NextRequest) {
+    const data: Data = await request.json();
+    const { nameSurname, email, phone, message, token } = data;
 
     const human = await validateHuman(token);
     if (!human) {
-        res.status(400);
-        res.json({ errors: ["It's a bot! ❤️ ❌ 🤖"] });
-        return;
+        return NextResponse.json({ errors: ["It's a bot! ❤️ ❌ 🤖"] }, { status: 400 });
     }
+
     const transporter = nodemailer.createTransport({
         port: 465,
         secure: true,
@@ -43,48 +40,46 @@ export default async function ContactApi(
             pass: process.env.CONTACT_FORM_PASS,
         },
         tls: { rejectUnauthorized: false },
-    });
+    } as Options);
+
     transporter.use("compile", hbs(handlebarOptions));
+
     try {
         await transporter.sendMail({
-            from: `${nameSurname} ${email}`,
+            from: `${nameSurname} <${email}>`,
             replyTo: email,
             to: process.env.CONTACT_FORM_RECEIVE_EMAIL,
             subject: `Contact form from ${nameSurname}`,
-            // @ts-ignore-next-line
-            template: "contact", //
+            template: "contact",
             context: {
-                nameSurname: nameSurname,
-                email: email,
-                phone: phone,
-                message: message,
+                nameSurname,
+                email,
+                phone,
+                message,
             },
-        });
+        } as nodemailer.SendMailOptions);
 
         await transporter.sendMail({
-            from: `Pablo Hermosa <${process.env.CONTACT_FORM_SEND_EMAIL}>`, // Replace "Your Company Name" with your actual company name
+            from: `Pablo Hermosa <${process.env.CONTACT_FORM_SEND_EMAIL}>`,
             to: email,
             subject: "Thank you for your message",
-              // @ts-ignore-next-line
-            template: "contact", 
+            template: "contact",
             context: {
-                nameSurname: nameSurname,
-                email: email,
-                phone: phone,
-                message: message,
+                nameSurname,
+                email,
+                phone,
+                message,
             },
-        });
+        } as nodemailer.SendMailOptions);
 
-        res.status(200).json({ message: "success" });
+        return NextResponse.json({ message: "success" }, { status: 200 });
     } catch (err) {
-        res.status(500).json({ message: "an error occured" });
-        console.log(err);
+        console.error(err);
+        return NextResponse.json({ message: "an error occurred" }, { status: 500 });
     }
 }
 
-async function validateHuman(
-    token: string
-) {
+async function validateHuman(token: string): Promise<boolean> {
     const secret = process.env.RECAPTCHA_SECRET_KEY;
     const response = await fetch(
         `https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${token}`,

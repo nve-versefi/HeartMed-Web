@@ -13,16 +13,16 @@ export async function DELETE(request: NextRequest) {
   try {
     const client = await connect();
     const db = client.db('Web');
-    const servicesCollection = db.collection('Tratamientos');
-    const result = await servicesCollection.deleteOne({ _id: new ObjectId(id) });
+    const machineriesCollection = db.collection('Maquinaria');
+    const result = await machineriesCollection.deleteOne({ _id: new ObjectId(id) });
 
     if (result.deletedCount === 1) {
-      return NextResponse.json({ message: 'Service deleted successfully' }, { status: 200 });
+      return NextResponse.json({ message: 'Machinery deleted successfully' }, { status: 200 });
     } else {
-      return NextResponse.json({ error: 'Service not found' }, { status: 404 });
+      return NextResponse.json({ error: 'Machinery not found' }, { status: 404 });
     }
   } catch (error) {
-    console.error('Failed to delete service:', error);
-    return NextResponse.json({ error: 'Failed to delete service' }, { status: 500 });
+    console.error('Failed to delete machinery:', error);
+    return NextResponse.json({ error: 'Failed to delete machinery' }, { status: 500 });
   }
 }

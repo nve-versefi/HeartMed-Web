@@ -1,18 +1,18 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextRequest, NextResponse } from 'next/server';
 import { ObjectId, DeleteResult, UpdateResult } from 'mongodb';
 import connect from '@/app/lib/mongodb';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== 'DELETE') {
-    return res.status(405).json({ message: 'Method Not Allowed' });
-  }
-
-  const { level, id, parentId, problemId } = req.query;
+export async function DELETE(request: NextRequest) {
+  const { searchParams } = new URL(request.url);
+  const level = searchParams.get('level');
+  const id = searchParams.get('id');
+  const parentId = searchParams.get('parentId');
+  const problemId = searchParams.get('problemId');
 
   console.log('Delete request received:', { level, id, parentId, problemId });
 
   if (!level || !id) {
-    return res.status(400).json({ message: 'Missing required parameters' });
+    return NextResponse.json({ message: 'Missing required parameters' }, { status: 400 });
   }
 
   try {
@@ -24,13 +24,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     switch (level) {
       case 'menuItem':
-        result = await collection.deleteOne({ id: parseInt(id as string, 10) });
+        result = await collection.deleteOne({ id: parseInt(id, 10) });
         console.log('Deleted menuItem result:', result);
         break;
 
       case 'submenu':
         result = await collection.updateOne(
-          { id: parseInt(parentId as string, 10) },
+          { id: parseInt(parentId!, 10) },
           { $pull: { submenu: { name: id } } as any }
         );
         console.log('Deleted submenu result:', result);
@@ -59,25 +59,25 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         break;
 
       default:
-        return res.status(400).json({ message: 'Invalid level' });
+        return NextResponse.json({ message: 'Invalid level' }, { status: 400 });
     }
 
     if ('deletedCount' in result) {
       if (result.deletedCount === 0) {
         console.log('Item not found');
-        return res.status(404).json({ message: 'Item not found' });
+        return NextResponse.json({ message: 'Item not found' }, { status: 404 });
       }
     } else if ('modifiedCount' in result) {
       if (result.modifiedCount === 0) {
         console.log('Item not found');
-        return res.status(404).json({ message: 'Item not found' });
+        return NextResponse.json({ message: 'Item not found' }, { status: 404 });
       }
     }
 
     console.log('Item deleted successfully');
-    res.status(200).json({ message: 'Item deleted successfully' });
+    return NextResponse.json({ message: 'Item deleted successfully' }, { status: 200 });
   } catch (error) {
     console.error('Error deleting item:', error);
-    res.status(500).json({ message: 'Error deleting item' });
+    return NextResponse.json({ message: 'Error deleting item' }, { status: 500 });
   }
 }

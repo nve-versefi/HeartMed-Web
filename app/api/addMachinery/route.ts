@@ -1,99 +1,60 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextRequest, NextResponse } from 'next/server';
 import connect from '@/app/lib/mongodb';
-import multer from 'multer';
 import { MongoClient } from 'mongodb';
 
-interface NextApiRequestWithFiles extends NextApiRequest {
-  files?: {
-    [fieldname: string]: Express.Multer.File[];
-  };
-}
+export async function POST(request: NextRequest) {
+  try {
+    const formData = await request.formData();
+    
+    const title = formData.get('title') as string;
+    const description = formData.get('description') as string;
+    const category = formData.get('category') as string;
+    const brand = formData.get('brand') as string;
+    const status = formData.get('status') as string;
+    const price = parseFloat(formData.get('price') as string);
+    const rentalPrice = parseFloat(formData.get('rentalPrice') as string);
 
-const upload = multer({
-  storage: multer.memoryStorage(),
-  limits: {
-    fileSize: 10 * 1024 * 1024, // 10 MB file size limit
-  },
-});
+    const image1File = formData.get('image1') as File | null;
+    const image2File = formData.get('image2') as File | null;
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
+    const convertFileToBase64 = async (file: File | null): Promise<string> => {
+      if (!file) return '';
+      const buffer = await file.arrayBuffer();
+      const base64 = Buffer.from(buffer).toString('base64');
+      return `data:${file.type};base64,${base64}`;
+    };
 
-const convertFileToBase64 = (file: Express.Multer.File | undefined): string => {
-  if (!file) return '';
-  return `data:${file.mimetype};base64,${file.buffer.toString('base64')}`;
-};
+    const image1 = await convertFileToBase64(image1File);
+    const image2 = await convertFileToBase64(image2File);
 
-const getFileName = (file: Express.Multer.File | undefined): string => {
-  return file ? file.originalname : '';
-};
+    const image1Title = image1File?.name || '';
+    const image2Title = image2File?.name || '';
 
-const handler = async (req: NextApiRequestWithFiles, res: NextApiResponse) => {
-  if (req.method === 'POST') {
-    try {
-      console.log("Starting file upload processing...");
+    const machinery = {
+      title,
+      description,
+      category,
+      brand,
+      status,
+      price,
+      rentalPrice,
+      image1Title,
+      image2Title,
+      image1,
+      image2,
+    };
 
-      await new Promise<void>((resolve, reject) => {
-        upload.fields([
-          { name: 'image1', maxCount: 1 },
-          { name: 'image2', maxCount: 1 },
-        ])(req as any, res as any, (err) => {
-          if (err) {
-            console.error("Multer error: ", err);
-            reject(err);
-          } else {
-            console.log("File upload successful.");
-            resolve();
-          }
-        });
-      });
+    console.log("Machinery object created:", machinery);
 
-      const { title, description, category, brand, status, price, rentalPrice } = req.body;
+    const client: MongoClient = await connect();
+    const db = client.db('Web');
+    const machineriesCollection = db.collection('Maquinaria');
+    const result = await machineriesCollection.insertOne(machinery);
 
-      const image1File = req.files?.['image1']?.[0];
-      const image2File = req.files?.['image2']?.[0];
-
-      const image1 = convertFileToBase64(image1File);
-      const image2 = convertFileToBase64(image2File);
-
-      const image1Title = getFileName(image1File);
-      const image2Title = getFileName(image2File);
-
-      console.log("Images converted to base64 successfully.");
-
-      const machinery = {
-        title,
-        description,
-        category,
-        brand,
-        status,
-        price: parseFloat(price),
-        rentalPrice: parseFloat(rentalPrice),
-        image1Title,
-        image2Title,
-        image1,
-        image2,
-      };
-
-      console.log("Machinery object created:", machinery);
-
-      const client: MongoClient = await connect();
-      const db = client.db('Web');
-      const machineriesCollection = db.collection('Maquinaria');
-      const result = await machineriesCollection.insertOne(machinery);
-      console.log("Machinery added to the database successfully.");
-      res.status(201).json(result);
-    } catch (error) {
-      console.error('Failed to add machinery:', error);
-      res.status(500).json({ error: 'Failed to add machinery' });
-    }
-  } else {
-    res.setHeader('Allow', ['POST']);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
+    console.log("Machinery added to the database successfully.");
+    return NextResponse.json(result, { status: 201 });
+  } catch (error) {
+    console.error('Failed to add machinery:', error);
+    return NextResponse.json({ error: 'Failed to add machinery' }, { status: 500 });
   }
-};
-
-export default handler;
+}

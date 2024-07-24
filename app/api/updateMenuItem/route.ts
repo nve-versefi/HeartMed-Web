@@ -1,22 +1,20 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextRequest, NextResponse } from 'next/server';
 import connect from '@/app/lib/mongodb';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== 'PUT') {
-    return res.status(405).json({ message: 'Method Not Allowed' });
-  }
+export async function PUT(request: NextRequest) {
+  const { searchParams } = new URL(request.url);
+  const level = searchParams.get('level');
+  const id = searchParams.get('id');
+  const parentId = searchParams.get('parentId');
+  const problemId = searchParams.get('problemId');
 
-  const { level, id, parentId, problemId } = req.query;
-  const itemData = req.body;
+  const itemData = await request.json();
 
   console.log('Received request:', { level, id, parentId, problemId, itemData });
 
-  if (!level || Array.isArray(level) || !id || Array.isArray(id)) {
-    return res.status(400).json({ message: 'Missing or invalid required parameters: level and id' });
+  if (!level || !id) {
+    return NextResponse.json({ message: 'Missing or invalid required parameters: level and id' }, { status: 400 });
   }
-
-  const parentIdString = Array.isArray(parentId) ? parentId[0] : parentId;
-  const problemIdString = Array.isArray(problemId) ? problemId[0] : problemId;
 
   try {
     const client = await connect();
@@ -41,11 +39,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         break;
 
       case 'submenu':
-        if (!parentIdString) {
-          return res.status(400).json({ message: 'Missing required parameter: parentId for submenu' });
+        if (!parentId) {
+          return NextResponse.json({ message: 'Missing required parameter: parentId for submenu' }, { status: 400 });
         }
         result = await collection.updateOne(
-          { id: parseInt(parentIdString), 'submenu.name': id },
+          { id: parseInt(parentId), 'submenu.name': id },
           {
             $set: {
               'submenu.$.name': itemData.title,
@@ -57,11 +55,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         break;
 
       case 'problem':
-        if (!parentIdString) {
-          return res.status(400).json({ message: 'Missing required parameter: parentId for problem' });
+        if (!parentId) {
+          return NextResponse.json({ message: 'Missing required parameter: parentId for problem' }, { status: 400 });
         }
         result = await collection.updateOne(
-          { 'submenu.name': parentIdString, 'submenu.problems.name': id },
+          { 'submenu.name': parentId, 'submenu.problems.name': id },
           {
             $set: {
               'submenu.$[submenu].problems.$[problem].name': itemData.title,
@@ -70,7 +68,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           },
           {
             arrayFilters: [
-              { 'submenu.name': parentIdString },
+              { 'submenu.name': parentId },
               { 'problem.name': id }
             ]
           }
@@ -78,11 +76,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         break;
 
       case 'service':
-        if (!parentIdString || !problemIdString) {
-          return res.status(400).json({ message: 'Missing required parameters: parentId and problemId for service' });
+        if (!parentId || !problemId) {
+          return NextResponse.json({ message: 'Missing required parameters: parentId and problemId for service' }, { status: 400 });
         }
         result = await collection.updateOne(
-          { 'submenu.name': parentIdString, 'submenu.problems.name': problemIdString, 'submenu.problems.services.serviceName': id },
+          { 'submenu.name': parentId, 'submenu.problems.name': problemId, 'submenu.problems.services.serviceName': id },
           {
             $set: {
               'submenu.$[submenu].problems.$[problem].services.$[service].serviceName': itemData.title,
@@ -91,8 +89,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           },
           {
             arrayFilters: [
-              { 'submenu.name': parentIdString },
-              { 'problem.name': problemIdString },
+              { 'submenu.name': parentId },
+              { 'problem.name': problemId },
               { 'service.serviceName': id }
             ]
           }
@@ -100,21 +98,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         break;
 
       default:
-        return res.status(400).json({ message: `Invalid level: ${level}` });
+        return NextResponse.json({ message: `Invalid level: ${level}` }, { status: 400 });
     }
 
     console.log('Operation result:', result);
 
     if (result.matchedCount === 0) {
-      return res.status(404).json({ message: 'Item not found. No update performed.' });
+      return NextResponse.json({ message: 'Item not found. No update performed.' }, { status: 404 });
     }
     if (result.modifiedCount === 0) {
-      return res.status(200).json({ message: 'Item found, but no changes were needed.' });
+      return NextResponse.json({ message: 'Item found, but no changes were needed.' }, { status: 200 });
     }
 
-    res.status(200).json({ message: 'Item updated successfully', result });
+    return NextResponse.json({ message: 'Item updated successfully', result }, { status: 200 });
   } catch (error) {
     console.error('Error updating item:', error);
-    res.status(500).json({ message: `Error updating item: ${error instanceof Error ? error.message : 'Unknown error'}` });
+    return NextResponse.json({ message: `Error updating item: ${error instanceof Error ? error.message : 'Unknown error'}` }, { status: 500 });
   }
 }
