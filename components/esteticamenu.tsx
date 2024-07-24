@@ -26,41 +26,45 @@ interface SubmenuItem {
   problems?: Problem[];
 }
 
-const EsteticaMenu: React.FC = () => {
-  const [submenuData, setSubmenuData] = useState<SubmenuItem[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+interface EsteticaMenuProps {
+  initialData?: SubmenuItem[];
+  initialError?: string | null;
+}
+
+const EsteticaMenu: React.FC<EsteticaMenuProps> = ({ initialData, initialError }) => {
+  const [submenuData, setSubmenuData] = useState<SubmenuItem[]>(initialData || []);
+  const [loading, setLoading] = useState(!initialData);
+  const [error, setError] = useState<string | null>(initialError || null);
 
   useEffect(() => {
-    const fetchMedicinaEsteticaData = async (retries = 3) => {
-      try {
-        setLoading(true);
-        const response = await fetch('/api/medicina-estetica');
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+    if (!initialData) {
+      const fetchMedicinaEsteticaData = async (retries = 3) => {
+        try {
+          setLoading(true);
+          const response = await fetch('/api/medicina-estetica');
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          const data = await response.json();
+          if (data.error) {
+            throw new Error(data.error);
+          }
+          setSubmenuData(data);
+          setError(null);
+        } catch (err) {
+          if (retries > 0) {
+            setTimeout(() => fetchMedicinaEsteticaData(retries - 1), 500);
+          } else {
+            setError('Error fetching Medicina Estética data. Please try again later.');
+          }
+        } finally {
+          setLoading(false);
         }
-        const data = await response.json();
-        if (data.error) {
-          throw new Error(data.error);
-        }
-        //console.log('Fetched data:', data);
-        setSubmenuData(data);
-        setError(null);
-      } catch (err) {
-        //console.error('Error fetching Medicina Estética data:', err);
-        if (retries > 0) {
-          //console.log(`Retrying... (${retries} attempts left)`);
-          setTimeout(() => fetchMedicinaEsteticaData(retries - 1), 500);
-        } else {
-          setError('Error fetching Medicina Estética data. Please try again later.');
-        }
-      } finally {
-        setLoading(false);
-      }
-    };
+      };
 
-    fetchMedicinaEsteticaData();
-  }, []);
+      fetchMedicinaEsteticaData();
+    }
+  }, [initialData]);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;

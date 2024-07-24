@@ -2,6 +2,11 @@ import DefaultLayout from '@/app/(default)/layout';
 import EsteticaMenu from '@/components/esteticamenu';
 import type { Metadata } from 'next';
 
+interface EsteticaMenuProps {
+  initialData: any;
+  error?: string;
+}
+
 export async function generateMetadata(): Promise<Metadata> {
   const structuredData = {
     "@context": "http://schema.org",
@@ -80,20 +85,10 @@ export default async function Estetica() {
     error = 'Failed to load Medicina Estética data. Please try again later.';
   }
 
-  if (error) {
-    return (
-      <DefaultLayout>
-        <div className='md:mx-48 sm:mx-24'>
-          <div>Error: {error}</div>
-        </div>
-      </DefaultLayout>
-    );
-  }
-
   return (
     <DefaultLayout>
       <div className='md:mx-48 sm:mx-24'>
-        <EsteticaMenu initialData={submenuData} error={error} />
+        <EsteticaMenu initialData={submenuData} initialError={error} />
       </div>
     </DefaultLayout>
   );
