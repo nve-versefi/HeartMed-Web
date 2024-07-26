@@ -1,7 +1,8 @@
 import React from 'react';
+import Image from 'next/image';
 import { FaHourglassHalf, FaMoneyBillWave, FaSyringe } from 'react-icons/fa';
 import AccordionComponent from './accordion';
-import { ServiceData } from '@/app/[subcategory]/[problem]/[service]/page';
+import { ServiceData } from "@/app/[subcategory]/[problem]/[service]/page";
 
 interface ServiceInfoProps {
   serviceData: ServiceData;
@@ -17,15 +18,19 @@ const renderTextWithLineBreaks = (text: string | undefined) => {
   ));
 };
 
-const ServiceInfo: React.FC<ServiceInfoProps> = ({ serviceData }) => {
+const ServiceInfo: React.FC<ServiceInfoProps> = React.memo(({ serviceData }) => {
   return (
     <div className="container mx-auto px-4">
       <div className="banner-container">
         <div className="w-screen h-64 overflow-hidden relative">
-          <div
-            className="bg-cover bg-center h-full w-screen flex items-center justify-center absolute top-0 left-0"
-            style={{ backgroundImage: `url(${serviceData.image1 || ''})` }}
-          >
+          <Image
+            src={serviceData.image1 || '/placeholder.jpg'}
+            alt={serviceData.title}
+            layout="fill"
+            objectFit="cover"
+            priority
+          />
+          <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
             <h1 className="text-3xl font-bold text-white mb-4">{serviceData.title}</h1>
           </div>
         </div>
@@ -42,8 +47,8 @@ const ServiceInfo: React.FC<ServiceInfoProps> = ({ serviceData }) => {
           </div>
         </div>
         <div className="mt-12">
-            <h2 className="text-2xl text-center text-thunderbird-500 font-bold mb-4">{serviceData.subtitle3 ?? 'Subtitulo 3'}</h2>
-            <p className="text-lg text-woodsmoke-700 font-regular text-center">{renderTextWithLineBreaks(serviceData.area)}</p>
+          <h2 className="text-2xl text-center text-thunderbird-500 font-bold mb-4">{serviceData.subtitle3 ?? 'Subtitulo 3'}</h2>
+          <p className="text-lg text-woodsmoke-700 font-regular text-center">{renderTextWithLineBreaks(serviceData.area)}</p>
         </div>
         <div className="mb-4 text-center">
           <p className="text-lg">{renderTextWithLineBreaks(serviceData.objective1)}</p>
@@ -51,17 +56,21 @@ const ServiceInfo: React.FC<ServiceInfoProps> = ({ serviceData }) => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <div className="flex justify-center" style={{ height: '450px', width: 'auto' }}>
-            <img
-              src={serviceData.image2 || "/mnt/data/image.png"}
+            <Image
+              src={serviceData.image2 || "/placeholder.jpg"}
               alt="Service Image 1"
-              style={{ width: '450px', height: '450px', objectFit: 'cover' }}
+              width={450}
+              height={450}
+              objectFit="cover"
             />
           </div>
           <div className="flex justify-center" style={{ height: '450px', width: 'auto' }}>
-            <img
-              src={serviceData.image3 || "/mnt/data/image.png"}
+            <Image
+              src={serviceData.image3 || "/placeholder.jpg"}
               alt="Service Image 2"
-              style={{ width: '450px', height: '450px', objectFit: 'cover' }}
+              width={450}
+              height={450}
+              objectFit="cover"
             />
           </div>
         </div>
@@ -97,6 +106,8 @@ const ServiceInfo: React.FC<ServiceInfoProps> = ({ serviceData }) => {
       </div>
     </div>
   );
-};
+});
+
+ServiceInfo.displayName = 'ServiceInfo';
 
 export default ServiceInfo;

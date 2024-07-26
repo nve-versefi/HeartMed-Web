@@ -5,19 +5,10 @@ import { MenuItem } from '@/components/menudata.types';
 import ClientHeader from './ClientHeader';
 
 async function fetchMenuData(): Promise<MenuItem[]> {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
-  const res = await fetch(`${apiUrl}/api/menu`, { 
-    next: { revalidate: 60 },
-    headers: {
-      'Cache-Control': 'no-cache'
-    }
-  });
-
+  const res = await fetch('/api/menu');
   if (!res.ok) {
-    const errorData = await res.json();
-    throw new Error(`Failed to fetch menu data: ${errorData.message}`);
+    throw new Error(`Failed to fetch menu data: ${res.statusText}`);
   }
-
   return res.json();
 }
 

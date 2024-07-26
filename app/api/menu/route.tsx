@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import connect from '@/app/lib/mongodb';
+import { corsMiddleware } from '../cors';
 
 const MAX_RETRIES = 3;
 const RETRY_DELAY = 1000; 
@@ -34,12 +35,15 @@ async function fetchMenuItemsWithRetry(retries = MAX_RETRIES): Promise<any[]> {
   }
 }
 
-export const GET = async (req: NextRequest) => {
+export async function GET() {
   try {
     const menuItems = await fetchMenuItemsWithRetry();
     return NextResponse.json(menuItems);
   } catch (error) {
     console.error('All retries failed. Error fetching menu data:', error);
-    return NextResponse.json({ message: 'Error fetching menu data', error: (error as Error).message }, { status: 500 });
+    return NextResponse.json(
+      { message: 'Error fetching menu data', error: (error as Error).message },
+      { status: 500 }
+    );
   }
-};
+}
