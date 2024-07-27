@@ -558,337 +558,338 @@ const ServiceManagement: React.FC = () => {
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold my-4 text-center">Plataforma de Edición de Tratamientos</h1>
       <button onClick={() => { resetFormFields(); setIsModalOpen(true); setServiceData({} as Service); }} className="bg-blue-500 text-white px-4 py-2 rounded mb-4">Añadir Tratamiento</button>
-      <Modal isOpen={isModalOpen} onClose={() => { resetFormFields(); setIsModalOpen(false); }}>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="overflow-y-auto">
-            <h2 className="text-xl font-semibold mb-4">{editingService ? 'Editar Tratamiento' : 'Añadir Tratamiento'}</h2>
-            <form onSubmit={handleSubmit} ref={formRef} className="grid grid-cols-1 gap-6">
-              <div className="flex flex-col">
-                <label className="font-semibold">Título</label>
-                <input
-                  type="text"
-                  name="title"
-                  placeholder="Title"
-                  value={serviceData.title || ''}
-                  onChange={handleChange}
-                  className="border rounded p-2"
-                />
-              </div>
-              <div className="flex flex-col">
-                <label className="font-semibold">Categoría</label>
-                <input
-                  type="text"
-                  name="category"
-                  placeholder="Categoría"
-                  value={serviceData.category || ''}
-                  onChange={handleChange}
-                  className="border rounded p-2"
-                />
-              </div>
-              <div className="flex flex-col">
-                <label className="font-semibold">Subcategoría</label>
-                <input
-                  type="text"
-                  name="subcategory"
-                  placeholder="Subcategoría"
-                  value={serviceData.subcategory || ''}
-                  onChange={handleChange}
-                  className="border rounded p-2"
-                />
-              </div>
-              <div className="flex flex-col">
-                <label className="font-semibold">Imagen 1 {serviceData.image1_title ? '✔️' : '❌'}</label>
-                <input
-                  type="file"
-                  name="image1"
-                  onChange={(e) => handleImageUpload(e, 'image1')}
-                  className="border rounded p-2"
-                />
-              </div>
-              <div className="flex flex-col">
-                <label className="font-semibold">Subtítulo 1</label>
-                <input
-                  type="text"
-                  name="subtitle1"
-                  placeholder="Subtítulo de Texto 1"
-                  value={serviceData.subtitle1 || ''}
-                  onChange={handleChange}
-                  className="border rounded p-2"
-                />
-              </div>
-              <div className="flex flex-col">
-                <label className="font-semibold">Texto 1</label>
-                <textarea
-                  name="what"
-                  placeholder="What"
-                  value={serviceData.what || ''}
-                  onChange={(e) => {
-                    handleChange(e);
-                    handleTextareaChange(e);
-                  }}
-                  className="border rounded p-2"
-                ></textarea>
-              </div>
-              <div className="flex flex-col">
-                <label className="font-semibold">Subtítulo 2</label>
-                <input
-                  type="text"
-                  name="subtitle2"
-                  placeholder="Subtítulo de Texto 2"
-                  value={serviceData.subtitle2 || ''}
-                  onChange={handleChange}
-                  className="border rounded p-2"
-                />
-              </div>
-              <div className="flex flex-col">
-                <label className="font-semibold">Texto 2</label>
-                <textarea
-                  name="how"
-                  placeholder="How"
-                  value={serviceData.how || ''}
-                  onChange={(e) => {
-                    handleChange(e);
-                    handleTextareaChange(e);
-                  }}
-                  className="border rounded p-2"
-                ></textarea>
-              </div>
-              <div className="flex flex-col">
-                <label className="font-semibold">Subtítulo 3</label>
-                <input
-                  type="text"
-                  name="subtitle3"
-                  placeholder="Subtítulo de Texto 3"
-                  value={serviceData.subtitle3 || ''}
-                  onChange={handleChange}
-                  className="border rounded p-2"
-                />
-              </div>
-              <div className="flex flex-col">
-                <label className="font-semibold">Texto 3</label>
-                <textarea
-                  name="area"
-                  placeholder="Area"
-                  value={serviceData.area || ''}
-                  onChange={(e) => {
-                    handleChange(e);
-                    handleTextareaChange(e);
-                  }}
-                  className="border rounded p-2"
-                ></textarea>
-              </div>
-              <div className="flex flex-col">
-                <label className="font-semibold">Texto Pequeño 1</label>
-                <input
-                  type="text"
-                  name="objective1"
-                  placeholder="Objective 1"
-                  value={serviceData.objective1 || ''}
-                  onChange={handleChange}
-                  className="border rounded p-2"
-                />
-              </div>
-              <div className="flex flex-col">
-                <label className="font-semibold">Texto Pequeño 2</label>
-                <input
-                  type="text"
-                  name="objective2"
-                  placeholder="Objective 2"
-                  value={serviceData.objective2 || ''}
-                  onChange={handleChange}
-                  className="border rounded p-2"
-                />
-              </div>
-              <div className="flex flex-col">
-                <label className="font-semibold">Extra</label>
-                <textarea
-                  name="extra"
-                  placeholder="Extra"
-                  value={serviceData.extra || ''}
-                  onChange={(e) => {
-                    handleChange(e);
-                    handleTextareaChange(e);
-                  }}
-                  className="border rounded p-2"
-                ></textarea>
-              </div>
-              <div className="flex flex-col">
-                <label className="font-semibold">Imagen 2 {serviceData.image2_title ? '✔️' : '❌'}</label>
-                <input
-                  type="file"
-                  name="image2"
-                  onChange={(e) => handleImageUpload(e, 'image2')}
-                  className="border rounded p-2"
-                />
-              </div>
-              <div className="flex flex-col">
-                <label className="font-semibold">Imagen 3 {serviceData.image3_title ? '✔️' : '❌'}</label>
-                <input
-                  type="file"
-                  name="image3"
-                  onChange={(e) => handleImageUpload(e, 'image3')}
-                  className="border rounded p-2"
-                />
-              </div>
-              <div className="flex flex-col">
-                <label className="font-semibold">Tiempo de Realización</label>
-                <input
-                  type="text"
-                  name="time"
-                  placeholder="Tiempo de Realización"
-                  value={serviceData.time || ''}
-                  onChange={handleChange}
-                  className="border rounded p-2"
-                />
-              </div>
-              <div className="flex flex-col">
-                <label className="font-semibold">Anestesia</label>
-                <input
-                  type="text"
-                  name="anesthesia"
-                  placeholder="Anestesia"
-                  value={serviceData.anesthesia || ''}
-                  onChange={handleChange}
-                  className="border rounded p-2"
-                />
-              </div>
-              <div className="flex flex-col">
-                <label className="font-semibold">Financiación</label>
-                <textarea
-                  name="finance"
-                  placeholder="Financiación"
-                  value={serviceData.finance || ''}
-                  onChange={(e) => {
-                    handleChange(e);
-                    handleTextareaChange(e);
-                  }}
-                  className="border rounded p-2"
-                ></textarea>
-              </div>
-              <div className="flex flex-col">
-                <label className="font-semibold">Resultados</label>
-                <textarea
-                  name="results"
-                  placeholder="Resultados"
-                  value={serviceData.results || ''}
-                  onChange={(e) => {
-                    handleChange(e);
-                    handleTextareaChange(e);
-                  }}
-                  className="border rounded p-2"
-                ></textarea>
-              </div>
-              <div className="flex flex-col">
-                <label className="font-semibold">Hospitalización</label>
-                <textarea
-                  name="hospital"
-                  placeholder="Detalles, tiempo, etc"
-                  value={serviceData.hospital || ''}
-                  onChange={(e) => {
-                    handleChange(e);
-                    handleTextareaChange(e);
-                  }}
-                  className="border rounded p-2"
-                ></textarea>
-              </div>
-              <div className="flex flex-col">
-                <label className="font-semibold">FAQ 1</label>
-                <input
-                  type="text"
-                  name="faq1"
-                  placeholder="Pregunta Frecuente 1"
-                  value={serviceData.faq1 || ''}
-                  onChange={handleChange}
-                  className="border rounded p-2"
-                />
-              </div>
-              <div className="flex flex-col">
-                <label className="font-semibold">Respuesta 1</label>
-                <textarea
-                  name="answer1"
-                  placeholder="Respuesta 1"
-                  value={serviceData.answer1 || ''}
-                  onChange={(e) => {
-                    handleChange(e);
-                    handleTextareaChange(e);
-                  }}
-                  className="border rounded p-2"
-                ></textarea>
-              </div>
-              <div className="flex flex-col">
-                <label className="font-semibold">FAQ 2</label>
-                <input
-                  type="text"
-                  name="faq2"
-                  placeholder="Pregunta Frecuente 2"
-                  value={serviceData.faq2 || ''}
-                  onChange={handleChange}
-                  className="border rounded p-2"
-                />
-              </div>
-              <div className="flex flex-col md:col-span-2">
-                <label className="font-semibold">Área Corporal</label>
-                <input
-                  type="text"
-                  name="targetAreas"
-                  placeholder="En que zona? Facial, Corporal, etc"
-                  value={serviceData.targetAreas?.join(',') || ''}
-                  onChange={(e) => handleArrayChange(e, 'targetAreas')}
-                  className="border rounded p-2"
-                />
-              </div>
-              <div className="flex flex-col md:col-span-2">
-                <label className="font-semibold">Objetivos</label>
-                <input
-                  type="text"
-                  name="objectives"
-                  placeholder="Que arregla? Reducir Arrugas, Corregir Acné, etc"
-                  value={serviceData.objectives?.join(',') || ''}
-                  onChange={(e) => handleArrayChange(e, 'objectives')}
-                  className="border rounded p-2"
-                />
-              </div>
-              <div className="flex flex-col md:col-span-2">
-                      <label className="font-semibold">Tratamientos/Productos Relacionados</label>
-                      <input
-                        type="text"
-                        name="relatedProd"
-                        placeholder="Cualquier tratamiento o producto relacionado por objetivo o área"
-                        value={serviceData.relatedProd?.join(',') || ''}
-                        onChange={(e) => handleArrayChange(e, 'relatedProd')}
-                        className="border rounded p-2"
-                      />
-                    </div>
-                    <div className="flex justify-end md:col-span-2">
-                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
-                  {editingService ? 'Actualizar' : 'Añadir'}
-                </button>
-                {editingService && (
-                  <button type="button" onClick={handleCancel} className="bg-red-500 text-white px-4 py-2 rounded ml-2">
-                    Cancelar
-                  </button>
-                )}
-              </div>
-              {successMessage && <div className="bg-green-500 text-white p-2 rounded mt-2">{successMessage}</div>}
-            </form>
+      <Modal isOpen={isModalOpen} onClose={handleCancel}>
+  <div className="w-[95vw] h-[95vh] max-w-[1800px] max-h-[1000px] mx-auto flex flex-col">
+    <div className="flex-grow overflow-hidden flex flex-col lg:flex-row">
+      <div className="w-full lg:w-1/2 overflow-y-auto p-6">
+        <h2 className="text-2xl font-semibold mb-6">{editingService ? 'Editar Tratamiento' : 'Añadir Tratamiento'}</h2>
+        <form onSubmit={handleSubmit} ref={formRef} className="space-y-6">
+          <div className="flex flex-col">
+            <label className="font-semibold mb-1">Título</label>
+            <input
+              type="text"
+              name="title"
+              placeholder="Title"
+              value={serviceData.title || ''}
+              onChange={handleChange}
+              className="border rounded p-2 w-full"
+            />
           </div>
-          <div className="overflow-hidden">
-            <div className="bg-gray-100 p-2 mb-4 rounded">
-              <p className="text-sm font-mono whitespace-nowrap overflow-hidden text-ellipsis">
-                {formatURL(
-                  serviceData.subcategory || '',
-                  serviceData.objectives || [],
-                  serviceData.title || ''
-                )}
-              </p>
-            </div>
-            <div className="max-h-[60vh]">
-              <ServiceInfoPreview serviceData={serviceData} />
-            </div>
+          <div className="flex flex-col">
+            <label className="font-semibold mb-1">Categoría</label>
+            <input
+              type="text"
+              name="category"
+              placeholder="Categoría"
+              value={serviceData.category || ''}
+              onChange={handleChange}
+              className="border rounded p-2 w-full"
+            />
+          </div>
+          <div className="flex flex-col">
+            <label className="font-semibold mb-1">Subcategoría</label>
+            <input
+              type="text"
+              name="subcategory"
+              placeholder="Subcategoría"
+              value={serviceData.subcategory || ''}
+              onChange={handleChange}
+              className="border rounded p-2 w-full"
+            />
+          </div>
+          <div className="flex flex-col">
+            <label className="font-semibold mb-1">Imagen 1 {serviceData.image1_title ? '✔️' : '❌'}</label>
+            <input
+              type="file"
+              name="image1"
+              onChange={(e) => handleImageUpload(e, 'image1')}
+              className="border rounded p-2 w-full"
+            />
+          </div>
+          <div className="flex flex-col">
+            <label className="font-semibold mb-1">Subtítulo 1</label>
+            <input
+              type="text"
+              name="subtitle1"
+              placeholder="Subtítulo de Texto 1"
+              value={serviceData.subtitle1 || ''}
+              onChange={handleChange}
+              className="border rounded p-2 w-full"
+            />
+          </div>
+          <div className="flex flex-col">
+            <label className="font-semibold mb-1">Texto 1</label>
+            <textarea
+              name="what"
+              placeholder="What"
+              value={serviceData.what || ''}
+              onChange={(e) => {
+                handleChange(e);
+                handleTextareaChange(e);
+              }}
+              className="border rounded p-2 w-full h-24"
+            ></textarea>
+          </div>
+          <div className="flex flex-col">
+            <label className="font-semibold mb-1">Subtítulo 2</label>
+            <input
+              type="text"
+              name="subtitle2"
+              placeholder="Subtítulo de Texto 2"
+              value={serviceData.subtitle2 || ''}
+              onChange={handleChange}
+              className="border rounded p-2 w-full"
+            />
+          </div>
+          <div className="flex flex-col">
+            <label className="font-semibold mb-1">Texto 2</label>
+            <textarea
+              name="how"
+              placeholder="How"
+              value={serviceData.how || ''}
+              onChange={(e) => {
+                handleChange(e);
+                handleTextareaChange(e);
+              }}
+              className="border rounded p-2 w-full h-24"
+            ></textarea>
+          </div>
+          <div className="flex flex-col">
+            <label className="font-semibold mb-1">Subtítulo 3</label>
+            <input
+              type="text"
+              name="subtitle3"
+              placeholder="Subtítulo de Texto 3"
+              value={serviceData.subtitle3 || ''}
+              onChange={handleChange}
+              className="border rounded p-2 w-full"
+            />
+          </div>
+          <div className="flex flex-col">
+            <label className="font-semibold mb-1">Texto 3</label>
+            <textarea
+              name="area"
+              placeholder="Area"
+              value={serviceData.area || ''}
+              onChange={(e) => {
+                handleChange(e);
+                handleTextareaChange(e);
+              }}
+              className="border rounded p-2 w-full h-24"
+            ></textarea>
+          </div>
+          <div className="flex flex-col">
+            <label className="font-semibold mb-1">Texto Pequeño 1</label>
+            <input
+              type="text"
+              name="objective1"
+              placeholder="Objective 1"
+              value={serviceData.objective1 || ''}
+              onChange={handleChange}
+              className="border rounded p-2 w-full"
+            />
+          </div>
+          <div className="flex flex-col">
+            <label className="font-semibold mb-1">Texto Pequeño 2</label>
+            <input
+              type="text"
+              name="objective2"
+              placeholder="Objective 2"
+              value={serviceData.objective2 || ''}
+              onChange={handleChange}
+              className="border rounded p-2 w-full"
+            />
+          </div>
+          <div className="flex flex-col">
+            <label className="font-semibold mb-1">Extra</label>
+            <textarea
+              name="extra"
+              placeholder="Extra"
+              value={serviceData.extra || ''}
+              onChange={(e) => {
+                handleChange(e);
+                handleTextareaChange(e);
+              }}
+              className="border rounded p-2 w-full h-24"
+            ></textarea>
+          </div>
+          <div className="flex flex-col">
+            <label className="font-semibold mb-1">Imagen 2 {serviceData.image2_title ? '✔️' : '❌'}</label>
+            <input
+              type="file"
+              name="image2"
+              onChange={(e) => handleImageUpload(e, 'image2')}
+              className="border rounded p-2 w-full"
+            />
+          </div>
+          <div className="flex flex-col">
+            <label className="font-semibold mb-1">Imagen 3 {serviceData.image3_title ? '✔️' : '❌'}</label>
+            <input
+              type="file"
+              name="image3"
+              onChange={(e) => handleImageUpload(e, 'image3')}
+              className="border rounded p-2 w-full"
+            />
+          </div>
+          <div className="flex flex-col">
+            <label className="font-semibold mb-1">Tiempo de Realización</label>
+            <input
+              type="text"
+              name="time"
+              placeholder="Tiempo de Realización"
+              value={serviceData.time || ''}
+              onChange={handleChange}
+              className="border rounded p-2 w-full"
+            />
+          </div>
+          <div className="flex flex-col">
+            <label className="font-semibold mb-1">Anestesia</label>
+            <input
+              type="text"
+              name="anesthesia"
+              placeholder="Anestesia"
+              value={serviceData.anesthesia || ''}
+              onChange={handleChange}
+              className="border rounded p-2 w-full"
+            />
+          </div>
+          <div className="flex flex-col">
+            <label className="font-semibold mb-1">Financiación</label>
+            <textarea
+              name="finance"
+              placeholder="Financiación"
+              value={serviceData.finance || ''}
+              onChange={(e) => {
+                handleChange(e);
+                handleTextareaChange(e);
+              }}
+              className="border rounded p-2 w-full h-24"
+            ></textarea>
+          </div>
+          <div className="flex flex-col">
+            <label className="font-semibold mb-1">Resultados</label>
+            <textarea
+              name="results"
+              placeholder="Resultados"
+              value={serviceData.results || ''}
+              onChange={(e) => {
+                handleChange(e);
+                handleTextareaChange(e);
+              }}
+              className="border rounded p-2 w-full h-24"
+            ></textarea>
+          </div>
+          <div className="flex flex-col">
+            <label className="font-semibold mb-1">Hospitalización</label>
+            <textarea
+              name="hospital"
+              placeholder="Detalles, tiempo, etc"
+              value={serviceData.hospital || ''}
+              onChange={(e) => {
+                handleChange(e);
+                handleTextareaChange(e);
+              }}
+              className="border rounded p-2 w-full h-24"
+            ></textarea>
+          </div>
+          <div className="flex flex-col">
+            <label className="font-semibold mb-1">FAQ 1</label>
+            <input
+              type="text"
+              name="faq1"
+              placeholder="Pregunta Frecuente 1"
+              value={serviceData.faq1 || ''}
+              onChange={handleChange}
+              className="border rounded p-2 w-full"
+            />
+          </div>
+          <div className="flex flex-col">
+            <label className="font-semibold mb-1">Respuesta 1</label>
+            <textarea
+              name="answer1"
+              placeholder="Respuesta 1"
+              value={serviceData.answer1 || ''}
+              onChange={(e) => {
+                handleChange(e);
+                handleTextareaChange(e);
+              }}
+              className="border rounded p-2 w-full h-24"
+            ></textarea>
+          </div>
+          <div className="flex flex-col">
+            <label className="font-semibold mb-1">FAQ 2</label>
+            <input
+              type="text"
+              name="faq2"
+              placeholder="Pregunta Frecuente 2"
+              value={serviceData.faq2 || ''}
+              onChange={handleChange}
+              className="border rounded p-2 w-full"
+            />
+          </div>
+          <div className="flex flex-col">
+            <label className="font-semibold mb-1">Área Corporal</label>
+            <input
+              type="text"
+              name="targetAreas"
+              placeholder="En que zona? Facial, Corporal, etc"
+              value={serviceData.targetAreas?.join(',') || ''}
+              onChange={(e) => handleArrayChange(e, 'targetAreas')}
+              className="border rounded p-2 w-full"
+            />
+          </div>
+          <div className="flex flex-col">
+            <label className="font-semibold mb-1">Objetivos</label>
+            <input
+              type="text"
+              name="objectives"
+              placeholder="Que arregla? Reducir Arrugas, Corregir Acné, etc"
+              value={serviceData.objectives?.join(',') || ''}
+              onChange={(e) => handleArrayChange(e, 'objectives')}
+              className="border rounded p-2 w-full"
+            />
+          </div>
+          <div className="flex flex-col">
+            <label className="font-semibold">Tratamientos/Productos Relacionados</label>
+            <input
+              type="text"
+              name="relatedProd"
+              placeholder="Cualquier tratamiento o producto relacionado por objetivo o área"
+              value={serviceData.relatedProd?.join(',') || ''}
+              onChange={(e) => handleArrayChange(e, 'relatedProd')}
+              className="border rounded p-2 w-full"
+            />
+          </div>
+          <div className="flex justify-center space-x-4 pb-24">
+            <button type="submit" className="bg-blue-500 text-white px-4 rounded hover:bg-blue-600 transition-colors">
+              {editingService ? 'Actualizar' : 'Guardar'}
+            </button>
+            <button type="button" onClick={handleCancel} className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition-colors">
+              Cancelar
+            </button>
+          </div>
+        </form>
+      </div>
+      <div className="w-full lg:w-1/2 overflow-y-auto p-6 border-t lg:border-t-0 lg:border-l">
+        <div className="bg-gray-100 p-3 mb-6 rounded">
+          <p className="text-sm font-mono break-all">
+            {formatURL(
+              serviceData.subcategory || '',
+              serviceData.objectives || [],
+              serviceData.title || ''
+            )}
+          </p>
+        </div>
+        <div className="overflow-x-hidden">
+          <div className="max-w-full">
+            <ServiceInfoPreview serviceData={serviceData} />
           </div>
         </div>
-      </Modal>
-
+      </div>
+    </div>
+    {successMessage && <div className="bg-green-500 text-white p-2 rounded mt-2 text-center">{successMessage}</div>}
+  </div>
+</Modal>
       <h2 className="text-xl font-semibold mt-8 mb-4">Lista de Tratamientos</h2>
       <div className="flex justify-between mb-4">
         <div>
