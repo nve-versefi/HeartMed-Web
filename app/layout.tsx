@@ -2,7 +2,7 @@ import './css/style.css';
 import { Inter, Architects_Daughter } from 'next/font/google';
 import ServerHeader from '@/components/ui/ServerHeader';
 import CookieBanner from '@/components/cookieconsent';
-import StickyIcons from '@/components/ui/StickyIcons';
+import StickyIconsWrapper from '@/components/ui/StickyIconsWrapper';
 import { CartProvider } from '@/components/ui/CartContext';
 import { Metadata } from 'next'
 
@@ -38,7 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               {children}
               <CookieBanner />
             </main>
-            <StickyIcons />
+            <StickyIconsWrapper />
           </div>
         </CartProvider>
       </body>
