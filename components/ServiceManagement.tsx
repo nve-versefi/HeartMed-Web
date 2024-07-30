@@ -13,6 +13,7 @@ import { ImCross } from "react-icons/im";
 import { FaFaceLaughBeam, FaRegEye, FaEarListen } from "react-icons/fa6";
 import { MdOutlineAirlineSeatLegroomExtra } from "react-icons/md";
 import { IoBody } from "react-icons/io5";
+import ImageCropperModal from './ImageCropperModal';
 
 interface Service {
   _id: string;
@@ -76,6 +77,10 @@ const ServiceManagement: React.FC = () => {
   const [sortOrder, setSortOrder] = useState<string>('asc');
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [serviceData, setServiceData] = useState<Service>({} as Service);
+  const [isCropperModalOpen, setIsCropperModalOpen] = useState(false);
+  const [currentImageField, setCurrentImageField] = useState<'image1' | 'image2' | 'image3' | null>(null);
+  const [currentImage, setCurrentImage] = useState<string | null>(null);
+  
 
   const parseJSONField = (field: string) => {
     try {
@@ -384,19 +389,28 @@ const ServiceManagement: React.FC = () => {
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, field: 'image1' | 'image2' | 'image3') => {
     const file = e.target.files?.[0];
     if (file) {
-      setImageFiles(prevFiles => ({
-        ...prevFiles,
-        [field]: file,
-      }));
       const reader = new FileReader();
       reader.onloadend = () => {
-        setServiceData(prevData => ({
-          ...prevData,
-          [field]: reader.result as string
-        }));
+        setCurrentImage(reader.result as string);
+        setCurrentImageField(field);
+        setIsCropperModalOpen(true);
       };
       reader.readAsDataURL(file);
     }
+  };
+
+  const handleCroppedImage = (croppedImage: string) => {
+    if (currentImageField) {
+      setImageFiles(prevFiles => ({
+        ...prevFiles,
+        [currentImageField]: croppedImage,
+      }));
+      setServiceData(prevData => ({
+        ...prevData,
+        [currentImageField]: croppedImage,
+      }));
+    }
+    setIsCropperModalOpen(false);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -890,6 +904,15 @@ const ServiceManagement: React.FC = () => {
     {successMessage && <div className="bg-green-500 text-white p-2 rounded mt-2 text-center">{successMessage}</div>}
   </div>
 </Modal>
+
+<ImageCropperModal
+        isOpen={isCropperModalOpen}
+        onClose={() => setIsCropperModalOpen(false)}
+        onImageSave={handleCroppedImage}
+        initialImage={currentImage || ''}
+        imageType={currentImageField || 'image1'}
+      />
+
       <h2 className="text-xl font-semibold mt-8 mb-4">Lista de Tratamientos</h2>
       <div className="flex justify-between mb-4">
         <div>
