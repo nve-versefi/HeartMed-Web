@@ -3,7 +3,6 @@ const nextConfig = {
   async headers() {
     return [
       {
-        // This will apply these headers to all routes
         source: '/:path*',
         headers: [
           { key: 'Access-Control-Allow-Credentials', value: 'true' },
