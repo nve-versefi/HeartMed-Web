@@ -54,34 +54,41 @@ const ServiceInfo: React.FC<ServiceInfoProps> = React.memo(({ serviceData }) => 
           <p className="text-lg">{renderTextWithLineBreaks(serviceData.objective1)}</p>
           <p className="text-lg">{renderTextWithLineBreaks(serviceData.objective2)}</p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-    <div className="flex justify-center" style={{ height: '450px', width: 'auto' }}>
-        <Image
-            src={serviceData.image2 || "/placeholder.jpg"}
-            alt="Service Image 1"
-            width={450}
-            height={450}
-            style={{ objectFit: 'cover' }}
-        />
-    </div>
-    <div className="flex justify-center" style={{ height: '450px', width: 'auto' }}>
-        <Image
-            src={serviceData.image3 || "/placeholder.jpg"}
-            alt="Service Image 2"
-            width={450}
-            height={450}
-            style={{ objectFit: 'cover' }}
-        />
-    </div>
-</div>
+        
+        <div className="text-center mb-4">
+          <a className="bg-white text-thunderbird-500 font-bold py-2 px-4 rounded cursor-pointer inline-block" style={{ marginTop: '-40px' }}>
+            Reserva tu SkinTester Digital 3D con IA ¡GRATIS!
+          </a>
+        </div>
 
+        <div className="relative grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+          <div className="flex justify-center" style={{ height: '450px', width: 'auto' }}>
+            <Image
+              src={serviceData.image2 || "/placeholder.jpg"}
+              alt="Service Image 1"
+              width={450}
+              height={450}
+              style={{ objectFit: 'cover' }}
+            />
+          </div>
+          <div className="flex justify-center" style={{ height: '450px', width: 'auto' }}>
+            <Image
+              src={serviceData.image3 || "/placeholder.jpg"}
+              alt="Service Image 2"
+              width={450}
+              height={450}
+              style={{ objectFit: 'cover' }}
+            />
+          </div>
+        </div>
+        
         <div className="p-6 my-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="text-center">
               <FaHourglassHalf className="text-4xl text-thunderbird-500 mx-auto mb-4" />
               <p className="text-gray-700">
                 <strong>Tiempo de realización</strong>
-                <br/>
+                <br />
                 {renderTextWithLineBreaks(serviceData.time)}
               </p>
             </div>
@@ -89,7 +96,7 @@ const ServiceInfo: React.FC<ServiceInfoProps> = React.memo(({ serviceData }) => 
               <FaMoneyBillWave className="text-4xl text-thunderbird-500 mx-auto mb-4" />
               <p className="text-gray-700">
                 <strong>Financiación</strong>
-                <br/>
+                <br />
                 {renderTextWithLineBreaks(serviceData.finance)}
               </p>
             </div>
@@ -97,7 +104,7 @@ const ServiceInfo: React.FC<ServiceInfoProps> = React.memo(({ serviceData }) => 
               <FaSyringe className="text-4xl text-thunderbird-500 mx-auto mb-4" />
               <p className="text-gray-700">
                 <strong>Anestesia</strong>
-                <br/>
+                <br />
                 {renderTextWithLineBreaks(serviceData.anesthesia)}
               </p>
             </div>

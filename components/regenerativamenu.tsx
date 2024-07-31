@@ -93,7 +93,7 @@ const RegenerativaMenu: React.FC = () => {
             Ofrecemos una amplia variedad de tratamientos diseñados para abordar las necesidades individuales y los objetivos específicos de cada paciente.
           </p>
           <p className="mb-4 text-center mx-16">
-            Para ello contamos con un elenco multidisciplinar de profesionales médicos y estéticos especializados en diferentes técnicas de vanguardia y en constante aprendizaje de los avances que nos ofrece la ciencia.
+            Para ello contamos con un equipo multidisciplinar de profesionales médicos y estéticos especializados en diferentes técnicas de vanguardia y en constante aprendizaje de los avances que nos ofrece la ciencia.
           </p>
           <p className="mb-4">Ya sea que busques:</p>
           <ul className="list-none mb-8">
