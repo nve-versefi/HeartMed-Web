@@ -55,25 +55,26 @@ const ServiceInfo: React.FC<ServiceInfoProps> = React.memo(({ serviceData }) => 
           <p className="text-lg">{renderTextWithLineBreaks(serviceData.objective2)}</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-          <div className="flex justify-center" style={{ height: '450px', width: 'auto' }}>
-            <Image
-              src={serviceData.image2 || "/placeholder.jpg"}
-              alt="Service Image 1"
-              width={450}
-              height={450}
-              objectFit="cover"
-            />
-          </div>
-          <div className="flex justify-center" style={{ height: '450px', width: 'auto' }}>
-            <Image
-              src={serviceData.image3 || "/placeholder.jpg"}
-              alt="Service Image 2"
-              width={450}
-              height={450}
-              objectFit="cover"
-            />
-          </div>
-        </div>
+    <div className="flex justify-center" style={{ height: '450px', width: 'auto' }}>
+        <Image
+            src={serviceData.image2 || "/placeholder.jpg"}
+            alt="Service Image 1"
+            width={450}
+            height={450}
+            style={{ objectFit: 'cover' }}
+        />
+    </div>
+    <div className="flex justify-center" style={{ height: '450px', width: 'auto' }}>
+        <Image
+            src={serviceData.image3 || "/placeholder.jpg"}
+            alt="Service Image 2"
+            width={450}
+            height={450}
+            style={{ objectFit: 'cover' }}
+        />
+    </div>
+</div>
+
         <div className="p-6 my-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="text-center">
