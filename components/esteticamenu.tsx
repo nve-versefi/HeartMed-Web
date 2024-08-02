@@ -71,6 +71,36 @@ const EsteticaMenu: React.FC<EsteticaMenuProps> = ({ initialData, initialError }
   if (!submenuData || submenuData.length === 0) return <div>No Medicina Estética data found.</div>;
 
   //console.log('Rendering with submenuData:', submenuData);
+  const groupProblems = (problems: Problem[]) => {
+    const sortedProblems = [...problems].sort((a, b) => b.services.length - a.services.length);
+    
+    const pairs: Problem[][] = [];
+    let i = 0;
+
+    while (i < sortedProblems.length) {
+      if (i + 1 < sortedProblems.length) {
+        if (sortedProblems[i].services.length - sortedProblems[i+1].services.length > 3) {
+          let bestMatchIndex = i + 1;
+          for (let j = i + 2; j < sortedProblems.length; j++) {
+            if (Math.abs(sortedProblems[i].services.length - sortedProblems[j].services.length) < 
+                Math.abs(sortedProblems[i].services.length - sortedProblems[bestMatchIndex].services.length)) {
+              bestMatchIndex = j;
+            }
+          }
+          pairs.push([sortedProblems[i], sortedProblems[bestMatchIndex]]);
+          sortedProblems.splice(bestMatchIndex, 1);
+        } else {
+          pairs.push([sortedProblems[i], sortedProblems[i+1]]);
+          i++;
+        }
+      } else {
+        pairs.push([sortedProblems[i]]);
+      }
+      i++;
+    }
+
+    return pairs;
+  };
 
   return (
     <div className="estetica-menu mt-8">
@@ -131,28 +161,35 @@ const EsteticaMenu: React.FC<EsteticaMenuProps> = ({ initialData, initialError }
                   </div>
                 </a>
               </div>
-              <div className="problems-grid grid grid-cols-2 gap-8">
-                {submenuItem.problems?.map((problem, problemIndex) => (
-                  <div key={problemIndex} className="problem-item">
-                    <h3 className="text-3xl text-thunderbird-500 text-center font-bold mb-2">{problem.name}</h3>
-                    <div className="w-full h-0 pb-[56.25%] relative mb-4">
-                      <Image
-                        src={problem.imageUrl}
-                        alt={problem.name}
-                        layout="fill"
-                        objectFit="cover"
-                        loading="lazy"
-                      />
-                    </div>
-                    <div className="services-grid grid grid-cols-2 gap-4">
-                      {problem.services.map((service, serviceIndex) => (
-                        <Link key={serviceIndex} href={service.servicePath}>
-                          <button className="bg-woodsmoke-300 hover:bg-thunderbird-500 text-white font-semibold py-2 px-4 rounded w-full">
-                            {service.serviceName}
-                          </button>
-                        </Link>
-                      ))}
-                    </div>
+              <div className="problems-grid space-y-8">
+                {groupProblems(submenuItem.problems || []).map((pair, pairIndex) => (
+                  <div key={pairIndex} className={`grid gap-8 ${pair.length === 2 ? 'grid-cols-2' : 'grid-cols-1'}`}>
+                    {pair.map((problem, problemIndex) => (
+                      <div 
+                        key={problemIndex} 
+                        className={`problem-item ${pair.length === 1 ? 'col-span-2 mx-auto max-w-[50%]' : ''}`}
+                      >
+                        <h3 className="text-3xl text-thunderbird-500 text-center font-bold mb-2">{problem.name}</h3>
+                        <div className="w-full h-0 pb-[56.25%] relative mb-4">
+                          <Image
+                            src={problem.imageUrl}
+                            alt={problem.name}
+                            layout="fill"
+                            objectFit="cover"
+                            loading="lazy"
+                          />
+                        </div>
+                        <div className="services-grid grid grid-cols-2 gap-4">
+                          {problem.services.map((service, serviceIndex) => (
+                            <Link key={serviceIndex} href={service.servicePath}>
+                              <button className="bg-woodsmoke-300 hover:bg-thunderbird-500 text-white font-semibold py-2 px-4 rounded w-full">
+                                {service.serviceName}
+                              </button>
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 ))}
               </div>
@@ -160,6 +197,7 @@ const EsteticaMenu: React.FC<EsteticaMenuProps> = ({ initialData, initialError }
           </LazyLoad>
         ))}
       </div>
+
       
       <LazyLoad>
         <div id="masInformacion" className="mas-informacion my-8">

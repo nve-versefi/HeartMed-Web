@@ -22,21 +22,21 @@ interface SubmenuItem {
   problems?: Problem[];
 }
 
-interface TratamientosFacialesPageProps {
+interface OzonoterapiaEsteticaPageProps {
   initialData?: SubmenuItem[];
 }
 
-const TratamientosFacialesPage: React.FC<TratamientosFacialesPageProps> = ({ initialData }) => {
-  const [tratamientosFaciales, setTratamientosFaciales] = React.useState<SubmenuItem[]>(initialData || []);
+const OzonoterapiaEsteticaPage: React.FC<OzonoterapiaEsteticaPageProps> = ({ initialData }) => {
+  const [ozonoterapiaEstetica, setOzonoterapiaEstetica] = React.useState<SubmenuItem[]>(initialData || []);
   const [loading, setLoading] = React.useState(!initialData);
   const [error, setError] = React.useState<string | null>(null);
 
   React.useEffect(() => {
     if (!initialData) {
-      const fetchTratamientosFaciales = async (retries = 3) => {
+      const fetchOzonoterapiaEstetica = async (retries = 3) => {
         try {
           setLoading(true);
-          const response = await fetch('/api/tratamientos-faciales');
+          const response = await fetch('/api/ozonoterapia-estetica');
           if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
           }
@@ -44,20 +44,20 @@ const TratamientosFacialesPage: React.FC<TratamientosFacialesPageProps> = ({ ini
           if (data.error) {
             throw new Error(data.error);
           }
-          setTratamientosFaciales(data[0].submenu ? [data[0].submenu] : []);
+          setOzonoterapiaEstetica(data[0].submenu ? [data[0].submenu] : []);
           setError(null);
         } catch (err) {
           if (retries > 0) {
-            setTimeout(() => fetchTratamientosFaciales(retries - 1), 500);
+            setTimeout(() => fetchOzonoterapiaEstetica(retries - 1), 500);
           } else {
-            setError('Error fetching Tratamientos Faciales data. Please try again later.');
+            setError('Error fetching Ozonoterapia Estética data. Please try again later.');
           }
         } finally {
           setLoading(false);
         }
       };
 
-      fetchTratamientosFaciales();
+      fetchOzonoterapiaEstetica();
     }
   }, [initialData]);
 
@@ -94,41 +94,38 @@ const TratamientosFacialesPage: React.FC<TratamientosFacialesPageProps> = ({ ini
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
-  if (!tratamientosFaciales || tratamientosFaciales.length === 0) return <div>No Tratamientos Faciales data found.</div>;
+  if (!ozonoterapiaEstetica || ozonoterapiaEstetica.length === 0) return <div>No Ozonoterapia Estética data found.</div>;
 
   return (
     <DefaultLayout>
       <Head>
-        <title>Cirugías Medicoestéticas - HeartMed</title>
-        <meta name="description" content="Explora nuestras cirugías medicoestéticas." />
-        <meta property="og:title" content="Cirugías Medicoestéticas - HeartMed" />
-        <meta property="og:description" content="Explora nuestras cirugías medicoestéticas." />
+        <title>Ozonoterapia Estética - HeartMed</title>
+        <meta name="description" content="Explora nuestros tratamientos de Ozonoterapia Estética para mejorar tu apariencia y bienestar." />
+        <meta property="og:title" content="Ozonoterapia Estética - HeartMed" />
+        <meta property="og:description" content="Explora nuestros tratamientos de Ozonoterapia Estética para mejorar tu apariencia y bienestar." />
         <meta property="og:type" content="website"/>
-        <meta property="og:url" content="https://heart-med.vercel.app/cirugias-medicoesteticas" />
-        <link rel="canonical" href="https://heart-med.vercel.app/cirugias-medicoesteticas" />
+        <meta property="og:url" content="https://heart-med.vercel.app/ozonoterapia-estetica" />
+        <link rel="canonical" href="https://heart-med.vercel.app/ozonoterapia-estetica" />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "http://schema.org",
-            "@type": "Service",
-            "serviceType": "Cirugías Medicoestéticas",
+            "@type": "MedicalProcedure",
+            "name": "Ozonoterapia Estética",
+            "description": "Tratamientos de Ozonoterapia Estética para mejorar la apariencia y el bienestar.",
+            "procedureType": "https://health-lifesci.schema.org/CosmeticProcedure",
+            "medicalSpecialty": "https://health-lifesci.schema.org/DermatologicProcedure",
             "provider": {
-              "@type": "Organization",
+              "@type": "MedicalOrganization",
               "name": "Heart Med",
-              "url": "https://heart-med.vercel.app",
+              "url": "https://heart-med.vercel.app"
             },
-            "areaServed": {
-              "@type": "Place",
-              "name": "España"
-            },
-            "url": "https://heart-med.vercel.app/cirugias-medicoesteticas",
-            "name": "Cirugías Medicoestéticas",
-            "description": "Explora nuestras cirugías medicoestéticas especializadas en tratamientos faciales y corporales.",
+            "url": "https://heart-med.vercel.app/ozonoterapia-estetica"
           })}
         </script>
       </Head>
       <div className="estetica-menu mx-24">
         <div id="tratamientos" className="submenu-grid grid grid-cols-1 gap-8">
-          {tratamientosFaciales.map((submenuItem, index) => (
+          {ozonoterapiaEstetica.map((submenuItem, index) => (
             <div key={index} className="submenu-item">
               <div className="block submenu-item">
                 <a href={submenuItem.path || '#'} className="group">
@@ -175,4 +172,4 @@ const TratamientosFacialesPage: React.FC<TratamientosFacialesPageProps> = ({ ini
   );
 };
 
-export default TratamientosFacialesPage;
+export default OzonoterapiaEsteticaPage;
