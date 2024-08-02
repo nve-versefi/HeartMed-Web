@@ -26,81 +26,57 @@ interface SubmenuItem {
   problems?: Problem[];
 }
 
-interface EsteticaMenuProps {
-  initialData?: SubmenuItem[];
-  initialError?: string | null;
-}
-
-const EsteticaMenu: React.FC<EsteticaMenuProps> = ({ initialData, initialError }) => {
-  const [submenuData, setSubmenuData] = useState<SubmenuItem[]>(initialData || []);
-  const [loading, setLoading] = useState(!initialData);
-  const [error, setError] = useState<string | null>(initialError || null);
+const EsteticaMenu: React.FC = () => {
+  const [submenuData, setSubmenuData] = useState<SubmenuItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!initialData) {
-      const fetchMedicinaEsteticaData = async (retries = 3) => {
-        try {
-          setLoading(true);
-          const response = await fetch('/api/medicina-estetica');
-          if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-          }
-          const data = await response.json();
-          if (data.error) {
-            throw new Error(data.error);
-          }
-          setSubmenuData(data);
-          setError(null);
-        } catch (err) {
-          if (retries > 0) {
-            setTimeout(() => fetchMedicinaEsteticaData(retries - 1), 500);
-          } else {
-            setError('Error fetching Medicina Estética data. Please try again later.');
-          }
-        } finally {
-          setLoading(false);
+    const fetchMedicinaEsteticaData = async (retries = 3) => {
+      try {
+        setLoading(true);
+        const response = await fetch('/api/medicina-estetica');
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
         }
-      };
+        const data = await response.json();
+        if (data.error) {
+          throw new Error(data.error);
+        }
+        setSubmenuData(data);
+        setError(null);
+      } catch (err) {
+        if (retries > 0) {
+          setTimeout(() => fetchMedicinaEsteticaData(retries - 1), 500);
+        } else {
+          setError('Error fetching Medicina Estética data. Please try again later.');
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
 
-      fetchMedicinaEsteticaData();
-    }
-  }, [initialData]);
+    fetchMedicinaEsteticaData();
+  }, []);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
-  if (!submenuData || submenuData.length === 0) return <div>No Medicina Estética data found.</div>;
-
-  //console.log('Rendering with submenuData:', submenuData);
   const groupProblems = (problems: Problem[]) => {
     const sortedProblems = [...problems].sort((a, b) => b.services.length - a.services.length);
     
     const pairs: Problem[][] = [];
-    let i = 0;
-
-    while (i < sortedProblems.length) {
+    for (let i = 0; i < sortedProblems.length; i += 2) {
       if (i + 1 < sortedProblems.length) {
-        if (sortedProblems[i].services.length - sortedProblems[i+1].services.length > 3) {
-          let bestMatchIndex = i + 1;
-          for (let j = i + 2; j < sortedProblems.length; j++) {
-            if (Math.abs(sortedProblems[i].services.length - sortedProblems[j].services.length) < 
-                Math.abs(sortedProblems[i].services.length - sortedProblems[bestMatchIndex].services.length)) {
-              bestMatchIndex = j;
-            }
-          }
-          pairs.push([sortedProblems[i], sortedProblems[bestMatchIndex]]);
-          sortedProblems.splice(bestMatchIndex, 1);
-        } else {
-          pairs.push([sortedProblems[i], sortedProblems[i+1]]);
-          i++;
-        }
+        pairs.push([sortedProblems[i], sortedProblems[i + 1]]);
       } else {
         pairs.push([sortedProblems[i]]);
       }
-      i++;
     }
 
     return pairs;
   };
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+  if (!submenuData || submenuData.length === 0) return <div>No Medicina Estética data found.</div>;
 
   return (
     <div className="estetica-menu mt-8">
@@ -167,7 +143,7 @@ const EsteticaMenu: React.FC<EsteticaMenuProps> = ({ initialData, initialError }
                     {pair.map((problem, problemIndex) => (
                       <div 
                         key={problemIndex} 
-                        className={`problem-item ${pair.length === 1 ? 'col-span-2 mx-auto max-w-[50%]' : ''}`}
+                        className={`problem-item w-full ${pair.length === 1 ? 'mx-auto max-w-[50%]' : ''}`}
                       >
                         <h3 className="text-3xl text-thunderbird-500 text-center font-bold mb-2">{problem.name}</h3>
                         <div className="w-full h-0 pb-[56.25%] relative mb-4">
@@ -198,7 +174,6 @@ const EsteticaMenu: React.FC<EsteticaMenuProps> = ({ initialData, initialError }
         ))}
       </div>
 
-      
       <LazyLoad>
         <div id="masInformacion" className="mas-informacion my-8">
           <h4 className="text-xl font-semibold mb-4">Tratamientos de Medicina Estética más demandados</h4>

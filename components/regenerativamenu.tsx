@@ -68,33 +68,15 @@ const RegenerativaMenu: React.FC = () => {
   }, []);
 
   const groupProblems = (problems: Problem[]) => {
-    // Sort problems by number of services
     const sortedProblems = [...problems].sort((a, b) => b.services.length - a.services.length);
     
     const pairs: Problem[][] = [];
-    let i = 0;
-
-    while (i < sortedProblems.length) {
+    for (let i = 0; i < sortedProblems.length; i += 2) {
       if (i + 1 < sortedProblems.length) {
-        // If the difference in service count is too large, try to find a better match
-        if (sortedProblems[i].services.length - sortedProblems[i+1].services.length > 3) {
-          let bestMatchIndex = i + 1;
-          for (let j = i + 2; j < sortedProblems.length; j++) {
-            if (Math.abs(sortedProblems[i].services.length - sortedProblems[j].services.length) < 
-                Math.abs(sortedProblems[i].services.length - sortedProblems[bestMatchIndex].services.length)) {
-              bestMatchIndex = j;
-            }
-          }
-          pairs.push([sortedProblems[i], sortedProblems[bestMatchIndex]]);
-          sortedProblems.splice(bestMatchIndex, 1);
-        } else {
-          pairs.push([sortedProblems[i], sortedProblems[i+1]]);
-          i++;
-        }
+        pairs.push([sortedProblems[i], sortedProblems[i + 1]]);
       } else {
         pairs.push([sortedProblems[i]]);
       }
-      i++;
     }
 
     return pairs;
@@ -204,11 +186,11 @@ const RegenerativaMenu: React.FC = () => {
               </div>
               <div className="problems-grid space-y-8">
                 {groupProblems(submenuItem.problems || []).map((pair, pairIndex) => (
-                  <div key={pairIndex} className={`grid ${pair.length === 2 ? 'grid-cols-2' : 'grid-cols-1'} gap-8`}>
+                  <div key={pairIndex} className={`grid gap-8 ${pair.length === 2 ? 'grid-cols-2' : 'grid-cols-1'}`}>
                     {pair.map((problem, problemIndex) => (
                       <div 
                         key={problemIndex} 
-                        className={`problem-item ${pair.length === 1 ? 'col-span-2 mx-auto max-w-[50%]' : ''}`}
+                        className={`problem-item w-full ${pair.length === 1 ? 'mx-auto max-w-[50%]' : ''}`}
                       >
                         <h4 className="text-3xl text-thunderbird-500 text-center font-bold mb-2">{problem.name}</h4>
                         <div className="w-full h-0 pb-[56.25%] relative mb-4"> 

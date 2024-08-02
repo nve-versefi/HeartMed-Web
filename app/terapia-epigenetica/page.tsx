@@ -30,7 +30,7 @@ const TestEpigeneticoPage: React.FC = () => {
     const fetchTestEpigenetico = async (retries = 3) => {
       try {
         setLoading(true);
-        const response = await fetch('/api/test-epigenetico');
+        const response = await fetch('/api/terapia-epigenetica');
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
