@@ -7,6 +7,7 @@ import DefaultLayout from '../(default)/layout';
 import { FaPlus } from 'react-icons/fa';
 import { useCart } from '@/components/ui/CartContext';
 import 'rc-slider/assets/index.css';
+import Link from 'next/link';
 
 const Slider = dynamic(() => import('rc-slider'), { ssr: false });
 
@@ -35,7 +36,7 @@ function ShopContent({ products }: { products: Product[] }) {
   const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [selectedBrand, setSelectedBrand] = useState<string>('');
   const [selectedUseCase, setSelectedUseCase] = useState<string>('');
-  const { state, dispatch } = useCart();
+  const { dispatch } = useCart();
 
   useEffect(() => {
     filterProducts();
@@ -182,18 +183,23 @@ function ShopContent({ products }: { products: Product[] }) {
         <div className="w-3/4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredProducts && filteredProducts.length > 0 ? (
             filteredProducts.map(product => (
-              <div key={product._id} className="border p-4 rounded relative">
-                <img src={product.thumbnail} alt={product.title} className="mb-4" />
-                <h3 className="text-lg font-bold mb-2">{product.title}</h3>
-                <p className="text-gray-700 mb-4">{product.description}</p>
-                <p className="text-green-600 font-bold">${product.price.toFixed(2)}</p>
-                <button 
-                  onClick={() => handleAddToCart(product)}
-                  className="absolute top-2 right-2 bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600 transition-colors duration-300"
-                >
-                  <FaPlus />
-                </button>
-              </div>
+              <Link href={`/tienda/${product._id}`} key={product._id}>
+                <div className="border p-4 rounded relative cursor-pointer hover:shadow-lg transition-shadow duration-300">
+                  <img src={product.thumbnail} alt={product.title} className="mb-4" />
+                  <h3 className="text-lg font-bold mb-2">{product.title}</h3>
+                  <p className="text-gray-700 mb-4">{product.description.substring(0, 100)}...</p>
+                  <p className="text-green-600 font-bold">${product.price.toFixed(2)}</p>
+                  <button 
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleAddToCart(product);
+                    }}
+                    className="absolute top-2 right-2 bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600 transition-colors duration-300"
+                  >
+                    <FaPlus />
+                  </button>
+                </div>
+              </Link>
             ))
           ) : (
             <p>No products found</p>
@@ -204,25 +210,75 @@ function ShopContent({ products }: { products: Product[] }) {
   );
 }
 
+const MAX_RETRIES = 3;
+const RETRY_DELAY = 1000; // 1 second
+
+async function fetchWithRetry(url: string, options = {}, retries = MAX_RETRIES): Promise<Response> {
+  try {
+    const response = await fetch(url, options);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return response;
+  } catch (error) {
+    if (retries > 0) {
+      console.log(`Retrying fetch. Attempts left: ${retries - 1}`);
+      await new Promise(resolve => setTimeout(resolve, RETRY_DELAY));
+      return fetchWithRetry(url, options, retries - 1);
+    }
+    throw error;
+  }
+}
+
 export default function ShopWrapper() {
   const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('/api/getProducts');
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
+        setLoading(true);
+        setError(null);
+        const response = await fetchWithRetry('/api/getProducts');
         const data = await response.json();
         setProducts(data.products);
       } catch (error) {
         console.error('Failed to fetch products:', error);
+        setError('Failed to load products. Please try again later.');
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchProducts();
   }, []);
+
+  if (loading) {
+    return (
+      <DefaultLayout>
+        <div className="flex justify-center items-center h-screen">
+          <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
+        </div>
+      </DefaultLayout>
+    );
+  }
+
+  if (error) {
+    return (
+      <DefaultLayout>
+        <div className="flex flex-col justify-center items-center h-screen">
+          <div className="text-red-500 text-xl mb-4">{error}</div>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Retry
+          </button>
+        </div>
+      </DefaultLayout>
+    );
+  }
 
   return (
     <DefaultLayout>

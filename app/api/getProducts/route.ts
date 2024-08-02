@@ -1,11 +1,25 @@
-// app/api/getProducts/route.ts
-
 import { NextResponse } from 'next/server';
 import { ObjectId } from 'mongodb';
 import connect from '@/app/lib/mongodb';
 
-export async function GET(request: Request) {
+const MAX_RETRIES = 3;
+const RETRY_DELAY = 1000; // 1 second
+
+async function retryOperation(operation: () => Promise<any>, retries = MAX_RETRIES): Promise<any> {
   try {
+    return await operation();
+  } catch (error) {
+    if (retries > 0) {
+      console.log(`Retrying operation. Attempts left: ${retries - 1}`);
+      await new Promise(resolve => setTimeout(resolve, RETRY_DELAY));
+      return retryOperation(operation, retries - 1);
+    }
+    throw error;
+  }
+}
+
+export async function GET(request: Request) {
+  return retryOperation(async () => {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
 
@@ -67,8 +81,5 @@ export async function GET(request: Request) {
 
       return NextResponse.json({ products });
     }
-  } catch (error) {
-    console.error('Failed to fetch products:', error);
-    return NextResponse.json({ error: 'Failed to fetch products' }, { status: 500 });
-  }
+  });
 }
