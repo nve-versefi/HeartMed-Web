@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Toast from './Toast';
 import Modal from './modal';
-import ProductInfoPreview from './ServiceInfoPreview';
+import ProductInfoPreview from './ProductInfoPreview';
 import 'tailwindcss/tailwind.css';
 import ImageCropperModal from './ImageCropperModal2';
 
