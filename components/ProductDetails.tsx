@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ImagePopup from './ImagePopup';
+import { useCart } from '@/components/ui/CartContext';
 
 interface Product {
   _id: string;
@@ -13,7 +14,7 @@ interface Product {
   price: number;
   image1?: string;
   image2?: string;
-  inStock: boolean; // Add this field to your product interface
+  stock: number;
 }
 
 interface ProductDetailsProps {
@@ -23,7 +24,9 @@ interface ProductDetailsProps {
 const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
   const [currentImage, setCurrentImage] = useState(0);
   const [showPopup, setShowPopup] = useState(false);
+  const [quantity, setQuantity] = useState(1);
   const images = [product.thumbnail, product.image1, product.image2].filter((img): img is string => !!img);
+  const { dispatch } = useCart();
 
   const nextImage = () => {
     setCurrentImage((prev) => (prev + 1) % images.length);
@@ -44,12 +47,25 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
     return deliveryDate.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' });
   };
 
+  const handleAddToCart = () => {
+    dispatch({
+      type: 'ADD_ITEM',
+      payload: {
+        id: product._id,
+        name: product.title,
+        price: product.price,
+        quantity: quantity
+      }
+    });
+  };
+
+  const isInStock = product.stock > 0;
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex flex-wrap">
         <div className="w-full lg:w-3/4 pr-4">
           <div className="flex flex-wrap">
-            {/* Image Carousel */}
             <div className="w-full md:w-1/3 mb-8">
               <div className="relative">
                 <img 
@@ -84,12 +100,11 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
               </div>
             </div>
 
-            {/* Product Details */}
             <div className="w-full md:w-2/3 px-4">
               <h1 className="text-3xl font-bold mb-4">{product.title}</h1>
               <p className="mb-4">{product.description}</p>
               <p className="mb-2"><strong>Categoría:</strong> {product.category}</p>
-              <p className="mb-2"><strong>Marca:</strong> {product.brand}</p>
+              <p className="mb-2"><strong>Marca:</strong> {product.brand || 'No especificada'}</p>
               {product.activeIngredient && (
                 <p className="mb-2"><strong>Ingredientes Activos:</strong> {product.activeIngredient}</p>
               )}
@@ -100,24 +115,31 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
           </div>
         </div>
 
-        {/* Buy Button Card */}
         <div className="w-full lg:w-1/4 mt-8 lg:mt-0">
           <div className="border rounded p-4 sticky top-4">
-            <p className="text-3xl font-bold text-red-600 mb-4">${product.price.toFixed(2)}</p>
+            <p className="text-3xl font-bold text-red-600 mb-4">€{product.price.toFixed(2)}</p>
             <p className="text-sm mb-2">Sin devolución/devoluciones gratis?</p>
-            {product.inStock ? (
+            {isInStock ? (
               <>
                 <p className="text-sm mb-4">Entrega estimada: <span className="font-bold">{getEstimatedDeliveryDate()}</span></p>
                 <p className="text-lg font-bold text-green-700 mb-4">En stock</p>
                 <div className="mb-4">
                   <label htmlFor="quantity" className="block mb-2">Cantidad:</label>
-                  <select id="quantity" className="w-full p-2 border rounded">
-                    {[1,2,3,4,5].map(num => (
-                      <option key={num} value={num}>{num}</option>
+                  <select 
+                    id="quantity" 
+                    className="w-full p-2 border rounded"
+                    value={quantity}
+                    onChange={(e) => setQuantity(Number(e.target.value))}
+                  >
+                    {[...Array(Math.min(5, product.stock))].map((_, i) => (
+                      <option key={i + 1} value={i + 1}>{i + 1}</option>
                     ))}
                   </select>
                 </div>
-                <button className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-4 rounded mb-2">
+                <button 
+                  className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-4 rounded mb-2"
+                  onClick={handleAddToCart}
+                >
                   Añadir al carrito
                 </button>
                 <button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded">

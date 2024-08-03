@@ -17,6 +17,7 @@ interface Product {
   price: number;
   image1?: string;
   image2?: string;
+  stock: number; // Changed from inStock to stock
 }
 
 const ProductPage: React.FC = () => {
@@ -36,7 +37,11 @@ const ProductPage: React.FC = () => {
         if (contentType && contentType.indexOf("application/json") !== -1) {
           const data = await response.json();
           if (data.product) {
-            setProduct(data.product);
+            // Ensure stock is set, defaulting to 0 if not provided by the API
+            setProduct({
+              ...data.product,
+              stock: data.product.stock ?? 0
+            });
           } else {
             setError('Product not found');
           }

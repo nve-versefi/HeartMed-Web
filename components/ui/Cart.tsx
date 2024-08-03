@@ -11,14 +11,14 @@ const CartDropdown: React.FC = () => {
 
   return (
     <div className="absolute right-0 mt-2 w-64 bg-white rounded-md shadow-xl z-20 p-4 transition-all duration-300 ease-in-out">
-      <h3 className="text-lg font-semibold mb-2">Cart</h3>
+      <h3 className="text-lg font-semibold mb-2">Carrito</h3>
       {state.items.length === 0 ? (
-        <p>Your cart is empty</p>
+        <p>Tu carrito esta vacio</p>
       ) : (
         <>
           {state.items.map((item) => (
             <div key={item.id} className="flex justify-between items-center mb-2">
-              <span className="truncate">{item.name}</span>
+              <span className="truncate">{item.name} (x{item.quantity})</span>
               <div>
                 <span className="mr-2">${(item.price * item.quantity).toFixed(2)}</span>
                 <button onClick={() => dispatch({ type: 'REMOVE_ITEM', payload: item.id })} className="text-red-500 text-sm">
@@ -28,7 +28,7 @@ const CartDropdown: React.FC = () => {
             </div>
           ))}
           <div className="mt-4 pt-2 border-t">
-            <strong>Total: ${state.total.toFixed(2)}</strong>
+            <strong>Total: €{state.total.toFixed(2)}</strong>
           </div>
           <button className="mt-2 bg-blue-500 text-white px-4 py-2 rounded w-full hover:bg-blue-600 transition-colors duration-300">
             Checkout
