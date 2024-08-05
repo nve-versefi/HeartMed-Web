@@ -1129,7 +1129,7 @@ const ServiceManagement: React.FC = () => {
           <select value={filterCategory} onChange={(e) => handleFilterChange(e, 'category')} className="border rounded p-2">
             <option value="">Todas</option>
             {Array.from(new Set(services.map(service => service.category))).map(category => (
-              <option key={category} value={category}>{category}</option>
+              <option key={`category-${category}`} value={category}>{category}</option>
             ))}
           </select>
         </div>
@@ -1138,7 +1138,7 @@ const ServiceManagement: React.FC = () => {
           <select value={filterSubcategory} onChange={(e) => handleFilterChange(e, 'subcategory')} className="border rounded p-2">
             <option value="">Todas</option>
             {Array.from(new Set(services.map(service => service.subcategory))).map(subcategory => (
-              <option key={subcategory} value={subcategory}>{subcategory}</option>
+              <option key={`subcategory-${subcategory}`} value={subcategory}>{subcategory}</option>
             ))}
           </select>
         </div>
@@ -1147,7 +1147,7 @@ const ServiceManagement: React.FC = () => {
           <select value={filterProblem} onChange={(e) => handleFilterChange(e, 'problem')} className="border rounded p-2">
             <option value="">Todos</option>
             {Array.from(new Set(services.flatMap(service => service.objectives || []))).map(problem => (
-              <option key={problem} value={problem}>{problem}</option>
+              <option key={`problem-${problem}`} value={problem}>{problem}</option>
             ))}
           </select>
         </div>
