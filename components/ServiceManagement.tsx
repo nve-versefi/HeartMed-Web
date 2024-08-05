@@ -69,7 +69,6 @@ interface CroppedImageData {
   aspect: number;
 }
 
-
 const ServiceManagement: React.FC = () => {
   const [services, setServices] = useState<Service[]>([]);
   const [filteredServices, setFilteredServices] = useState<Service[]>([]);
@@ -90,7 +89,6 @@ const ServiceManagement: React.FC = () => {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [toastType, setToastType] = useState<'error' | 'success'>('success');
 
-
   const parseJSONField = (field: string) => {
     try {
       return JSON.parse(field);
@@ -98,7 +96,6 @@ const ServiceManagement: React.FC = () => {
       return field.split(',').map(item => item.trim());
     }
   };
-  
 
   const iconMapping: { [key: string]: React.ReactNode } = {
     'hombros': <GiArm />,
@@ -196,7 +193,7 @@ const ServiceManagement: React.FC = () => {
 
   const unwrapServiceData = (data: any) => {
     const unwrapField = (field: any) => Array.isArray(field) ? field[0] : field;
-  
+
     return {
       _id: data._id,
       title: unwrapField(data.title),
@@ -245,7 +242,6 @@ const ServiceManagement: React.FC = () => {
       relatedProd: parseJSONField(unwrapField(data.relatedProd)),
     };
   };
-  
 
   const addService = async (service: Omit<Service, '_id'>) => {
     try {
@@ -395,7 +391,6 @@ const ServiceManagement: React.FC = () => {
     }
   };
 
-
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, field: 'image1' | 'image2' | 'image3') => {
     const file = e.target.files?.[0];
     if (file) {
@@ -403,7 +398,7 @@ const ServiceManagement: React.FC = () => {
       if (file.size > maxSize) {
         setToastMessage(`El archivo "${file.name}" es demasiado grande. El tamaño máximo permitido es 250KB/0.25MB.`);
         setToastType('error');
-        e.target.value = ''; 
+        e.target.value = '';
         return;
       }
 
