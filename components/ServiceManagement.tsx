@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Toast from './Toast';
 import Modal from './modal';
 import ServiceInfoPreview from './ServiceInfoPreview';
@@ -398,7 +398,7 @@ const ServiceManagement: React.FC = () => {
       if (file.size > maxSize) {
         setToastMessage(`El archivo "${file.name}" es demasiado grande. El tamaño máximo permitido es 250KB/0.25MB.`);
         setToastType('error');
-        e.target.value = '';
+        e.target.value = ''; 
         return;
       }
 
@@ -581,6 +581,21 @@ const ServiceManagement: React.FC = () => {
     setEditingService(null);
     setImageFiles({ image1: null, image2: null, image3: null });
   };
+
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    if (isModalOpen && !(e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement)) {
+      if (e.key === 'Enter' || e.key === 'Backspace') {
+        e.preventDefault();
+      }
+    }
+  }, [isModalOpen]);
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [handleKeyDown]);
 
   return (
     <div className="container mx-auto p-4">
@@ -1129,7 +1144,7 @@ const ServiceManagement: React.FC = () => {
           <select value={filterCategory} onChange={(e) => handleFilterChange(e, 'category')} className="border rounded p-2">
             <option value="">Todas</option>
             {Array.from(new Set(services.map(service => service.category))).map(category => (
-              <option key={`category-${category}`} value={category}>{category}</option>
+              <option key={category} value={category}>{category}</option>
             ))}
           </select>
         </div>
@@ -1138,7 +1153,7 @@ const ServiceManagement: React.FC = () => {
           <select value={filterSubcategory} onChange={(e) => handleFilterChange(e, 'subcategory')} className="border rounded p-2">
             <option value="">Todas</option>
             {Array.from(new Set(services.map(service => service.subcategory))).map(subcategory => (
-              <option key={`subcategory-${subcategory}`} value={subcategory}>{subcategory}</option>
+              <option key={subcategory} value={subcategory}>{subcategory}</option>
             ))}
           </select>
         </div>
@@ -1147,7 +1162,7 @@ const ServiceManagement: React.FC = () => {
           <select value={filterProblem} onChange={(e) => handleFilterChange(e, 'problem')} className="border rounded p-2">
             <option value="">Todos</option>
             {Array.from(new Set(services.flatMap(service => service.objectives || []))).map(problem => (
-              <option key={`problem-${problem}`} value={problem}>{problem}</option>
+              <option key={problem} value={problem}>{problem}</option>
             ))}
           </select>
         </div>
