@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import { FaHourglassHalf, FaMoneyBillWave, FaSyringe } from 'react-icons/fa';
 
 const renderTextWithLineBreaks = (text: string | undefined) => {
@@ -54,17 +55,21 @@ const ServicePreview: React.FC<ServicePreviewProps> = ({ serviceData }) => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <div className="flex justify-center" style={{ height: '450px', width: 'auto' }}>
-            <img
+            <Image
               src={serviceData.image2 || ""}
               alt="Service Image 1"
-              style={{ width: '450px', height: '450px', objectFit: 'cover' }}
+              width={450}
+              height={450}
+              style={{ objectFit: 'cover' }}
             />
           </div>
           <div className="flex justify-center" style={{ height: '450px', width: 'auto' }}>
-            <img
+            <Image
               src={serviceData.image3 || ""}
               alt="Service Image 2"
-              style={{ width: '450px', height: '450px', objectFit: 'cover' }}
+              width={450}
+              height={450}
+              style={{ objectFit: 'cover' }}
             />
           </div>
         </div>

@@ -1,5 +1,5 @@
-// components/ui/ClientHeader.tsx
 import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { MenuItem, SubMenuItem } from '@/components/menudata.types';
 import SearchBar from '../SearchBar';
 import { useCart } from './CartContext';
@@ -24,7 +24,16 @@ const ClientHeader: React.FC<ClientHeaderProps> = ({ initialMenuData }) => {
           </div>
         </div>
         <div className="flex-initial">
-          <img src="/images/logo.png" alt="Logo" className="h-16 w-auto" />
+          <div style={{ width: '180px', height: '64px', position: 'relative' }}>
+            <Image 
+              src="/images/logo.png" 
+              alt="Heart Med Logo" 
+              layout="fill"
+              objectFit="contain"
+              quality={100}
+              priority
+            />
+          </div>
         </div>
         <div className="flex-1 flex justify-end items-center">
           <div 
@@ -89,10 +98,11 @@ const Dropdown = ({ items }: { items: SubMenuItem[] }) => {
           >
             <div className="w-full h-32 flex flex-col hover:bg-thunderbird-300">
               <div className="w-full h-full relative overflow-hidden flex-grow hover:bg-thunderbird-300">
-                <img
+                <Image
                   src={subItem.imagePath}
                   alt={subItem.name}
-                  className="absolute inset-0 w-full h-full object-cover"
+                  layout="fill"
+                  objectFit="cover"
                 />
               </div>
               <div className="w-full bg-gray-100 shadow-md p-2 text-center hover:bg-thunderbird-300">

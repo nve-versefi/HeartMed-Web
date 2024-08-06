@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Image from 'next/image';
 
 interface Product {
   _id: string;
@@ -22,10 +23,10 @@ interface ProductInfoPreviewProps {
 const ProductInfoPreview: React.FC<ProductInfoPreviewProps> = ({ productData }) => {
   const [currentImage, setCurrentImage] = useState(0);
   const images = [
-    productData.thumbnailTitle && '/api/placeholder/400/400',
-    productData.image1Title && '/api/placeholder/400/400',
-    productData.image2Title && '/api/placeholder/400/400'
-  ].filter(Boolean);
+    productData.thumbnailTitle,
+    productData.image1Title,
+    productData.image2Title
+  ].filter((img): img is string => !!img).map(img => `/api/placeholder/400/400`);
 
   const nextImage = () => {
     setCurrentImage((prev) => (prev + 1) % images.length);
@@ -42,7 +43,7 @@ const ProductInfoPreview: React.FC<ProductInfoPreviewProps> = ({ productData }) 
   };
 
   const isInStock = productData.stock ? productData.stock > 0 : true;
-
+  
   return (
     <div className="container mx-auto px-4 py-8 bg-white shadow-lg rounded-lg">
       <div className="flex flex-wrap">
@@ -50,11 +51,15 @@ const ProductInfoPreview: React.FC<ProductInfoPreviewProps> = ({ productData }) 
           <div className="flex flex-wrap">
             <div className="w-full md:w-1/3 mb-8">
               <div className="relative">
-                <img 
-                  src={images[currentImage]}
-                  alt={`${productData.title} - image ${currentImage + 1}`} 
-                  className="w-full h-auto cursor-pointer"
-                />
+                {images.length > 0 && (
+                  <Image 
+                    src={images[currentImage]}
+                    alt={`${productData.title || 'Product'} - image ${currentImage + 1}`} 
+                    width={400}
+                    height={400}
+                    className="w-full h-auto cursor-pointer"
+                  />
+                )}
                 {images.length > 1 && (
                   <>
                     <button 
@@ -74,10 +79,12 @@ const ProductInfoPreview: React.FC<ProductInfoPreviewProps> = ({ productData }) 
               </div>
               <div className="flex mt-4 space-x-2">
                 {images.map((img, index) => (
-                  <img 
+                  <Image 
                     key={index}
                     src={img}
-                    alt={`${productData.title} - thumbnail ${index + 1}`}
+                    alt={`${productData.title || 'Product'} - thumbnail ${index + 1}`}
+                    width={64}
+                    height={64}
                     className={`w-16 h-16 object-cover cursor-pointer ${currentImage === index ? 'border-2 border-blue-500' : ''}`}
                     onClick={() => setCurrentImage(index)}
                   />

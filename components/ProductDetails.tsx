@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Image from 'next/image';
 import ImagePopup from './ImagePopup';
 import { useCart } from '@/components/ui/CartContext';
 
@@ -68,9 +69,11 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
           <div className="flex flex-wrap">
             <div className="w-full md:w-1/3 mb-8">
               <div className="relative">
-                <img 
+                <Image 
                   src={images[currentImage]} 
                   alt={`${product.title} - image ${currentImage + 1}`} 
+                  width={400}
+                  height={400}
                   className="w-full h-auto cursor-pointer"
                   onClick={() => openPopup(currentImage)}
                 />
@@ -89,13 +92,16 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
               </div>
               <div className="flex mt-4 space-x-2">
                 {images.map((img, index) => (
-                  <img 
-                    key={index}
-                    src={img} 
-                    alt={`${product.title} - thumbnail ${index + 1}`}
-                    className={`w-16 h-16 object-cover cursor-pointer ${currentImage === index ? 'border-2 border-blue-500' : ''}`}
-                    onClick={() => setCurrentImage(index)}
-                  />
+                  <div key={index} className="w-16 h-16 relative">
+                    <Image 
+                      src={img} 
+                      alt={`${product.title} - thumbnail ${index + 1}`}
+                      layout="fill"
+                      objectFit="cover"
+                      className={`cursor-pointer ${currentImage === index ? 'border-2 border-blue-500' : ''}`}
+                      onClick={() => setCurrentImage(index)}
+                    />
+                  </div>
                 ))}
               </div>
             </div>

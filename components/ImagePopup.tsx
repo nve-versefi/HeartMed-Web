@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 interface ImagePopupProps {
   images: string[];
@@ -21,12 +22,15 @@ const ImagePopup: React.FC<ImagePopupProps> = ({ images, currentIndex, onClose, 
         >
           ×
         </button>
-        <img 
-          src={images[currentIndex]} 
-          alt={`Full size image ${currentIndex + 1}`} 
-          className="max-w-full max-h-[90vh] object-contain"
-          onClick={(e) => e.stopPropagation()}
-        />
+        <div className="relative w-full h-[90vh]">
+          <Image 
+            src={images[currentIndex]} 
+            alt={`Full size image ${currentIndex + 1}`} 
+            layout="fill"
+            objectFit="contain"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
         {currentIndex > 0 && (
           <button 
             className="absolute left-2 top-1/2 transform -translate-y-1/2 text-white text-4xl font-bold bg-black bg-opacity-50 px-3 py-1 rounded-full"
