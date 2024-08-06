@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Toast from './Toast';
 import Modal from './modal';
 import ServiceInfoPreview from './ServiceInfoPreview';
@@ -398,7 +398,7 @@ const ServiceManagement: React.FC = () => {
       if (file.size > maxSize) {
         setToastMessage(`El archivo "${file.name}" es demasiado grande. El tamaño máximo permitido es 250KB/0.25MB.`);
         setToastType('error');
-        e.target.value = ''; 
+        e.target.value = '';
         return;
       }
 
@@ -581,21 +581,6 @@ const ServiceManagement: React.FC = () => {
     setEditingService(null);
     setImageFiles({ image1: null, image2: null, image3: null });
   };
-
-  const handleKeyDown = useCallback((e: KeyboardEvent) => {
-    if (isModalOpen && !(e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement)) {
-      if (e.key === 'Enter' || e.key === 'Backspace') {
-        e.preventDefault();
-      }
-    }
-  }, [isModalOpen]);
-
-  useEffect(() => {
-    window.addEventListener('keydown', handleKeyDown);
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [handleKeyDown]);
 
   return (
     <div className="container mx-auto p-4">
