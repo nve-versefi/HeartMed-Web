@@ -10,7 +10,6 @@ const StickyIcons: React.FC = () => {
         className="bg-thunderbird-400 text-white px-2 py-4 rounded-full text-xl flex items-center justify-center"
       >
         <FaEnvelope className="mr-2" />
-        <span>Email</span>
       </a>
       <a
         href="https://wa.me/1234567890"
@@ -19,14 +18,12 @@ const StickyIcons: React.FC = () => {
         className="bg-pomegranate-300 text-white px-2 py-4 rounded-full text-xl flex items-center justify-center"
       >
         <FaWhatsapp className="mr-2" />
-        <span>WhatsApp</span>
       </a>
       <a
         href="tel:1234567890"
         className="bg-boulder-500 text-white px-2 py-4 rounded-full text-xl flex items-center justify-center"
       >
         <FaPhone className="mr-2" />
-        <span>Teléfono</span>
       </a>
     </div>
   );

@@ -416,16 +416,24 @@ const ServiceManagement: React.FC = () => {
     setToastMessage(null);
   };
 
-  const handleCroppedImage = (croppedImageData: CroppedImageData) => {
+  const handleCroppedImage = async (croppedImageData: CroppedImageData) => {
     if (currentImageField) {
-      setServiceData(prevData => ({
-        ...prevData,
-        [currentImageField]: croppedImageData.croppedImageUrl,
-        [`${currentImageField}Data`]: croppedImageData,
-      }));
+        const response = await fetch(croppedImageData.croppedImageUrl);
+        const blob = await response.blob();
+        const file = new File([blob], `cropped-${currentImageField}.jpg`, { type: 'image/jpeg' });
+
+        setServiceData(prevData => ({
+            ...prevData,
+            [currentImageField]: URL.createObjectURL(file),
+        }));
+
+        setImageFiles(prevFiles => ({
+            ...prevFiles,
+            [currentImageField]: file,
+        }));
     }
     setIsCropperModalOpen(false);
-  };
+};
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -451,6 +459,7 @@ const ServiceManagement: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
+  
     const service: Omit<Service, '_id'> = {
       title: formData.get('title') as string,
       category: formData.get('category') as string,
@@ -494,20 +503,60 @@ const ServiceManagement: React.FC = () => {
       objectives: (formData.get('objectives') as string)?.split(',').map(obj => obj.trim()) || [],
       relatedProd: (formData.get('relatedProd') as string)?.split(',').map(prod => prod.trim()) || [],
     };
-
-    if (editingService) {
-      await updateService({ ...service, _id: editingService._id });
-    } else {
-      await addService(service);
+  
+    // Create a new FormData object to send to the server
+    const dataToSend = new FormData();
+  
+    // Add all service fields to the FormData
+    Object.entries(service).forEach(([key, value]) => {
+      if (Array.isArray(value)) {
+        dataToSend.append(key, JSON.stringify(value));
+      } else {
+        dataToSend.append(key, value);
+      }
+    });
+  
+    // Add image files to FormData
+    ['image1', 'image2', 'image3'].forEach(imageKey => {
+      const file = imageFiles[imageKey];
+      if (file instanceof File) {
+        dataToSend.append(imageKey, file);
+      }
+    });
+  
+    try {
+      let response;
+      if (editingService) {
+        dataToSend.append('_id', editingService._id);
+        response = await fetch('/api/updateService', {
+          method: 'PUT',
+          body: dataToSend,
+        });
+      } else {
+        response = await fetch('/api/addService', {
+          method: 'POST',
+          body: dataToSend,
+        });
+      }
+  
+      if (response.ok) {
+        setSuccessMessage(editingService ? 'Service updated successfully.' : 'Service added successfully.');
+        setTimeout(() => setSuccessMessage(null), 5000);
+        fetchServices();
+      } else {
+        console.error('Failed to submit service', response.statusText);
+      }
+    } catch (error) {
+      console.error('Failed to submit service:', error);
     }
-
+  
     if (formRef.current) {
       formRef.current.reset();
       resetFormFields();
       setIsModalOpen(false);
     }
   };
-
+  
   const handleCancel = () => {
     resetFormFields();
     setIsModalOpen(false);
@@ -1229,4 +1278,4 @@ const ServiceManagement: React.FC = () => {
   );
 };
 
-export default ServiceManagement;
+export default ServiceManagement
