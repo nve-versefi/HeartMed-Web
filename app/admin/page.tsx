@@ -9,6 +9,8 @@ const ProductManagement = dynamic(() => import('@/components/ProductManagement')
 const TrainingManagement = dynamic(() => import('@/components/TrainingManagement'));
 const MachineryManagement = dynamic(() => import('@/components/MachineryManagement'));
 const MenuManagement = dynamic(() => import('@/components/NavbarManagement'));
+const CarouselManagement = dynamic (() => import ('@/components/CarouselManagement'));
+const PopUpsManagement = dynamic (() => import ('@/components/PopUpModalManagement'));
 
 const AdminPage: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -38,7 +40,10 @@ const AdminPage: React.FC = () => {
         return <TrainingManagement />;
       case 'machinery':
         return <MachineryManagement />;
-      // Add more cases for other management pages if needed
+      case 'carousel':
+        return <CarouselManagement />;
+      case 'popups':
+        return <PopUpsManagement />;
       default:
         return <ServiceManagement />;
     }
@@ -84,9 +89,22 @@ const AdminPage: React.FC = () => {
         </button>
         <button
           onClick={() => setActiveTab('menus')}
-          className={`px-4 py-2 ${activeTab === 'menus' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+          className={`px-4 py-2 mr-2 ${activeTab === 'menus' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
         >
           Administrar Lista de Suscriptores
+        </button>
+        <button
+          onClick={() => setActiveTab('carousel')}
+          className={`px-4 py-2 mr-2 ${activeTab === 'carousel' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+        >
+          Administrar Carousel de Página Principal
+        </button>
+
+        <button
+          onClick={() => setActiveTab('popups')}
+          className={`px-4 py-2 ${activeTab === 'popups' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+        >
+          Administrar Pop-Ups
         </button>
       </div>
       <div>{renderContent()}</div>

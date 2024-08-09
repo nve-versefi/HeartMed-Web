@@ -1,3 +1,5 @@
+//components/ImageCropperModal.tsx
+
 import React, { useState, useCallback } from 'react';
 import Cropper from 'react-easy-crop';
 import Modal from './modal';

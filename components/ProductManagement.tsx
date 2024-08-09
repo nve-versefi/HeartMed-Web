@@ -214,10 +214,10 @@ const ProductManagement: React.FC = () => {
     const { name, value } = e.target;
     setProductData(prevData => ({
       ...prevData,
-      [name]: name === 'price' ? parseFloat(value) : value
+      [name]: name === 'price' ? parseFloat(parseFloat(value).toFixed(2)) : value
     }));
   };
-
+  
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -357,13 +357,15 @@ const ProductManagement: React.FC = () => {
                   />
                 </div>
                 <div className="flex flex-col">
-                  <label className="font-semibold mb-1">Precio</label>
+                  <label className="font-semibold mb-1">Precio (€)</label>
                   <input
                     type="number"
                     name="price"
                     placeholder="Price"
-                    value={productData.price || ''}
+                    value={productData.price?.toFixed(2) || ''}
                     onChange={handleChange}
+                    step="0.01"
+                    min="0"
                     className="border rounded p-2 w-full"
                   />
                 </div>
@@ -453,6 +455,8 @@ const ProductManagement: React.FC = () => {
             type="number" 
             value={filterPrice} 
             onChange={(e) => setFilterPrice(e.target.value)}
+            step="0.01"
+            min="0"
             className="border rounded p-2" 
           />
         </div>
@@ -477,14 +481,14 @@ const ProductManagement: React.FC = () => {
             {sortOrder === 'asc' ? 'Ascendente' : 'Descendente'}
           </button>
         </div>
-      </div>
+        </div>
       <ul className="grid grid-cols-1 md:grid-cols-4 gap-4">
         {filteredProducts.map(product => (
           <li key={product._id} className="border rounded p-4">
             <h3 className="font-bold mb-2">{product.title}</h3>
             <p className="text-sm">{product.category}</p>
             <p className="text-sm">{product.description}</p>
-            <p className="text-sm">€{typeof product.price === 'number' ? product.price.toFixed(2) : '0.00'}</p>
+            <p className="text-sm">€{product.price.toFixed(2)}</p>
             <p className="text-sm">
               Thumbnail: {product.thumbnailTitle ? '✔️' : '❌'} | 
               Image 1: {product.image1Title ? '✔️' : '❌'} | 

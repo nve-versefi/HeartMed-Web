@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import { MenuItem, SubMenuItem } from '@/components/menudata.types';
 import SearchBar from '../SearchBar';
@@ -12,8 +12,36 @@ interface ClientHeaderProps {
 
 const ClientHeader: React.FC<ClientHeaderProps> = ({ initialMenuData }) => {
   const { state } = useCart();
-  const [isCartHovered, setIsCartHovered] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
   const [menuData, setMenuData] = useState<MenuItem[]>(initialMenuData);
+  const cartTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const cartRef = useRef<HTMLDivElement>(null);
+
+  const handleCartEnter = () => {
+    if (cartTimeoutRef.current) {
+      clearTimeout(cartTimeoutRef.current);
+    }
+    setIsCartOpen(true);
+  };
+
+  const handleCartLeave = () => {
+    cartTimeoutRef.current = setTimeout(() => {
+      setIsCartOpen(false);
+    }, 200); 
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (cartRef.current && !cartRef.current.contains(event.target as Node)) {
+        setIsCartOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   return (
     <div className="bg-gray-100 shadow-md">
@@ -37,19 +65,20 @@ const ClientHeader: React.FC<ClientHeaderProps> = ({ initialMenuData }) => {
         </div>
         <div className="flex-1 flex justify-end items-center">
           <div 
+            ref={cartRef}
             className="mx-12 relative"
-            onMouseEnter={() => setIsCartHovered(true)}
-            onMouseLeave={() => setIsCartHovered(false)}
+            onMouseEnter={handleCartEnter}
+            onMouseLeave={handleCartLeave}
           >
             <FaShoppingCart 
-              className={`text-3xl text-thunderbird-400 transition-transform duration-300 ${isCartHovered ? 'transform scale-110' : ''}`}
+              className={`text-3xl text-thunderbird-400 transition-transform duration-300 ${isCartOpen ? 'transform scale-110' : ''}`}
             />
             {state.items.length > 0 && (
               <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
                 {state.items.length}
               </span>
             )}
-            {isCartHovered && <CartDropdown />}
+            {isCartOpen && <CartDropdown />}
           </div>
         </div>
       </div>

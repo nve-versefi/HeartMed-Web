@@ -4,7 +4,9 @@ import ServerHeader from '@/components/ui/ServerHeader';
 import CookieBanner from '@/components/cookieconsent';
 import StickyIconsWrapper from '@/components/ui/StickyIconsWrapper';
 import { CartProvider } from '@/components/ui/CartContext';
+import PopUpModalRenderer from '@/components/PopUpModalRenderer';
 import { Metadata } from 'next'
+
 
 const inter = Inter({
   subsets: ['latin'],
@@ -36,6 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <ServerHeader />
             <main id="main-content">
               {children}
+              <PopUpModalRenderer />
               <CookieBanner />
             </main>
             <StickyIconsWrapper />

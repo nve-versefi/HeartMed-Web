@@ -27,8 +27,8 @@ type CartContextType = {
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 function cartReducer(state: CartState, action: CartAction): CartState {
-  console.log('Cart reducer called with action:', action.type, 'and payload:', 'payload' in action ? action.payload : 'No payload');
-  console.log('Current state before update:', state);
+  //console.log('Cart reducer called with action:', action.type, 'and payload:', 'payload' in action ? action.payload : 'No payload');
+  //console.log('Current state before update:', state);
 
   let newState: CartState;
   switch (action.type) {
@@ -65,7 +65,7 @@ function cartReducer(state: CartState, action: CartAction): CartState {
       newState = state;
   }
 
-  console.log('New state after update:', newState);
+  //console.log('New state after update:', newState);
   return newState;
 }
 
@@ -82,7 +82,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     if (typeof window !== 'undefined') {
       localStorage.setItem('cart', JSON.stringify(state));
     }
-    console.log('Cart state updated in provider:', state);
+    //console.log('Cart state updated in provider:', state);
   }, [state]);
 
   return (
