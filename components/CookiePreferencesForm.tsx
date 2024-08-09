@@ -2,6 +2,9 @@
 
 import React, { useState, useEffect } from 'react';
 
+// Define a type that includes the keys of cookiePreferences
+type CookieType = 'essential' | 'functional' | 'analytics' | 'marketing';
+
 const CookiePreferencesForm = () => {
   const [cookiePreferences, setCookiePreferences] = useState({
     essential: true,
@@ -16,7 +19,8 @@ const CookiePreferencesForm = () => {
     setCookiePreferences(prev => ({ ...prev, ...savedPreferences, essential: true }));
   }, []);
 
-  const handleToggle = (cookieType) => {
+  // Explicitly type the cookieType parameter
+  const handleToggle = (cookieType: CookieType) => {
     setCookiePreferences(prev => ({
       ...prev,
       [cookieType]: !prev[cookieType],
@@ -50,7 +54,7 @@ const CookiePreferencesForm = () => {
                 type="checkbox"
                 className="sr-only peer"
                 checked={value}
-                onChange={() => key !== 'essential' && handleToggle(key)}
+                onChange={() => key !== 'essential' && handleToggle(key as CookieType)}
                 disabled={key === 'essential'}
               />
               <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
